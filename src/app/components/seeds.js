@@ -5,15 +5,20 @@ const sliderQuestions = [
         options: [
             {
                 text: 'Sales-Marketing ',
+                value: 'Sales-Marketing ',
             },
             {
                 text: 'Operations',
+                value: 'Operations',
+
             },
             {
                 text: 'Engineering',
+                value: 'Engineering',
             },
             {
                 text: 'Finance',
+                value: 'Finance',
             }
         ]
     },
@@ -23,12 +28,15 @@ const sliderQuestions = [
         options: [
             {
                 text: 'GenX',
+                value: 'GenX',
             },
             {
                 text: 'GenY',
+                value: 'GenY',
             },
             {
                 text: 'GenZ',
+                value: 'GenZ',
             }
         ]
     },
@@ -38,12 +46,15 @@ const sliderQuestions = [
         options: [
             {
                 text: 'Technical',
+                value: 'Technical',
             },
             {
                 text: 'Process',
+                value: 'Process',
             },
             {
                 text: 'Behavioral',
+                value: 'Behavioral',
             }
         ]
     },
@@ -53,29 +64,22 @@ const sliderQuestions = [
         options: [
             {
                 text: 'Low',
+                value: 'Low',
             },
             {
                 text: 'Medium',
+                value: 'Medium',
             },
             {
                 text: 'High',
+                value: 'High',
             }
         ]
     },
     {
         questionId: "Q5",
         question: "How many days of classroom training do you need converted?",
-        options: [
-            // {
-            //     text: '5',
-            // },
-            // {
-            //     text: '4',
-            // },
-            // {
-            //     text: '3',
-            // },
-        ],
+        options: [],
         type: "number"
     }
 ]
