@@ -7,8 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 import sliderQuestions from '../components/seeds'
 import { Modal, Box } from '@mui/material';
 
-export default function QuestionSlider() {
-    const [open, setOpen] = useState(false);
+export default function QuestionSlider(props) {
+    const [open, setOpen] = useState(props.open);
     const [bar, setBar] = useState(100 / sliderQuestions.length);
     const [currentSlide, SetCurrentSlide] = useState(0);
 
@@ -16,9 +16,10 @@ export default function QuestionSlider() {
 
     let length;
     useEffect(() => {
+        setOpen(props.open);
         length = 100 / sliderQuestions.length
         setBar(length)
-    }, []);
+    }, [props.open]);
 
     const handleNext = () => {
         SetCurrentSlide((prevState) => prevState += 1)
@@ -83,12 +84,12 @@ export default function QuestionSlider() {
 
     return (
         <div>
-            <Button
+            {/* <Button
                 content="Open Question's Slider"
                 onClick={() => setOpen(true)}
-            />
+            /> */}
             <Modal
-                hideBackdrop
+                // hideBackdrop
                 open={open}
             >
                 <Box sx={{ ...modalStyle }}>

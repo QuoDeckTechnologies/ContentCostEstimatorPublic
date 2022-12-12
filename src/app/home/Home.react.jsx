@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image } from "semantic-ui-react";
 import { Typography, Grid } from "@mui/material";
 import Img from "../../assets/img-promo.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
+import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
 import "./Home.css";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Grid
       container
@@ -15,6 +18,7 @@ export default function Home() {
       sx={{ pl: 8, pr: 8, pt: 2, overflow: "scroll" }}
       className="main-container"
     >
+      <QuestionSlider open={open}/>
       <Grid item xs={12} md={12} sm={12} className="center-align">
         <Image src={logo} alt="" height="50m" width="180em" />
       </Grid>
@@ -42,7 +46,9 @@ export default function Home() {
           <b>Kick Start your journy to awesome content with quodeck</b>
         </Typography>
 
-        <button className="home-started-btn"> GET STARTED</button>
+        <button className="home-started-btn" onClick={() => setOpen(true)}>
+          GET STARTED
+        </button>
       </Grid>
       <Grid item xs={12} md={6} sm={6}>
         <Image src={Img} alt="" height="auto" />
