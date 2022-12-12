@@ -11,12 +11,10 @@ export default function QuestionSlider() {
     const [open, setOpen] = useState(false);
     const [bar, setBar] = useState(100 / sliderQuestions.length);
     const [currentSlide, SetCurrentSlide] = useState(0);
-    const [value, SetValue] = useState("");
 
     const sliderRef = useRef();
 
     let length;
-
     useEffect(() => {
         length = 100 / sliderQuestions.length
         setBar(length)
@@ -78,6 +76,11 @@ export default function QuestionSlider() {
         justifyContent: "center"
     };
 
+    let headerStyle = {
+        ...questionHeaderStyle,
+        marginTop: '-11px'
+    };
+
     return (
         <div>
             <Button
@@ -94,31 +97,17 @@ export default function QuestionSlider() {
                             <Progress percent={bar} size="tiny" indicating warning />
                         </div>
                         <br />
-                        <Header as='h1' style={{
-                            color: "#fff",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: '-11px'
-                        }}>
+                        <Header as='h1'
+                            style={headerStyle}>
                             Welcome
                             <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
                         </Header>
-                        <Header as='h2' style={{
-                            color: "#fff",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: '-11px'
-                        }}>
+                        <Header as='h2' style={headerStyle}>
                             Let's answer in a few clicks
                             <Icon name='hourglass start' size='mini' color='yellow' />
                         </Header>
                         <Header
-                            style={{
-                                color: "#ffff",
-                                display: "flex",
-                                justifyContent: "center",
-                                marginTop: "-10px"
-                            }}>
+                            style={headerStyle}>
                             {currentSlide + 1}/{sliderQuestions.length}
                         </Header>
                         <br />
@@ -136,8 +125,6 @@ export default function QuestionSlider() {
                                                 fluid
                                                 selection
                                                 options={slide.options}
-                                                value={value}
-                                                onChange={(e) => SetValue(e.target.value)}
                                             />
                                         }
                                     </div>
