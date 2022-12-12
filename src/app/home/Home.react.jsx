@@ -5,10 +5,16 @@ import Img from "../../assets/img-promo.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
 import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
+import RecommendationSection from "../recommendationSection/RecommendationSection.react"
 import "./Home.css";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [rOpen, setROpen] = useState(false);
+  let handleModal = () => {
+    setOpen(false)
+    setROpen(true)
+  }
 
   return (
     <Grid
@@ -18,7 +24,8 @@ export default function Home() {
       sx={{ pl: 8, pr: 8, pt: 2, overflow: "scroll" }}
       className="main-container"
     >
-      <QuestionSlider open={open}/>
+      <QuestionSlider open={open} />
+      <RecommendationSection open={rOpen} onClose={(e) => setROpen(e)} />
       <Grid item xs={12} md={12} sm={12} className="center-align">
         <Image src={logo} alt="" height="50m" width="180em" />
       </Grid>

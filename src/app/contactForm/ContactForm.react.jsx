@@ -11,7 +11,8 @@ import { jsPDF } from "jspdf";
 import Logo from "../../assets/logo.png"
 import 'semantic-ui-css/semantic.min.css'
 
-export const ContactForm = () => {
+
+const ContactForm = () => {
     const [name, setName] = useState('');
     const [companyInfo, setCompanyInfo] = useState('');
     const [email, setEmail] = useState('');
@@ -26,8 +27,8 @@ export const ContactForm = () => {
         setSecondOpen(true)
         event.preventDefault();
         const { target } = event;
-        setUserData('FormData', Object.fromEntries(new FormData(target)));
-        console.log(userData)
+        console.log('FormData', Object.fromEntries(new FormData(target)));
+
     }
 
     let handleChange = (e) => {
@@ -185,3 +186,5 @@ export const ContactForm = () => {
         </>
     )
 }
+
+export default ContactForm

@@ -148,8 +148,8 @@ export default function QuestionSlider(props) {
                                 onClick={handleNext}
                                 floated='right'
                                 size="big"
-                                content="Next"
-                                disabled={currentSlide === sliderQuestions.length - 1}
+                                content="Submit"
+                                disabled={currentSlide != sliderQuestions.length - 1}
                             />
                         </div>
                     </div>
