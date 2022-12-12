@@ -1,3 +1,48 @@
+.customise-container {
+    background-color: #45454599;
+    padding: 5em;
+}
+
+.customise-wrapper {
+    display: flex;
+    gap: 2em;
+}
+
 .customise-panel-container {
-    width: 60%;
+    flex: 1;
+    width: 100%;
+}
+
+.customise-panel-price-estimator {
+    flex: 1;
+}
+
+.customise-panel-price-estimator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: static;
+}
+
+.customise-header {
+    color: #fff;
+}
+
+@media only screen and (max-width: 1000px) {
+    .customise-wrapper {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .customise-wrapper {
+        width: 55%;
+    }
+
+    .customise-panel-price-estimator {
+        width: 35%;
+        position: fixed;
+        right: 5em;
+    }
+
 }
