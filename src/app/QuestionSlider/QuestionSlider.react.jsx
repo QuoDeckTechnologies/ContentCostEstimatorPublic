@@ -1,21 +1,81 @@
-import React, { useState, useRef } from 'react'
-import { Button, Modal, Dropdown, Progress } from 'semantic-ui-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { Dropdown, Progress, Button, Header, Input, Icon } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import sliderQuestions from '../components/seeds'
+import { Modal, Box } from '@mui/material';
 
 export default function QuestionSlider() {
     const [open, setOpen] = useState(false);
+    const [bar, setBar] = useState(100 / sliderQuestions.length);
+    const [currentSlide, SetCurrentSlide] = useState(0);
+    const [value, SetValue] = useState("");
+
     const sliderRef = useRef();
 
+    let length;
+
+    useEffect(() => {
+        length = 100 / sliderQuestions.length
+        setBar(length)
+    }, []);
+
+    const handleNext = () => {
+        SetCurrentSlide((prevState) => prevState += 1)
+        if (currentSlide < sliderQuestions.length) {
+            let barLength = 100 / sliderQuestions.length
+            if (barLength)
+                setBar((prevState) => prevState += barLength)
+            sliderRef.current?.slickNext()
+        }
+    };
+
+    const handlePrev = () => {
+        SetCurrentSlide((prevState) => prevState -= 1)
+        if (currentSlide > 0) {
+            let barLength = 100 / sliderQuestions.length
+            setBar((prevState) => prevState -= barLength)
+            sliderRef.current?.slickPrev()
+        }
+    };
+
     const settings = {
-        dots: true,
+        dots: false,
         infinite: false,
         arrows: false,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        initialSlide: 0
+    };
+
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 800,
+        // height: 500,
+        bgcolor: '#6f6f6f',
+        boxShadow: 5,
+        borderRadius: "5px",
+        pt: 3,
+        px: 4,
+        pb: 3,
+    };
+
+    let dropdownStyle = {
+        width: "45%",
+        height: "15em",
+        margin: "auto"
+    };
+
+    let questionHeaderStyle = {
+        color: "#fff",
+        display: "flex",
+        justifyContent: "center"
     };
 
     return (
@@ -25,155 +85,87 @@ export default function QuestionSlider() {
                 onClick={() => setOpen(true)}
             />
             <Modal
-                // onClose={() => setOpen(false)}
+                hideBackdrop
                 open={open}
-                size="fullscreen"
-                // basic
-                dimmer='inverted'
             >
-                <Modal.Header>
-                    Please answer a few questions to help us give you a good estimate:
-                </Modal.Header>
-                <Modal.Content>
+                <Box sx={{ ...modalStyle }}>
                     <div>
-                        <Progress percent={100} size="tiny" indicating />
+                        <div style={{ marginTop: "10px" }}>
+                            <Progress percent={bar} size="tiny" indicating warning />
+                        </div>
+                        <br />
+                        <Header as='h1' style={{
+                            color: "#fff",
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: '-11px'
+                        }}>
+                            Welcome
+                            <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
+                        </Header>
+                        <Header as='h2' style={{
+                            color: "#fff",
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: '-11px'
+                        }}>
+                            Let's answer in a few clicks
+                            <Icon name='hourglass start' size='mini' color='yellow' />
+                        </Header>
+                        <Header
+                            style={{
+                                color: "#ffff",
+                                display: "flex",
+                                justifyContent: "center",
+                                marginTop: "-10px"
+                            }}>
+                            {currentSlide + 1}/{sliderQuestions.length}
+                        </Header>
+                        <br />
                         <Slider ref={sliderRef} {...settings}>
-                            <div>
-                                <h3>Which department is this content primarily for?
-                                </h3>
-                                <Dropdown
-                                    placeholder='Select options'
-                                    fluid
-                                    selection
-                                    options={[
-                                        {
-                                            text: 'Sales-Marketing ',
-                                        },
-                                        {
-                                            text: 'Operations',
-                                        },
-                                        {
-                                            text: 'Engineering',
-                                        },
-                                        {
-                                            text: 'Finance',
+                            {sliderQuestions.map((slide, index) =>
+                                <div key={`sliderQuestions-${index}`}>
+                                    <Header as='h3' size='medium' style={questionHeaderStyle}>
+                                        {slide.question}
+                                    </Header>
+                                    <div style={dropdownStyle}>
+                                        {slide.type === "number" ?
+                                            <Input fluid placeholder='choose number' type="number" /> :
+                                            <Dropdown
+                                                placeholder='Select options'
+                                                fluid
+                                                selection
+                                                options={slide.options}
+                                                value={value}
+                                                onChange={(e) => SetValue(e.target.value)}
+                                            />
                                         }
-                                    ]}
-                                />
-                            </div>
-                            <div>
-                                <h3>What is the dominant audience type?
-                                </h3>
-                                <Dropdown
-                                    placeholder='Select options'
-                                    fluid
-                                    selection
-                                    options={[
-                                        {
-                                            text: 'Sales-Marketing ',
-                                        },
-                                        {
-                                            text: 'Operations',
-                                        },
-                                        {
-                                            text: 'Engineering',
-                                        },
-                                        {
-                                            text: 'Finance',
-                                        }
-                                    ]}
-                                />
-                            </div>
-                            <div>
-                                <h3>What kind of content do you want to train on?
-                                </h3>
-                                <Dropdown
-                                    placeholder='Select options'
-                                    fluid
-                                    selection
-                                    options={[
-                                        {
-                                            text: 'Sales-Marketing ',
-                                        },
-                                        {
-                                            text: 'Operations',
-                                        },
-                                        {
-                                            text: 'Engineering',
-                                        },
-                                        {
-                                            text: 'Finance',
-                                        }
-                                    ]}
-                                />
-                            </div>
-                            <div>
-                                <h3>How large is the budget for this project?
-                                </h3>
-                                <Dropdown
-                                    placeholder='Select options'
-                                    fluid
-                                    selection
-                                    options={[
-                                        {
-                                            text: 'Sales-Marketing ',
-                                        },
-                                        {
-                                            text: 'Operations',
-                                        },
-                                        {
-                                            text: 'Engineering',
-                                        },
-                                        {
-                                            text: 'Finance',
-                                        }
-                                    ]}
-                                />
-                            </div>
-                            <div>
-                                <h3>How many days of classroom training do you need converted?
-                                </h3>
-                                <Dropdown
-                                    placeholder='Select options'
-                                    fluid
-                                    selection
-                                    options={[
-                                        {
-                                            text: 'Sales-Marketing ',
-                                        },
-                                        {
-                                            text: 'Operations',
-                                        },
-                                        {
-                                            text: 'Engineering',
-                                        },
-                                        {
-                                            text: 'Finance',
-                                        }
-                                    ]}
-                                />
-                            </div>
+                                    </div>
+                                </div>
+                            )}
                         </Slider>
+                        <div>
+                            <Button
+                                color='#fff'
+                                inverted
+                                onClick={handlePrev}
+                                floated='left'
+                                size="big"
+                                content="Previous"
+                                disabled={currentSlide === 0}
+                            />
+                            <Button
+                                color='#fff'
+                                inverted
+                                onClick={handleNext}
+                                floated='right'
+                                size="big"
+                                content="Next"
+                                disabled={currentSlide === sliderQuestions.length - 1}
+                            />
+                        </div>
                     </div>
-                </Modal.Content>
-                <Button.Group fluid>
-                    <Button
-                        floated='left'
-                        secondary
-                        size="medium"
-                        content="Previous"
-                        onClick={() => sliderRef.current?.slickPrev()}
-                    />
-                    <Button
-                        floated='right'
-                        // labelPosition='right'
-                        // icon='checkmark'
-                        primary
-                        size="medium"
-                        content="Next"
-                        onClick={() => sliderRef.current?.slickNext()}
-                    />
-                </Button.Group>
+                </Box>
             </Modal>
         </div >
     )
