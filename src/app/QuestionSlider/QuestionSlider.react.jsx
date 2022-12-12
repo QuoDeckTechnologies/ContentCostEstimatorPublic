@@ -22,8 +22,8 @@ export default function QuestionSlider(props) {
     }, [props.open]);
 
     const handleNext = () => {
-        SetCurrentSlide((prevState) => prevState += 1)
         if (currentSlide < sliderQuestions.length) {
+            SetCurrentSlide((prevState) => prevState += 1)
             let barLength = 100 / sliderQuestions.length
             if (barLength)
                 setBar((prevState) => prevState += barLength)
@@ -32,8 +32,8 @@ export default function QuestionSlider(props) {
     };
 
     const handlePrev = () => {
-        SetCurrentSlide((prevState) => prevState -= 1)
         if (currentSlide > 0) {
+            SetCurrentSlide((prevState) => prevState -= 1)
             let barLength = 100 / sliderQuestions.length
             setBar((prevState) => prevState -= barLength)
             sliderRef.current?.slickPrev()
@@ -83,78 +83,73 @@ export default function QuestionSlider(props) {
     };
 
     return (
-        <div>
-            {/* <Button
-                content="Open Question's Slider"
-                onClick={() => setOpen(true)}
-            /> */}
-            <Modal
-                // hideBackdrop
-                open={open}
-            >
-                <Box sx={{ ...modalStyle }}>
-                    <div>
-                        <div style={{ marginTop: "10px" }}>
-                            <Progress percent={bar} size="tiny" indicating warning />
-                        </div>
-                        <br />
-                        <Header as='h1'
-                            style={headerStyle}>
-                            Welcome
-                            <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
-                        </Header>
-                        <Header as='h2' style={headerStyle}>
-                            Let's answer in a few clicks
-                            <Icon name='hourglass start' size='mini' color='yellow' />
-                        </Header>
-                        <Header
-                            style={headerStyle}>
-                            {currentSlide + 1}/{sliderQuestions.length}
-                        </Header>
-                        <br />
-                        <Slider ref={sliderRef} {...settings}>
-                            {sliderQuestions.map((slide, index) =>
-                                <div key={`sliderQuestions-${index}`}>
-                                    <Header as='h3' size='medium' style={questionHeaderStyle}>
-                                        {slide.question}
-                                    </Header>
-                                    <div style={dropdownStyle}>
-                                        {slide.type === "number" ?
-                                            <Input fluid placeholder='choose number' type="number" /> :
-                                            <Dropdown
-                                                placeholder='Select options'
-                                                fluid
-                                                selection
-                                                options={slide.options}
-                                            />
-                                        }
-                                    </div>
-                                </div>
-                            )}
-                        </Slider>
-                        <div>
-                            <Button
-                                color='#fff'
-                                inverted
-                                onClick={handlePrev}
-                                floated='left'
-                                size="big"
-                                content="Previous"
-                                disabled={currentSlide === 0}
-                            />
-                            <Button
-                                color='#fff'
-                                inverted
-                                onClick={handleNext}
-                                floated='right'
-                                size="big"
-                                content="Submit"
-                                disabled={currentSlide != sliderQuestions.length - 1}
-                            />
-                        </div>
+        <Modal
+            // hideBackdrop
+            open={open}
+        >
+            <Box sx={{ ...modalStyle }}>
+                <div>
+                    <div style={{ marginTop: "10px" }}>
+                        <Progress percent={bar} size="tiny" indicating warning />
                     </div>
-                </Box>
-            </Modal>
-        </div >
+                    <br />
+                    <Header as='h1'
+                        style={headerStyle}>
+                        Welcome
+                        <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
+                    </Header>
+                    <Header as='h2' style={headerStyle}>
+                        Let's answer in a few clicks
+                        <Icon name='hourglass start' size='mini' color='yellow' />
+                    </Header>
+                    <Header
+                        style={headerStyle}>
+                        {currentSlide + 1}/{sliderQuestions.length}
+                    </Header>
+                    <br />
+                    <Slider ref={sliderRef} {...settings}>
+                        {sliderQuestions.map((slide, index) =>
+                            <div key={`sliderQuestions-${index}`}>
+                                <Header as='h3' size='medium' style={questionHeaderStyle}>
+                                    {slide.question}
+                                </Header>
+                                <div style={dropdownStyle}>
+                                    {slide.type === "number" ?
+                                        <Input fluid placeholder='choose number' type="number" /> :
+                                        <Dropdown
+                                            placeholder='Select options'
+                                            fluid
+                                            selection
+                                            options={slide.options}
+                                            onChange={handleNext}
+                                        />
+                                    }
+                                </div>
+                            </div>
+                        )}
+                    </Slider>
+                    <div>
+                        <Button
+                            color='yellow'
+                            inverted
+                            onClick={handlePrev}
+                            floated='left'
+                            size="big"
+                            content="Previous"
+                            disabled={currentSlide === 0}
+                        />
+                        <Button
+                            color='yellow'
+                            inverted
+                            floated='right'
+                            size="big"
+                            content="Submit"
+                            disabled={currentSlide != sliderQuestions.length - 1}
+                            onClick={props.onSubmit}
+                        />
+                    </div>
+                </div>
+            </Box>
+        </Modal>
     )
 }
