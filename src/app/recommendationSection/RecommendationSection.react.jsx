@@ -62,7 +62,6 @@ const RecommendationSection = (props) => {
         background-color:transparent;
         border: 1px solid #fff;
         color: #fff;
-        padding: 6px 100px;
         font-family:oswald;
         font-weight:bold;
         &:hover {
@@ -132,7 +131,7 @@ const RecommendationSection = (props) => {
                                     </Grid>
                                     {showButton && <Grid item xs={12} sx={{ m: 2 }}>
                                         <Typography align='center' >
-                                            <StyledButton sx={{ fontSize: "1.3em" }} onClick={() => navigate("/utilities")} >View BreakUp</StyledButton>
+                                            <StyledButton sx={{ fontSize: "1.3em", width: "100%" }} onClick={() => navigate("/utilities")} >View BreakUp</StyledButton>
                                         </Typography>
                                     </Grid>}
                                 </Grid>
