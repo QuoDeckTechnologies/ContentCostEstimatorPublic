@@ -51,7 +51,7 @@ export default function Home() {
             fontWeight: 700,
           }}
         >
-          <p>Cost EstimatorCost EstimatorCost EstimatorCost Estimator</p>
+          <p>Cost Estimator</p>
         </Typography>
         <Typography
           sx={{
