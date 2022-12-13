@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux"
 import { Image } from "semantic-ui-react";
 import { Typography, Grid } from "@mui/material";
 import Img from "../../assets/img-promo.png";
@@ -24,8 +25,8 @@ export default function Home() {
       sx={{ pl: 8, pr: 8, pt: 2, overflow: "scroll" }}
       className="main-container"
     >
-      <QuestionSlider open={open} />
-      <RecommendationSection open={rOpen} onClose={(e) => setROpen(e)} />
+      <QuestionSlider open={open} onSubmit={() => handleModal()} />
+      <RecommendationSection open={rOpen} onClose={(e) => setROpen(e)} level={4} showButton/>
       <Grid item xs={12} md={12} sm={12} className="center-align">
         <Image src={logo} alt="" height="50m" width="180em" />
       </Grid>

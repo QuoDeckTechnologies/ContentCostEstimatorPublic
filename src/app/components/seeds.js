@@ -4,8 +4,8 @@ const sliderQuestions = [
         question: "Which department is this content primarily for?",
         options: [
             {
-                text: 'Sales-Marketing ',
-                value: 'Sales-Marketing ',
+                text: 'Sales-Marketing',
+                value: 'Sales-Marketing',
             },
             {
                 text: 'Operations',

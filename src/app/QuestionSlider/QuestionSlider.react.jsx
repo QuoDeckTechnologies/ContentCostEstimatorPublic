@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useDispatch } from "react-redux";
 import { Dropdown, Progress, Button, Header, Input, Icon } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import Slider from "react-slick";
@@ -6,14 +7,23 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import sliderQuestions from '../components/seeds'
 import { Modal, Box } from '@mui/material';
+import { setRecommendedLevel } from '../../actions/index';
 
 export default function QuestionSlider(props) {
     const [open, setOpen] = useState(props.open);
     const [bar, setBar] = useState(100 / sliderQuestions.length);
     const [currentSlide, SetCurrentSlide] = useState(0);
-
     const sliderRef = useRef();
+    const [lOne, setLOne] = useState(0);
+    const [lTwo, setLTwo] = useState(0);
+    const [lThree, setLThree] = useState(0);
+    const [estimateTime, setEstimateTime] = useState();
 
+    let recommendLevel = {
+        level: 0,
+        hrs: 0,
+    };
+    let dispatch = useDispatch();
     let length;
     useEffect(() => {
         setOpen(props.open);
@@ -21,7 +31,69 @@ export default function QuestionSlider(props) {
         setBar(length)
     }, [props.open]);
 
-    const handleNext = () => {
+    let levelOne = 0;
+    let levelTwo = 0;
+    let levelThree = 0;
+    let answers = (e) => {
+        if (e.target.textContent === "Sales-Marketing") {
+            levelOne += 1;
+            levelTwo += 2;
+            levelThree += 0;
+        } else if (e.target.textContent === "Operations") {
+            levelOne += 2;
+            levelTwo += 1;
+            levelThree += 0;
+        } else if (e.target.textContent === "Engineering") {
+            levelOne += 0;
+            levelTwo += 1;
+            levelThree += 2;
+        } else if (e.target.textContent === "Finance") {
+            levelOne += 0;
+            levelTwo += 2;
+            levelThree += 1;
+        } else if (e.target.textContent === "GenX") {
+            levelOne += 0;
+            levelTwo += 1;
+            levelThree += 2;
+        } else if (e.target.textContent === "GenY") {
+            levelOne += 1;
+            levelTwo += 2;
+            levelThree += 0;
+        } else if (e.target.textContent === "GenZ") {
+            levelOne += 2;
+            levelTwo += 1;
+            levelThree += 0;
+        } else if (e.target.textContent === "Technical") {
+            levelOne += 0;
+            levelTwo += 1;
+            levelThree += 2;
+        } else if (e.target.textContent === "Process") {
+            levelOne += 1;
+            levelTwo += 2;
+            levelThree += 0;
+        } else if (e.target.textContent === "Behavioral") {
+            levelOne += 2;
+            levelTwo += 1;
+            levelThree += 0;
+        } else if (e.target.textContent === "Low") {
+            levelOne += 2;
+            levelTwo += 1;
+            levelThree += 0;
+        } else if (e.target.textContent === "Medium") {
+            levelOne += 0;
+            levelTwo += 2;
+            levelThree += 1;
+        } else if (e.target.textContent === "High") {
+            levelOne += 0;
+            levelTwo += 1;
+            levelThree += 2;
+        }
+    }
+    const handleNext = (e) => {
+        answers(e)
+        setLOne(lOne + levelOne)
+        setLTwo(lTwo + levelTwo)
+        setLThree(lThree + levelThree)
         SetCurrentSlide((prevState) => prevState += 1)
         if (currentSlide < sliderQuestions.length) {
             let barLength = 100 / sliderQuestions.length
@@ -30,7 +102,9 @@ export default function QuestionSlider(props) {
             sliderRef.current?.slickNext()
         }
     };
-
+    const daysCount = (e) => {
+        setEstimateTime(e.target.value)
+    }
     const handlePrev = () => {
         SetCurrentSlide((prevState) => prevState -= 1)
         if (currentSlide > 0) {
@@ -39,6 +113,15 @@ export default function QuestionSlider(props) {
             sliderRef.current?.slickPrev()
         }
     };
+
+    const submitButton = () => {
+        var numbers = [lOne, lTwo, lThree];
+        console.log(numbers)
+        const index = numbers.indexOf(Math.max(...numbers))
+        Object.assign(recommendLevel, { level: `${index + 1}`, hrs: estimateTime * 2 });
+        dispatch(setRecommendedLevel(recommendLevel))
+        props.onSubmit()
+    }
 
     const settings = {
         dots: false,
@@ -120,12 +203,13 @@ export default function QuestionSlider(props) {
                                     </Header>
                                     <div style={dropdownStyle}>
                                         {slide.type === "number" ?
-                                            <Input fluid placeholder='choose number' type="number" /> :
+                                            <Input fluid placeholder='choose number' type="number" onChange={(e) => { daysCount(e) }} /> :
                                             <Dropdown
                                                 placeholder='Select options'
                                                 fluid
                                                 selection
                                                 options={slide.options}
+                                                onChange={handleNext}
                                             />
                                         }
                                     </div>
@@ -150,6 +234,7 @@ export default function QuestionSlider(props) {
                                 size="big"
                                 content="Submit"
                                 disabled={currentSlide != sliderQuestions.length - 1}
+                                onClick={submitButton}
                             />
                         </div>
                     </div>

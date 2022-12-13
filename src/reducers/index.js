@@ -1,8 +1,8 @@
-import changeTheNumber from "./upDown";
+import recommendedLevel from "./dataReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-    changeTheNumber
+    recommendedLevel
 });
 
 export default rootReducer;

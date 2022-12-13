@@ -1,6 +1,8 @@
 import { React, useState, useEffect, useRef } from 'react'
+import { useSelector } from "react-redux";
 import { Button, Paper, styled, Table, TableBody, TableCell, Grid, TableContainer, TableHead, TableRow, Grow, Popper, MenuItem, Stack, MenuList, ClickAwayListener } from '@mui/material';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import RecommendationSection from '../recommendationSection/RecommendationSection.react';
 
 function detailsData(name, proportions) {
     return { name, proportions };
@@ -35,8 +37,9 @@ const estimatorPriceRow = [
 ];
 
 const ViewDetails = () => {
-
+    const detailsData = useSelector((state) => state.root.recommendedLevel.list)
     const [open, setOpen] = useState(false);
+    const [recommendedLevel, setRecommendedLevel] = useState();
     const prevOpen = useRef(open);
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -46,6 +49,13 @@ const ViewDetails = () => {
         setMenuOpen((prevOpen) => !prevOpen);
     };
 
+
+    let details = () => {
+        if (Object.keys(detailsData).length >= 1) {
+            setRecommendedLevel(detailsData.data.level)
+            console.log("Currently On :", recommendedLevel)
+        }
+    }
     const handleMenuClose = (event, reason) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
@@ -64,6 +74,7 @@ const ViewDetails = () => {
     };
     useEffect(() => {
         window.addEventListener("resize", getScreenDimensions);
+        details()
         return () => {
             window.removeEventListener("resize", getScreenDimensions);
         };
@@ -158,7 +169,9 @@ const ViewDetails = () => {
 
     return (
         <Grid container sx={{ backgroundColor: "#6f6f6f", height: "92.5vh", p: 4 }} justifyContent='center' alignItems='center'>
-            <StyledButton >View Recommendation</StyledButton>
+            <Paper elevation={0} sx={{ p: 2.1, backgroundColor: "#45454533", borderRadius: "0", color: "#fff", border: "1px solid #fff", m: 1 }} ><b>
+                Currently On Level : {recommendedLevel}</b></Paper>
+            <StyledButton onClick={() => setOpen(true)} >View Recommendation</StyledButton>
             <StyledButton>Customise</StyledButton>
             <StyledButton >Cart</StyledButton>
             <div>{upgradeDropdown()}</div>
@@ -209,6 +222,7 @@ const ViewDetails = () => {
                     </TableContainer>
                 </Grid>
             </Grid>
+            <RecommendationSection open={open} onClose={(e) => setOpen(e)}  />
         </Grid >
     )
 }

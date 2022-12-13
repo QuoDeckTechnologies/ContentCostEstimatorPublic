@@ -1,12 +1,10 @@
-// export const incNumber = () => { type: "INCREMENT" }
-// export const decNumber = () => { type: "DECREMENT" }
-// import { createAction } from "@reduxjs/toolkit";
-export const INC_NUM = 'INC_NUM';
-export const incNumber = (payload) => {
-    return {
-        type: INC_NUM,
-        payload: payload
-    }
 
+export const setRecommendedLevel = (data) => {
+    return {
+        type: "SET_LEVEL",
+        payload: {
+            id: new Date().getTime().toString(),
+            data: data
+        }
+    }
 }
-// export const incNumber = createAction('incNumber')
