@@ -51,7 +51,7 @@ export default function Home() {
             lineHeight: "1em",
           }}
         >
-          <b>Kick Start your journy to awesome content with quodeck</b>
+          <b>Click Start your journy to awesome content with quodeck</b>
         </Typography>
 
         <button className="home-started-btn" onClick={() => setOpen(true)}>
