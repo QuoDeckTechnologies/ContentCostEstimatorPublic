@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Image } from "semantic-ui-react";
 import { Button, Typography, Grid } from "@mui/material";
-import Img from "../../assets/img-promo.png";
+import Img from "../../assets/Vector.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
 import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
@@ -41,30 +40,31 @@ export default function Home() {
         md={6}
         sm={6}
         className="center-align"
-        order={{ xs: 2, sm: 2, lg: 1 }}
+        order={{ xs: 2, sm: 1, md: 1, lg: 1 }}
       >
         <Typography
           sx={{
             padding: "0 0 15px 0",
             color: "#fff",
-            fontSize: "48px",
-            lineHeight: "54px",
+            fontSize: "40px",
+            lineHeight: 4,
             fontWeight: 700,
           }}
         >
-          <h1>Cost Estimator</h1>
+          <p>Cost EstimatorCost EstimatorCost EstimatorCost Estimator</p>
         </Typography>
         <Typography
           sx={{
             padding: "0 0 15px 0",
             fontSize: "18px",
-            lineHeight: "25px",
+            lineHeight: 2,
             color: "#fff",
             letterSpacing: "0.5px",
-            fontWeight: 100,
+            fontWeight: 300,
           }}
+          className="fontstyle"
         >
-          Kick Start your journy to awesome content with quodeck
+          <p>Kick Start your journy to awesome content with quodeck</p>
         </Typography>
         <Button
           variant="outlined"
@@ -75,7 +75,7 @@ export default function Home() {
             display: "inline-block",
             padding: " 11px 32px",
             fontSize: " 15px",
-            lineHeight: "28px",
+            lineHeight: 2,
             fontWeight: 500,
             textTransform: "uppercase",
             transition: "1s",
@@ -91,7 +91,7 @@ export default function Home() {
           Get Started
         </Button>
       </Grid>
-      <Grid item xs={12} md={6} sm={6} order={{ xs: 1, sm: 2, lg: 2 }}>
+      <Grid item xs={12} md={6} sm={6} order={{ xs: 1, sm: 2, md: 2, lg: 2 }}>
         <Image src={Img} alt="" height="auto" />
       </Grid>
     </Grid>
