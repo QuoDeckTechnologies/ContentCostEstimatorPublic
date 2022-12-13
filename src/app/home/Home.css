@@ -4,33 +4,28 @@
     background-repeat: no-repeat;
 }
 
-.home-started-btn {
-    border-radius: 5px;
-    border: none;
-    background-color: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 1em 6em;
-    font-weight: 600;
-    font-size: .9em;
-    margin-top: 2em;
-    transition: all 0.3s ease-in;
+.logoimg {
+    width: 100%;
+    padding: 3em 0em;
+    margin: 0;
+    height: fit-content;
 }
-
-.home-started-btn:hover {
-    background-color: #F6BF33;
-    color: #171101;
-    font-weight: 700;
-}
-
 
 
 @media screen and (max-width: 600px) {
+    .main-container {
+        background-image: none;
+        background-color: #454545;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
     .center-align {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         text-align: center;
         justify-content: center;
+        flex-direction: column-reverse;
     }
 }
