@@ -18,6 +18,7 @@ export default function QuestionSlider(props) {
     const [lTwo, setLTwo] = useState(0);
     const [lThree, setLThree] = useState(0);
     const [estimateTime, setEstimateTime] = useState();
+    const [enbleBtn, SetEnbleBtn] = useState(true);
 
     const [screenDimensions, setScreenDimensions] = useState({
         width: window.screen.width,
@@ -121,6 +122,9 @@ export default function QuestionSlider(props) {
 
     const daysCount = (e) => {
         setEstimateTime(e.target.value)
+        if (e.target.value.length >= 1) {
+            SetEnbleBtn(false)
+        }
     };
 
     const handlePrev = () => {
@@ -148,7 +152,7 @@ export default function QuestionSlider(props) {
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: 0,
-        swipeToSlide: false
+        swipe: false
     };
 
     const modalStyle = {
@@ -156,7 +160,7 @@ export default function QuestionSlider(props) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 400 ? "90%" : screenDimensions.width <= 600 ? "100%" : screenDimensions.width <= 900 ? "90%" : "80%",
+        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 400 ? "90%" : screenDimensions.width <= 600 ? "100%" : screenDimensions.width <= 900 ? "90%" : "60%",
         // height: 500,
         bgcolor: '#6f6f6f',
         boxShadow: 5,
@@ -242,11 +246,10 @@ export default function QuestionSlider(props) {
                         <Button
                             color='yellow'
                             inverted
-                            // onClick={handleNext}
                             floated='right'
                             size="big"
                             content="Submit"
-                            disabled={currentSlide != sliderQuestions.length - 1}
+                            disabled={enbleBtn}
                             onClick={submitButton}
                         />
                     </div>
