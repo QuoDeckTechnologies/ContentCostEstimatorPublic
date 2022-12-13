@@ -19,6 +19,22 @@ export default function QuestionSlider(props) {
     const [lThree, setLThree] = useState(0);
     const [estimateTime, setEstimateTime] = useState();
 
+    const [screenDimensions, setScreenDimensions] = useState({
+        width: window.screen.width,
+        height: window.screen.height
+    });
+    const getScreenDimensions = (e) => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        setScreenDimensions({ width, height });
+    };
+    useEffect(() => {
+        window.addEventListener("resize", getScreenDimensions);
+        return () => {
+            window.removeEventListener("resize", getScreenDimensions);
+        };
+    });
+
     let recommendLevel = {
         level: 0,
         hrs: 0,
@@ -102,9 +118,11 @@ export default function QuestionSlider(props) {
             sliderRef.current?.slickNext()
         }
     };
+
     const daysCount = (e) => {
         setEstimateTime(e.target.value)
-    }
+    };
+
     const handlePrev = () => {
         SetCurrentSlide((prevState) => prevState -= 1)
         if (currentSlide > 0) {
@@ -116,12 +134,11 @@ export default function QuestionSlider(props) {
 
     const submitButton = () => {
         var numbers = [lOne, lTwo, lThree];
-        console.log(numbers)
         const index = numbers.indexOf(Math.max(...numbers))
         Object.assign(recommendLevel, { level: `${index + 1}`, hrs: estimateTime * 2 });
         dispatch(setRecommendedLevel(recommendLevel))
         props.onSubmit()
-    }
+    };
 
     const settings = {
         dots: false,
@@ -130,7 +147,8 @@ export default function QuestionSlider(props) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        initialSlide: 0
+        initialSlide: 0,
+        swipeToSlide: false
     };
 
     const modalStyle = {
@@ -138,7 +156,7 @@ export default function QuestionSlider(props) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 800,
+        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 400 ? "90%" : screenDimensions.width <= 600 ? "100%" : screenDimensions.width <= 900 ? "90%" : "80%",
         // height: 500,
         bgcolor: '#6f6f6f',
         boxShadow: 5,
@@ -166,80 +184,73 @@ export default function QuestionSlider(props) {
     };
 
     return (
-        <div>
-            {/* <Button
-                content="Open Question's Slider"
-                onClick={() => setOpen(true)}
-            /> */}
-            <Modal
-                // hideBackdrop
-                open={open}
-            >
-                <Box sx={{ ...modalStyle }}>
-                    <div>
-                        <div style={{ marginTop: "10px" }}>
-                            <Progress percent={bar} size="tiny" indicating warning />
-                        </div>
-                        <br />
-                        <Header as='h1'
-                            style={headerStyle}>
-                            Welcome
-                            <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
-                        </Header>
-                        <Header as='h2' style={headerStyle}>
-                            Let's answer in a few clicks
-                            <Icon name='hourglass start' size='mini' color='yellow' />
-                        </Header>
-                        <Header
-                            style={headerStyle}>
-                            {currentSlide + 1}/{sliderQuestions.length}
-                        </Header>
-                        <br />
-                        <Slider ref={sliderRef} {...settings}>
-                            {sliderQuestions.map((slide, index) =>
-                                <div key={`sliderQuestions-${index}`}>
-                                    <Header as='h3' size='medium' style={questionHeaderStyle}>
-                                        {slide.question}
-                                    </Header>
-                                    <div style={dropdownStyle}>
-                                        {slide.type === "number" ?
-                                            <Input fluid placeholder='choose number' type="number" onChange={(e) => { daysCount(e) }} /> :
-                                            <Dropdown
-                                                placeholder='Select options'
-                                                fluid
-                                                selection
-                                                options={slide.options}
-                                                onChange={handleNext}
-                                            />
-                                        }
-                                    </div>
-                                </div>
-                            )}
-                        </Slider>
-                        <div>
-                            <Button
-                                color='#fff'
-                                inverted
-                                onClick={handlePrev}
-                                floated='left'
-                                size="big"
-                                content="Previous"
-                                disabled={currentSlide === 0}
-                            />
-                            <Button
-                                color='#fff'
-                                inverted
-                                onClick={handleNext}
-                                floated='right'
-                                size="big"
-                                content="Submit"
-                                disabled={currentSlide != sliderQuestions.length - 1}
-                                onClick={submitButton}
-                            />
-                        </div>
+        <Modal
+            // hideBackdrop
+            open={open}
+        >
+            <Box sx={{ ...modalStyle }}>
+                <div>
+                    <div style={{ marginTop: "10px" }}>
+                        <Progress percent={bar} size="tiny" indicating warning />
                     </div>
-                </Box>
-            </Modal>
-        </div >
-    )
+                    <br />
+                    <Header as='h1'
+                        style={headerStyle}>
+                        Welcome
+                        <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
+                    </Header>
+                    <Header as='h2' style={headerStyle}>
+                        Let's answer in a few clicks
+                        <Icon name='hourglass start' size='mini' color='yellow' />
+                    </Header>
+                    <Header
+                        style={headerStyle}>
+                        {currentSlide + 1}/{sliderQuestions.length}
+                    </Header>
+                    <br />
+                    <Slider ref={sliderRef} {...settings}>
+                        {sliderQuestions.map((slide, index) =>
+                            <div key={`sliderQuestions-${index}`}>
+                                <Header as='h3' size='medium' style={questionHeaderStyle}>
+                                    {slide.question}
+                                </Header>
+                                <div style={dropdownStyle}>
+                                    {slide.type === "number" ?
+                                        <Input fluid placeholder='choose number' type="number" onChange={(e) => { daysCount(e) }} /> :
+                                        <Dropdown
+                                            placeholder='Select options'
+                                            fluid
+                                            selection
+                                            options={slide.options}
+                                            onChange={handleNext}
+                                        />
+                                    }
+                                </div>
+                            </div>
+                        )}
+                    </Slider>
+                    <div>
+                        <Button
+                            color='yellow'
+                            inverted
+                            onClick={handlePrev}
+                            floated='left'
+                            size="big"
+                            content="Previous"
+                            disabled={currentSlide === 0}
+                        />
+                        <Button
+                            color='yellow'
+                            inverted
+                            // onClick={handleNext}
+                            floated='right'
+                            size="big"
+                            content="Submit"
+                            disabled={currentSlide != sliderQuestions.length - 1}
+                            onClick={submitButton}
+                        />
+                    </div>
+                </div>
+            </Box>
+        </Modal>)
 }
