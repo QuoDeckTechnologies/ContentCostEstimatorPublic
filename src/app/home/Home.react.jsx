@@ -64,7 +64,7 @@ export default function Home() {
           }}
           className="fontstyle"
         >
-          <p>Kick Start your journy to awesome content with quodeck</p>
+          <p>Kick Start your journey to awesome content with quodeck</p>
         </Typography>
         <Button
           variant="outlined"

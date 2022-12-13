@@ -41,10 +41,10 @@ export default function QuestionSlider(props) {
         hrs: 0,
     };
     let dispatch = useDispatch();
-    let length;
+
     useEffect(() => {
         setOpen(props.open);
-        length = 100 / sliderQuestions.length
+        let length = 100 / sliderQuestions.length;
         setBar(length)
     }, [props.open]);
 
