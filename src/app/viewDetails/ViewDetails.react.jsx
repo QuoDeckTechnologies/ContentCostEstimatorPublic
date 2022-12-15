@@ -12,7 +12,6 @@ const ViewDetails = () => {
     const [hrs, setHrs] = useState();
     const [translation, setTranslation] = useState("N");
     const [languages, setLanguages] = useState(0)
-    const [totalEstimateCost, setTotalEstimateCost] = useState();
     const [screenDimensions, setScreenDimensions] = useState({
         width: window.screen.width,
         height: window.screen.height
@@ -24,10 +23,6 @@ const ViewDetails = () => {
             currency: 'INR'
         }).format(value);
 
-    let machineVoiceOver = level === "1" ? "Y" : level === "2" ? "N" : level === "3" ? "N" : "-";
-    let humanVoiceOver = level === "1" ? "N" : level === "2" ? "Y" : level === "3" ? "Y" : "-";
-    let gamifiedStory = level === "1" ? "N" : level === "2" ? "N" : level === "3" ? "N" : "-";
-
 
     let OSTTranslation = 9188;
     let VoTranslation = 8558;
@@ -35,7 +30,9 @@ const ViewDetails = () => {
     let VoReview = 3668;
     let reauthoring = 15000;
     let pricingModalMargin = 55;
-
+    let machineVoiceOver = level === "1" ? "Y" : level === "2" ? "N" : level === "3" ? "N" : "-";
+    let humanVoiceOver = level === "1" ? "N" : level === "2" ? "Y" : level === "3" ? "Y" : "-";
+    let gamifiedStory = level === "1" ? "N" : level === "2" ? "N" : level === "3" ? "N" : "-";
     let textualContentSlideProportion = level === "1" ? "32" : level === "2" ? "0" : level === "3" ? "0" : "0";
     let visualContentSlideProportion = level === "1" ? "32" : level === "2" ? "45" : level === "3" ? "14" : "0";
     let interactiveVisualcontentSlideProportion = level === "1" ? "16" : level === "2" ? "30" : level === "3" ? "56" : "0";
@@ -49,9 +46,16 @@ const ViewDetails = () => {
     let whiteboardAnimationProportion = level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0";
     let motionGraphicsProportion = level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0";
     let dddAnimationStoryProportion = level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0";
+    let stockCharacter = level === "1" ? "0" : level === "2" ? "1" : level === "3" ? "2" : "-";
+    let customeIllustrations = level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "-";
+
+
+    //Asset Creation
+    let stockCharacterInitialCost = 10000 * (1 + pricingModalMargin / 100)
+    let stockCharacterCost = stockCharacterInitialCost * stockCharacter;
+    let finalStockCharacterCost = (stockCharacterCost + 0) * (1 + 0)
 
     //Authoring Estimated Price
-
     let textualContentSlideCost = 700 * (1 + pricingModalMargin / 100);
     let visualContentSlideCost = 1500 * (1 + pricingModalMargin / 100);
     let interactiveVisualcontentSlideCost = 1500 * (1 + pricingModalMargin / 100);
@@ -61,10 +65,7 @@ const ViewDetails = () => {
     let storyBasedSlideShowsCost = 4000 * (1 + pricingModalMargin / 100);
     let screenCastsCost = 7000 * (1 + pricingModalMargin / 100);
     let iconicInfographicVideoCost = 7000 * (1 + pricingModalMargin / 100);
-    let ddAnimatedStoryCost = 7000 * (1 + pricingModalMargin / 100);
-    let whiteboardAnimationCost = 8000 * (1 + pricingModalMargin / 100);
-    let motiongraphicsCost = 12500 * (1 + pricingModalMargin / 100);
-    let dddAnimatedStoryCost = 25000 * (1 + pricingModalMargin / 100);
+    let gamifiedStoryCost = 25000 * (1 + pricingModalMargin / 100);
     let oneScreenPerMinute = 1;
     let twoScreenPerMinute = 2;
     let textualContentSlideTotalCost = (textualContentSlideProportion / 100) * 60 * oneScreenPerMinute * textualContentSlideCost;
@@ -76,10 +77,15 @@ const ViewDetails = () => {
     let storyBasedSlideShowsTotalCost = (storyBasedSlideShowsProportion / 100) * 60 * oneScreenPerMinute * storyBasedSlideShowsCost;
     let screenCastsTotalCost = (screenCastsProportion / 100) * 60 * oneScreenPerMinute * screenCastsCost;
     let iconicInfographicVideoTotalCost = (iconicInfographicVideoProportion / 100) * 60 * oneScreenPerMinute * iconicInfographicVideoCost;
-
+    let gamifiedStoryTotalCost = gamifiedStory === "Y" ? gamifiedStoryCost * languages : 0;
     let authoringTotalCost = textualContentSlideTotalCost + visualContentSlideTotalCost + interactiveVisualContentSlideTotalCost + textualQuestionSlideTotalCost + visualQuestionSlideTotalCost + slideShowsTotalCost + storyBasedSlideShowsTotalCost + screenCastsTotalCost + iconicInfographicVideoTotalCost
 
-    console.log(authoringTotalCost)
+    let totalAuthoringCost = (70 / 100) * (authoringTotalCost + gamifiedStoryTotalCost) * (1 + 0);
+    let finalAuthoringCost = (totalAuthoringCost * hrs)
+
+    //StoryBoarding Price 
+    let totalStoryBoardingCost = (30 / 100) * (authoringTotalCost + gamifiedStoryTotalCost) * (1 + 0);
+    let finalStoryBoardingCost = (totalStoryBoardingCost * hrs)
 
     // Voiceovers Estimated Price
     let machineVoiceoversPrice = 3000;
@@ -89,13 +95,16 @@ const ViewDetails = () => {
     let calculatedHumanVoiceoversPrice = humanVoiceoverPrice * (1 + 55 / 100);
     let totalHumanVoiceoverPrice = humanVoiceOver === "Y" ? calculatedHumanVoiceoversPrice * (parseInt(languages) + 1) : 0;
     let voiceOverPrice = (totalMachineVoiceOverPrice + totalHumanVoiceoverPrice) * (1 + 0);
-    let finalVoiceOverCost = numberFormat(voiceOverPrice * hrs)
+    let finalVoiceOverCost = (voiceOverPrice * hrs)
 
     // Translation Estimated Price
     let initialTranslationCost = (OSTTranslation + reauthoring + VoTranslation + OSTReview + VoReview) * (1 + pricingModalMargin / 100);
     let totalTranslatedCost = initialTranslationCost * languages
     let calculatedTranslationCost = totalTranslatedCost * (1 + 0);
-    let finalTranslationCost = numberFormat(calculatedTranslationCost * hrs);
+    let finalTranslationCost = (calculatedTranslationCost * hrs);
+
+
+    let totalEstimateCost = finalAuthoringCost + finalStockCharacterCost + finalStoryBoardingCost + finalTranslationCost + finalVoiceOverCost
 
     let csDetailsData = (name, text, proportions, screens) => {
         return { name, text, proportions, screens }
@@ -204,11 +213,10 @@ const ViewDetails = () => {
     const presentationAddonsData = [
         presentAddonsData(
             'stock-character-with-6-poses', 'Stock Character with 6 Poses',
-            level === "1" ? "0" : level === "2" ? "1" : level === "3" ? "2" : "-",
+            stockCharacter
         ),
         presentAddonsData(
-            'custom-illustrations', 'Custom Illustrations',
-            level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "-",
+            'custom-illustrations', 'Custom Illustrations', customeIllustrations
         ),
 
     ];
@@ -223,12 +231,12 @@ const ViewDetails = () => {
     ];
 
     const estimatorPriceRow = [
-        priceEstimatorData('Story Branding', "00000"),
-        priceEstimatorData('Asset Creation', "00000"),
-        priceEstimatorData('Authoring', "00000"),
-        priceEstimatorData('Voiceover', finalVoiceOverCost),
-        priceEstimatorData('Translations', finalTranslationCost),
-        priceEstimatorData(totalCost(), totalEstimateCost),
+        priceEstimatorData('Story Boarding', numberFormat(finalStoryBoardingCost)),
+        priceEstimatorData('Asset Creation', numberFormat(finalStockCharacterCost)),
+        priceEstimatorData('Authoring', numberFormat(finalAuthoringCost)),
+        priceEstimatorData('Voiceover', numberFormat(finalVoiceOverCost)),
+        priceEstimatorData('Translations', numberFormat(finalTranslationCost)),
+        priceEstimatorData(totalCost(), numberFormat(totalEstimateCost)),
     ];
     let details = () => {
         if (Object.keys(dataDetails).length >= 1) {
