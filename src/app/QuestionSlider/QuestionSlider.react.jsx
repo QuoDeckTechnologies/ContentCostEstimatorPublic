@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from "react"
 import { useDispatch } from "react-redux";
-import { Dropdown, Progress, Button, Header, Input, Icon } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import { Dropdown, Progress, Header, Input, Icon } from "semantic-ui-react"
+import "semantic-ui-css/semantic.min.css"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import sliderQuestions from '../components/seeds'
-import { Modal, Box } from '@mui/material';
-import { setRecommendedLevel } from '../../actions/index';
+import sliderQuestions from "../components/seeds"
+import { Modal, Box, Button, styled } from "@mui/material";
+import { setRecommendedLevel } from "../../actions/index";
 
 export default function QuestionSlider(props) {
     const [open, setOpen] = useState(props.open);
@@ -160,7 +160,7 @@ export default function QuestionSlider(props) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 400 ? "90%" : screenDimensions.width <= 600 ? "100%" : screenDimensions.width <= 900 ? "90%" : "60%",
+        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 400 ? "90%" : screenDimensions.width <= 600 ? "90%" : screenDimensions.width <= 900 ? "90%" : "60%",
         // height: 500,
         bgcolor: '#6f6f6f',
         boxShadow: 5,
@@ -171,7 +171,7 @@ export default function QuestionSlider(props) {
     };
 
     let dropdownStyle = {
-        width: "45%",
+        width: screenDimensions.width <= 320 ? "100%" : screenDimensions.width <= 900 ? "80%" : "45%",
         height: "15em",
         margin: "auto"
     };
@@ -186,6 +186,27 @@ export default function QuestionSlider(props) {
         ...questionHeaderStyle,
         marginTop: '-11px'
     };
+
+    const StyledButton = styled(Button)`
+    background-color:transparent;
+    border: 1px solid #fff;
+    font-family:oswald;
+    font-weight:bold;
+    &:hover {
+        background-color: #ffca00;
+        border: 1px solid #fff;
+        color:#000;
+    }
+    &:focus {
+        background-color: #ffca00;
+        color:#000;
+    }
+    &.MuiButton-root{
+        color: #fff;
+    }
+    &.MuiButton-root.Mui-disabled{
+        color: #fff;
+    }`;
 
     return (
         <Modal
@@ -203,7 +224,7 @@ export default function QuestionSlider(props) {
                         Welcome
                         <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
                     </Header>
-                    <Header as='h2' style={headerStyle}>
+                    <Header as='h2' style={{ ...headerStyle, alignItems: screenDimensions.width <= 400 ? 'center' : "normal" }}>
                         Let's answer in a few clicks
                         <Icon name='hourglass start' size='mini' color='yellow' />
                     </Header>
@@ -233,25 +254,26 @@ export default function QuestionSlider(props) {
                             </div>
                         )}
                     </Slider>
-                    <div>
-                        <Button
-                            color='yellow'
-                            inverted
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <StyledButton
+                            sx={{ fontSize: "1.3em", width: screenDimensions.width <= 420 ? "45%" : "25%" }}
                             onClick={handlePrev}
-                            floated='left'
-                            size="big"
-                            content="Previous"
                             disabled={currentSlide === 0}
-                        />
-                        <Button
-                            color='yellow'
-                            inverted
-                            floated='right'
-                            size="big"
-                            content="Submit"
-                            disabled={enbleBtn}
+                        >
+                            Previous
+                        </StyledButton>
+                        <StyledButton
+                            sx={{ fontSize: "1.3em", width: screenDimensions.width <= 420 ? "45%" : "25%" }}
                             onClick={submitButton}
-                        />
+                            disabled={enbleBtn}
+                        >
+                            Submit
+                        </StyledButton>
                     </div>
                 </div>
             </Box>
