@@ -104,7 +104,9 @@ const ViewDetails = () => {
     let finalTranslationCost = (calculatedTranslationCost * hrs);
 
 
-    let totalEstimateCost = finalAuthoringCost + finalStockCharacterCost + finalStoryBoardingCost + finalTranslationCost + finalVoiceOverCost
+    let totalEstimatedCost = finalAuthoringCost + finalStockCharacterCost + finalStoryBoardingCost + finalTranslationCost + finalVoiceOverCost
+
+    let allEstimatedCosts = { "finalAuthoringCost": finalAuthoringCost, "finalStockCharacterCost": finalStockCharacterCost, "finalStoryBoardingCost": finalStoryBoardingCost, "finalTranslationCost": finalTranslationCost, "finalVoiceOverCost": finalVoiceOverCost, "totalEstimatedCost": totalEstimatedCost }
 
     let csDetailsData = (name, text, proportions, screens) => {
         return { name, text, proportions, screens }
@@ -236,7 +238,7 @@ const ViewDetails = () => {
         priceEstimatorData('Authoring', numberFormat(finalAuthoringCost)),
         priceEstimatorData('Voiceover', numberFormat(finalVoiceOverCost)),
         priceEstimatorData('Translations', numberFormat(finalTranslationCost)),
-        priceEstimatorData(totalCost(), numberFormat(totalEstimateCost)),
+        priceEstimatorData(totalCost(), numberFormat(totalEstimatedCost)),
     ];
     let details = () => {
         if (Object.keys(dataDetails).length >= 1) {
@@ -261,7 +263,7 @@ const ViewDetails = () => {
     useEffect(() => {
         window.addEventListener("resize", getScreenDimensions);
         details()
-        dispatch(setDetailsData(contentSlidesData, videosTableData, accessibilityAddonsData, presentationAddonsData, translationAddonsData, recommendedLevel))
+        dispatch(setDetailsData(contentSlidesData, videosTableData, accessibilityAddonsData, presentationAddonsData, translationAddonsData, allEstimatedCosts, recommendedLevel))
         return () => {
             window.removeEventListener("resize", getScreenDimensions);
         };

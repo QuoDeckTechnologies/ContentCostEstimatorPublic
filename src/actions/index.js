@@ -8,7 +8,7 @@ export const setRecommendedLevel = (data) => {
         }
     }
 }
-export const setDetailsData = (contentSlideData, videosTableData, accessibilityAddonsData, presentationAddonsData, translationAddonsData) => {
+export const setDetailsData = (contentSlideData, videosTableData, accessibilityAddonsData, presentationAddonsData, translationAddonsData, allEstimatedCost) => {
     return {
         type: "SET_DETAILS_DATA",
         payload: {
@@ -16,7 +16,8 @@ export const setDetailsData = (contentSlideData, videosTableData, accessibilityA
             videosTableData: videosTableData,
             accessibilityAddonsData: accessibilityAddonsData,
             presentationAddonsData: presentationAddonsData,
-            translationAddonsData: translationAddonsData
+            translationAddonsData: translationAddonsData,
+            allEstimatedCost: allEstimatedCost
         }
     }
 }

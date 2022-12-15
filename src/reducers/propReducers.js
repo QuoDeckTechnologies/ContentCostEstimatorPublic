@@ -7,7 +7,7 @@ const dataProportions = (state = initialState, action) => {
             const { id, contentSlideData,
                 videosTableData,
                 accessibilityAddonsData, presentationAddonsData,
-                translationAddonsData, level } = action.payload;
+                translationAddonsData, allEstimatedCost, level } = action.payload;
             return {
                 ...state,
                 dataProp:
@@ -19,6 +19,7 @@ const dataProportions = (state = initialState, action) => {
                     accessibilityAddonsData: accessibilityAddonsData,
                     presentationAddonsData: presentationAddonsData,
                     translationAddonsData: translationAddonsData,
+                    allEstimatedCost: allEstimatedCost,
                 }
 
             }
