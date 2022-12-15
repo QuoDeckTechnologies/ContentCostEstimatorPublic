@@ -8,3 +8,15 @@ export const setRecommendedLevel = (data) => {
         }
     }
 }
+export const setDetailsData = (contentSlideData, videosTableData, accessibilityAddonsData, presentationAddonsData, translationAddonsData) => {
+    return {
+        type: "SET_DETAILS_DATA",
+        payload: {
+            contentSlideData: contentSlideData,
+            videosTableData: videosTableData,
+            accessibilityAddonsData: accessibilityAddonsData,
+            presentationAddonsData: presentationAddonsData,
+            translationAddonsData: translationAddonsData
+        }
+    }
+}
