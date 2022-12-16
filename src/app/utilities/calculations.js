@@ -1,156 +1,149 @@
-const contentSlidesCalSchema = [
+export const margin  = 0.55
+
+export const contentSlidesCalSchema = [
   {
     name: "textual-content-slide",
-    proportion: 651,
-    screens: 1085,
+    INR_screen: 1085,
+    screen_min: 1,
+    OST_screen: 80,
+    VO_screen: 50,
   },
   {
     name: "visual-content-slide",
-    proportion: 1395,
-    screens: 2325,
+    INR_screen: 2325,
+    screen_min: 1,
+    OST_screen: 50,
+    VO_screen: 75,
   },
   {
     name: "interactive-visual-slide",
-    proportion: 1395,
-    screens: 2325,
+    INR_screen: 2325,
+    screen_min: 1,
+    OST_screen: 100,
+    VO_screen: 100,
   },
   {
     name: "textual-question-slide",
-    proportion: 495,
-    screens: 388,
+    INR_screen: 388,
+    screen_min: 2,
+    OST_screen: 100,
+    VO_screen: 0,
   },
   {
     name: "visual-quetion-slide",
-    proportion: 1395,
-    screens: 1163,
+    INR_screen: 1163,
+    screen_min: 2,
+    OST_screen: 50,
+    VO_screen: 0,
   },
 ];
 
-const vidoeCalSchema = [
+export const videoCalSchema = [
   {
     name: "slideshows",
-    proportion: 1860,
-    minutes: 3100,
+    minutes: 1,
+    INR_screen: 3100,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "story-based-slideshows",
-    proportion: 3720,
-    minutes: 6200,
+    minutes: 1,
+    INR_screen: 6200,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "screencasts",
-    proportion: 10850,
-    minutes: 10850,
+    minutes: 1,
+    INR_screen: 10850,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "iconic-infographic-video",
-    proportion: 10850,
-    minutes: 10850,
+    minutes: 1,
+    INR_screen: 10850,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "2d-animated-story",
-    proportion: 10850,
-    minutes: 10850,
+    minutes: 1,
+    INR_screen: 10850,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "whiteboard-animation",
-    proportion: 12400,
-    minutes: 12400,
+    minutes: 1,
+    INR_screen: 12400,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "motion-graphics",
-    proportion: 19375,
-    minutes: 19375,
+    minutes: 1,
+    INR_screen: 19375,
+    OST_screen: 30,
+    VO_screen: 100,
   },
   {
     name: "3d-animated-story",
-    proportion: 38750,
-    minutes: 38750,
+    minutes: 1,
+    INR_screen: 38750,
+    OST_screen: 30,
+    VO_screen: 100,
   },
 ];
 
-const accessibilitySchema = [
-  {
-    name: "machine-voiceover",
-    value: 4650,
-    checked: false,
-  },
-  {
-    name: "human-voiceover",
-    value: 27900,
-    checked: true,
-  },
-  {
-    name: "gamified-story",
-    value: 38750,
-    checked: false,
-  },
-];
-
-const presentationSchema = [
+export const presentationCalSchema = [
   {
     name: "stock-character-with-6-poses",
-    value: 15500,
+    INR_item: 15500,
+    item: 1,
   },
   {
     name: "custom-illustrations",
-    value: 3875,
+    INR_item: 3875,
+    item: 1,
   },
 ];
 
-// const translationSchema = [
-//   {
-//     name: "translate-voiceover-scripts",
-//     value: 11,
-//   },
-//   {
-//     name: "external-translation-review",
-//     value: 20,
-//   },
-// ];
+export const accessibilityCalSchema = [
+  {
+    name: "machine-voiceover",
+    INR_hour: 4650,
+  },
+  {
+    name: "human-voiceover",
+    INR_hour: 27900,
+  },
+  {
+    name: "gamified-story",
+    INR_hour: 38750,
+  },
+];
 
-export function calContentSlides(data) {
-  for (let i = 0; i < contentSlidesCalSchema.length; i++) {
-    let proportion_unit = contentSlidesCalSchema[i].proportion;
-    let screens_unit = contentSlidesCalSchema[i].screens;
-    let proportion_cost = data[i].proportion * proportion_unit;
-    let screens_cost = data[i].screens * screens_unit;
-    data[i].total = proportion_cost + screens_cost;
-  }
-}
-
-export function calVideo(data) {
-  for (let i = 0; i < vidoeCalSchema.length; i++) {
-    let proportion_unit = vidoeCalSchema[i].proportion;
-    let minutes_unit = vidoeCalSchema[i].minutes;
-    let proportion_cost = data[i].proportion * proportion_unit;
-    let minutes_cost = data[i].minutes * minutes_unit;
-    data[i].total = proportion_cost + minutes_cost;
-  }
-}
-
-export function calAccessibility(data) {
-  for (let i = 0; i < accessibilitySchema.length; i++) {
-    if (data[i].checked) {
-      data[i].total = accessibilitySchema[i].value;
-    } else {
-      data[i].total = 0;
-    }
-  }
-}
-
-export function calPresentation(data) {
-  for (let i = 0; i < presentationSchema.length; i++) {
-    let item_unit = presentationSchema[i].value;
-    let item_cost = data[i].value * item_unit;
-    data[i].total = item_cost;
-  }
-}
-
-// export function calTranslation(data) {
-//   for (let i = 0; i < presentationSchema.length; i++) {
-//     let item_unit = presentationSchema[i].value;
-//     let item_cost = data[i].value * item_unit;
-//     data[i].total = item_cost;
-//   }
-// }
+export const translationCalSchema = [
+  {
+    name: "ost-translation",
+    cost_word: 1.75,
+  },
+  {
+    name: "vo-translation",
+    cost_word: 1.75,
+  },
+  {
+    name: "ost-review",
+    cost_word: 0.75,
+  },
+  {
+    name: "vo-review",
+    cost_word: 0.75,
+  },
+  {
+    name: "reauthoring",
+    cost: 15000,
+  },
+];
