@@ -2,29 +2,35 @@
     background-image: url("../../assets/header-bg.png");
     background-size: cover;
     background-repeat: no-repeat;
+    padding: 0em 8em;
 }
 
 .logoimg {
     width: 100%;
-    padding: 3em 0em;
+    padding: 3em 0em 0em 0em;
     margin: 0;
     height: fit-content;
 }
 
-@media screen and (max-width: 600px) {
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 700px) {
     .main-container {
         background-image: none;
         background-color: #454545;
-        background-size: cover;
-        background-repeat: no-repeat;
+        padding: 0em 2em;
     }
 
     .center-align {
         display: flex;
+        flex-direction: column-reverse;
         flex-wrap: wrap;
         align-items: center;
         text-align: center;
         justify-content: center;
-        flex-direction: column-reverse;
     }
 }
