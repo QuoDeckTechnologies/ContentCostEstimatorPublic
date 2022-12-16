@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import sliderQuestions from "../components/seeds"
-import { Modal, Box, Button, styled } from "@mui/material";
+import { Modal, Box, Button, styled, Tooltip } from "@mui/material";
 import { setRecommendedLevel } from "../../actions/index";
 
 export default function QuestionSlider(props) {
@@ -270,13 +270,17 @@ export default function QuestionSlider(props) {
                         >
                             Previous
                         </StyledButton>
-                        <StyledButton
-                            sx={{ fontSize: "1.3em", width: screenDimensions.width <= 420 ? "45%" : "25%" }}
-                            onClick={submitButton}
-                            disabled={enbleBtn}
-                        >
-                            Submit
-                        </StyledButton>
+                        <Tooltip placement="top" arrow title={enbleBtn ? "Answer all the questions" : ""}>
+                            <span style={{ width: screenDimensions.width <= 420 ? "45%" : "25%" }}>
+                                <StyledButton
+                                    sx={{ fontSize: "1.3em", width: "100%" }}
+                                    onClick={submitButton}
+                                    disabled={enbleBtn}
+                                >
+                                    Submit
+                                </StyledButton>
+                            </span>
+                        </Tooltip>
                     </div>
                 </div>
             </Box>

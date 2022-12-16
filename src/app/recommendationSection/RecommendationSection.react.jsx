@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { Grid, Typography, Button, Paper, styled, Stack, Modal, Box, Backdrop, Fade } from '@mui/material';
 import Vector from "../../assets/Vector.png"
-import BlessIcon from "../../assets/bless.png"
+import BlessIcon from "../../assets/old-bless.png"
 import { useNavigate } from 'react-router-dom';
 
 const RecommendationSection = (props) => {
@@ -115,7 +115,7 @@ const RecommendationSection = (props) => {
                                         <Stack direction={{ xs: 'row', sm: 'row', md: 'row', lg: 'row' }} justifyContent='center' alignItems='center'
                                         >
                                             <Typography variant="h5" sx={{ fontFamily: "oswald", color: "#ffca00", fontWeight: "bold", width: "60%" }} align='center'>
-                                                <Paper elevation={2} sx={{ p: 1, backgroundColor: "#fff", color: "#575050" }}>Level {level}  Module</Paper>
+                                                <Paper elevation={2} sx={{ p: 1, backgroundColor: "#fff", color: "#575050", borderRadius: "1em" }}>Level {level}  Module</Paper>
                                             </Typography>
                                         </Stack>
                                     </Grid>
@@ -125,7 +125,7 @@ const RecommendationSection = (props) => {
                                         <Stack direction="row" justifyContent='center' alignItems='center'
                                         >
                                             <Typography variant="h5" sx={{ fontFamily: "oswald", color: "#ffca00", fontWeight: "bold", width: "60%" }} align='center'>
-                                                <Paper elevation={2} sx={{ p: 1, backgroundColor: "#fff", color: "#575050" }}>Duration {estimateTime} Hrs</Paper>
+                                                <Paper elevation={2} sx={{ p: 1, backgroundColor: "#fff", color: "#575050", borderRadius: "1em" }}>Duration {estimateTime} Hrs</Paper>
                                             </Typography>
                                         </Stack>
                                     </Grid>

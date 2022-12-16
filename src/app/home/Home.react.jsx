@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image } from "semantic-ui-react";
 import { Button, Typography, Grid } from "@mui/material";
-import Img from "../../assets/Vector.png";
+import Img from "../../assets/old-Vector.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
 import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
