@@ -24,12 +24,6 @@ const ViewDetails = () => {
         }).format(value);
 
 
-    let OSTTranslation = 9188;
-    let VoTranslation = 8558;
-    let OSTReview = 3938;
-    let VoReview = 3668;
-    let reauthoring = 15000;
-    let pricingModalMargin = 55;
     let machineVoiceOver = level === "1" ? "Y" : level === "2" ? "N" : level === "3" ? "N" : "-";
     let humanVoiceOver = level === "1" ? "N" : level === "2" ? "Y" : level === "3" ? "Y" : "-";
     let gamifiedStory = level === "1" ? "N" : level === "2" ? "N" : level === "3" ? "N" : "-";
@@ -50,6 +44,51 @@ const ViewDetails = () => {
     let customeIllustrations = level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "-";
 
 
+    let oneScreenPerMinute = 1;
+    let twoScreenPerMinute = 2;
+
+    //OST words Values
+    let tcsOSTwords = textualContentSlideProportion > 0 ? (textualContentSlideProportion / 100) * (oneScreenPerMinute * 60 * 80) : 0;
+    let vcsOSTwords = visualContentSlideProportion > 0 ? (visualContentSlideProportion / 100) * (oneScreenPerMinute * 60 * 50) : 0;
+    let ivcsOSTwords = interactiveVisualcontentSlideProportion > 0 ? (interactiveVisualcontentSlideProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let tqsOSTwords = textualQuestionSlideProportion > 0 ? (textualQuestionSlideProportion / 100) * (twoScreenPerMinute * 60 * 100) : 0;
+    let vqsOSTwords = visualQuestionSlideProportion > 0 ? (visualQuestionSlideProportion / 100) * (twoScreenPerMinute * 60 * 50) : 0;
+    let slideSOSTwords = slideShowsProportion > 0 ? (slideShowsProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let sbsOSTwords = storyBasedSlideShowsProportion > 0 ? (storyBasedSlideShowsProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let scOSTwords = screenCastsProportion > 0 ? (screenCastsProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let iivOSTwords = iconicInfographicVideoProportion > 0 ? (iconicInfographicVideoProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let ddasOSTwords = ddAnimatedStoryProportion > 0 ? (ddAnimatedStoryProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let waOSTwords = whiteboardAnimationProportion > 0 ? (whiteboardAnimationProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let mgOSTwords = motionGraphicsProportion > 0 ? (motionGraphicsProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+    let dddOSTwords = dddAnimationStoryProportion > 0 ? (dddAnimationStoryProportion / 100) * (oneScreenPerMinute * 60 * 30) : 0;
+
+    //VO words Values
+    let tcsVOwords = textualContentSlideProportion > 0 ? (textualContentSlideProportion / 100) * (oneScreenPerMinute * 60 * 50) : 0;
+    let vcsVOwords = visualContentSlideProportion > 0 ? (visualContentSlideProportion / 100) * (oneScreenPerMinute * 60 * 75) : 0;
+    let ivcsVOwords = interactiveVisualcontentSlideProportion > 0 ? (interactiveVisualcontentSlideProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let tqsVOwords = textualQuestionSlideProportion > 0 ? (textualQuestionSlideProportion / 100) * (twoScreenPerMinute * 60 * 0) : 0;
+    let vqsVOwords = visualQuestionSlideProportion > 0 ? (visualQuestionSlideProportion / 100) * (twoScreenPerMinute * 60 * 0) : 0;
+    let slideSVOwords = slideShowsProportion > 0 ? (slideShowsProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let sbsVOwords = storyBasedSlideShowsProportion > 0 ? (storyBasedSlideShowsProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let scVOwords = screenCastsProportion > 0 ? (screenCastsProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let iivVOwords = iconicInfographicVideoProportion > 0 ? (iconicInfographicVideoProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let ddasVOwords = ddAnimatedStoryProportion > 0 ? (ddAnimatedStoryProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let waVOwords = whiteboardAnimationProportion > 0 ? (whiteboardAnimationProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let mgVOwords = motionGraphicsProportion > 0 ? (motionGraphicsProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+    let dddVOwords = dddAnimationStoryProportion > 0 ? (dddAnimationStoryProportion / 100) * (oneScreenPerMinute * 60 * 100) : 0;
+
+    let OSTTranslation = (tcsOSTwords + vcsOSTwords + ivcsOSTwords + tqsOSTwords + vqsOSTwords + slideSOSTwords + sbsOSTwords + scOSTwords + iivOSTwords + ddasOSTwords + waOSTwords + mgOSTwords + dddOSTwords) * 1.75
+
+    let VoTranslation = (tcsVOwords + vcsVOwords + ivcsVOwords + tqsVOwords + vqsVOwords + slideSVOwords + sbsVOwords + scVOwords + iivVOwords + ddasVOwords + waVOwords + mgVOwords + dddVOwords) * 1.75;
+
+    let OSTReview = (tcsOSTwords + vcsOSTwords + ivcsOSTwords + tqsOSTwords + vqsOSTwords + slideSOSTwords + sbsOSTwords + scOSTwords + iivOSTwords + ddasOSTwords + waOSTwords + mgOSTwords + dddOSTwords) * 0.75;
+
+    let VoReview = (tcsVOwords + vcsVOwords + ivcsVOwords + tqsVOwords + vqsVOwords + slideSVOwords + sbsVOwords + scVOwords + iivVOwords + ddasVOwords + waVOwords + mgVOwords + dddVOwords) * 0.75;
+    ;
+    let reauthoring = 15000;
+    let pricingModalMargin = 55;
+
+
     //Asset Creation
     let stockCharacterInitialCost = 10000 * (1 + pricingModalMargin / 100)
     let stockCharacterCost = stockCharacterInitialCost * stockCharacter;
@@ -66,8 +105,6 @@ const ViewDetails = () => {
     let screenCastsCost = 7000 * (1 + pricingModalMargin / 100);
     let iconicInfographicVideoCost = 7000 * (1 + pricingModalMargin / 100);
     let gamifiedStoryCost = 25000 * (1 + pricingModalMargin / 100);
-    let oneScreenPerMinute = 1;
-    let twoScreenPerMinute = 2;
     let textualContentSlideTotalCost = (textualContentSlideProportion / 100) * 60 * oneScreenPerMinute * textualContentSlideCost;
     let visualContentSlideTotalCost = (visualContentSlideProportion / 100) * 60 * oneScreenPerMinute * visualContentSlideCost;
     let interactiveVisualContentSlideTotalCost = (interactiveVisualcontentSlideProportion / 100) * 60 * oneScreenPerMinute * interactiveVisualcontentSlideCost;
@@ -99,12 +136,12 @@ const ViewDetails = () => {
 
     // Translation Estimated Price
     let initialTranslationCost = (OSTTranslation + reauthoring + VoTranslation + OSTReview + VoReview) * (1 + pricingModalMargin / 100);
-    let totalTranslatedCost = initialTranslationCost * languages
-    let calculatedTranslationCost = totalTranslatedCost * (1 + 0);
-    let finalTranslationCost = (calculatedTranslationCost * hrs);
+    let calculatedTranslationCost = initialTranslationCost * (1 + 0);
 
+    let finalTranslationCost = (calculatedTranslationCost * hrs * languages);
 
-    let totalEstimatedCost = finalAuthoringCost + finalStockCharacterCost + finalStoryBoardingCost + finalTranslationCost + finalVoiceOverCost
+    // total cost
+    let totalEstimatedCost = finalAuthoringCost + finalStockCharacterCost + finalStoryBoardingCost + finalTranslationCost + finalVoiceOverCost;
 
     let allEstimatedCosts = { "finalAuthoringCost": finalAuthoringCost, "finalStockCharacterCost": finalStockCharacterCost, "finalStoryBoardingCost": finalStoryBoardingCost, "finalTranslationCost": finalTranslationCost, "finalVoiceOverCost": finalVoiceOverCost, "totalEstimatedCost": totalEstimatedCost }
 
@@ -291,6 +328,11 @@ const ViewDetails = () => {
             <div> Hrs : {hrs}</div>
             <div> &nbsp;&nbsp;&nbsp; Level : {level}</div>
             <TextField id="standard-basic" label="Add Translation" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
+            {/* <Stack direction="row">
+                <TextField id="standard-basic" label="Add Hrs" variant="standard" className='one' onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
+                <TextField id="standard-basic" label="Add Level" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
+                <TextField id="standard-basic" label="Add Translation" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
+            </Stack> */}
             <Grid container spacing={1}  >
                 <Grid item xs={12} sm={7} md={7} lg={7}>
                     <TableContainer component={Item}>
@@ -312,7 +354,7 @@ const ViewDetails = () => {
                                             {row.text}
                                         </TableCell>
                                         <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.proportions}%</Paper></TableCell>
-                                        <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.screens}%</Paper></TableCell>
+                                        <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.screens}</Paper></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -337,7 +379,7 @@ const ViewDetails = () => {
                                             {row.text}
                                         </TableCell>
                                         <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.proportions}%</Paper></TableCell>
-                                        <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.minutes}%</Paper></TableCell>
+                                        <TableCell align="right" sx={{ width: "fit-content" }}><Paper elevation={0} align="center" sx={{ width: "3em", margin: "auto" }}>{row.minutes}</Paper></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
