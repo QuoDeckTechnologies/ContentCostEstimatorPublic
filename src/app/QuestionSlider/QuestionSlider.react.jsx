@@ -142,6 +142,7 @@ export default function QuestionSlider(props) {
         Object.assign(recommendLevel, { level: `${index + 1}`, hrs: estimateTime * 2 });
         dispatch(setRecommendedLevel(recommendLevel))
         props.onSubmit()
+        SetCurrentSlide(0)
     };
 
     const settings = {
@@ -191,14 +192,14 @@ export default function QuestionSlider(props) {
     background-color:transparent;
     border: 1px solid #fff;
     font-family:oswald;
-    font-weight:bold;
+    font-weight:500;
     &:hover {
-        background-color: #ffca00;
+        background-color: #ffbf00;
         border: 1px solid #fff;
         color:#000;
     }
     &:focus {
-        background-color: #ffca00;
+        background-color: #ffbf00;
         color:#000;
     }
     &.MuiButton-root{
@@ -224,9 +225,9 @@ export default function QuestionSlider(props) {
                         Welcome
                         <Icon style={{ marginLeft: "10px" }} name='handshake' size='mini' color='yellow' />
                     </Header>
-                    <Header as='h2' style={{ ...headerStyle, alignItems: screenDimensions.width <= 400 ? 'center' : "normal" }}>
+                    <Header as={screenDimensions.width <= 400 ? 'h3' : 'h2'} style={{ ...headerStyle, alignItems: screenDimensions.width <= 400 ? 'center' : "normal" }}>
                         Let's answer in a few clicks
-                        <Icon name='hourglass start' size='mini' color='yellow' />
+                        <Icon style={{ marginRight: "0" }} name='hourglass start' size='mini' color='yellow' />
                     </Header>
                     <Header
                         style={headerStyle}>
@@ -236,9 +237,11 @@ export default function QuestionSlider(props) {
                     <Slider ref={sliderRef} {...settings}>
                         {sliderQuestions.map((slide, index) =>
                             <div key={`sliderQuestions-${index}`}>
-                                <Header as='h3' size='medium' style={questionHeaderStyle}>
-                                    {slide.question}
-                                </Header>
+                                <center style={{ marginBottom: '1em' }}>
+                                    <Header as='h3' size='medium' style={questionHeaderStyle}>
+                                        {slide.question}
+                                    </Header>
+                                </center>
                                 <div style={dropdownStyle}>
                                     {slide.type === "number" ?
                                         <Input fluid placeholder='choose number' type="number" onChange={(e) => { daysCount(e) }} /> :
