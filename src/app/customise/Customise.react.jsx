@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import {
@@ -24,11 +24,11 @@ import "semantic-ui-css/semantic.min.css";
 import "./Customise.css";
 
 export default function Customise() {
-  const [contentHours, setContentHours] = useState(1);
+  const [contentHours, setContentHours] = useState(6);
   const [translations, setTranslations] = useState({
     name: "translations",
     total: 0,
-    value: 0,
+    value: 1,
   });
 
   const [schema, setSchema] = useState([
@@ -37,8 +37,8 @@ export default function Customise() {
       text: "Textual Content Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 20,
-      screens: 60,
+      proportion: 5,
+      screens: 3,
       total: 0,
     },
     {
@@ -46,8 +46,8 @@ export default function Customise() {
       text: "Visual Content Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 30,
-      screens: 60,
+      proportion: 14,
+      screens: 8,
       total: 0,
     },
     {
@@ -55,8 +55,8 @@ export default function Customise() {
       text: "Interactive Visual Content Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 10,
-      screens: 60,
+      proportion: 26,
+      screens: 16,
       total: 0,
     },
     {
@@ -64,8 +64,8 @@ export default function Customise() {
       text: "Textual Question Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 90,
-      screens: 120,
+      proportion: 5,
+      screens: 6,
       total: 0,
     },
     {
@@ -74,7 +74,7 @@ export default function Customise() {
       OSTwords: 0,
       VOwords: 0,
       proportion: 10,
-      screens: 120,
+      screens: 12,
       total: 0,
     },
   ]);
@@ -83,73 +83,73 @@ export default function Customise() {
     {
       name: "slideshows",
       text: "Slideshows",
-      proportion: 10,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "story-based-slideshows",
       text: "Story-Based Slideshows",
-      proportion: 30,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "screencasts",
       text: "Screencasts",
-      proportion: 60,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "iconic-infographic-video",
       text: "Iconic/Infographic Video",
-      proportion: 70,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "2d-animated-story",
       text: "2D Animated Story",
-      proportion: 20,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "whiteboard-animation",
       text: "Whiteboard Animation",
-      proportion: 90,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "motion-graphics",
       text: "Motion graphics",
-      proportion: 55,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
     {
       name: "3d-animated-story",
       text: "3D Animated Story",
-      proportion: 55,
+      proportion: 5,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 60,
+      minutes: 3,
       total: 0,
     },
   ]);
@@ -207,27 +207,22 @@ export default function Customise() {
     {
       text: "Storyboarding",
       total: 0,
-      value: 461745,
     },
     {
       text: "Asset Creation",
       total: 0,
-      value: 46500,
     },
     {
       text: "Authoring",
       total: 0,
-      value: 1077405,
     },
     {
       text: "Voiceovers",
       total: 0,
-      value: 279000,
     },
     {
       text: "Translations",
       total: 0,
-      value: 0,
     },
   ]);
 
@@ -249,20 +244,16 @@ export default function Customise() {
     },
   ]);
 
-  // useEffect(() => {
-  //   console.log(schema, videos, accessibility, presentation, translation);
-  // }, [schema, videos, accessibility, presentation, translation]);
-
-  // useEffect(() => {
-  //   console.log("estimate loop");
-  //   setEstimate([...estimate]);
-  // }, [estimate]);
-
-  useEffect(() => {
-    console.log("loop");
+  function stoaryboardingAuthoringEffect(
+    schema,
+    videos,
+    translation,
+    contentHours,
+    accessibility
+  ) {
     let totalOSTWords = 0;
     let totalVOWords = 0;
-    let translationTotal = 0;
+    // let translationTotal = 0;
     let storyboardingCost = 0;
     schema.forEach((ele) => {
       totalOSTWords += ele.OSTwords;
@@ -277,6 +268,101 @@ export default function Customise() {
     storyboardingCost += accessibility[2].total;
     estimate[0].total = Math.round(0.3 * storyboardingCost) * contentHours;
     estimate[2].total = Math.round(0.7 * storyboardingCost) * contentHours;
+    // let translationEstimate_tmp = translationEstimate;
+    // for (let i = 0; i < translationEstimate_tmp.length; i++) {
+    //   if (
+    //     translationEstimate_tmp[i].name === "ost-translation" ||
+    //     translationEstimate_tmp[i].name === "ost-review"
+    //   ) {
+    //     translationEstimate_tmp[i].total = Math.round(
+    //       totalOSTWords * translationCalSchema[i].cost_word
+    //     );
+    //     if (translationEstimate_tmp[i].name === "ost-translation") {
+    //       translationTotal += translationEstimate_tmp[i].total;
+    //     }
+    //     if (
+    //       translationEstimate_tmp[i].name === "ost-review" &&
+    //       translation[1].checked
+    //     ) {
+    //       translationTotal += translationEstimate_tmp[i].total;
+    //     }
+    //   }
+    //   if (
+    //     translationEstimate_tmp[i].name === "vo-translation" ||
+    //     translationEstimate_tmp[i].name === "vo-review"
+    //   ) {
+    //     translationEstimate_tmp[i].total = Math.round(
+    //       totalVOWords * translationCalSchema[i].cost_word
+    //     );
+    //     if (
+    //       translationEstimate_tmp[i].name === "vo-translation" &&
+    //       translation[0].checked
+    //     ) {
+    //       translationTotal += translationEstimate_tmp[i].total;
+    //     }
+    //     if (
+    //       translationEstimate_tmp[i].name === "vo-review" &&
+    //       translation[0].checked &&
+    //       translation[1].checked
+    //     ) {
+    //       translationTotal += translationEstimate_tmp[i].total;
+    //     }
+    //   }
+    // }
+    // translationEstimate_tmp[translationEstimate_tmp.length - 1].total =
+    //   translationCalSchema[translationCalSchema.length - 1].cost;
+    // translationTotal +=
+    //   translationEstimate_tmp[translationEstimate_tmp.length - 1].total;
+    // setTranslationEstimate([...translationEstimate_tmp]);
+    // setTranslations({
+    //   ...translations,
+    //   total: translationTotal,
+    // });
+    // let translateTotal =
+    //   translations.total * translations.value * (1 + margin) * contentHours;
+    // estimate[4].total = Math.round(translateTotal);
+    translationEffect();
+    setEstimate([...estimate]);
+  }
+
+  function presentationEffect(presentation_tmp) {
+    let assetCreationCost = 0;
+    presentation_tmp.forEach((ele) => {
+      assetCreationCost += ele.total;
+    });
+    estimate[1].total = assetCreationCost;
+    setEstimate([...estimate]);
+  }
+
+  function accessibilityContentHoursEffect(accessibility, contentHours) {
+    let estimate_tmp = estimate;
+    let accessibility_cost = accessibility[0].total + accessibility[1].total;
+    estimate_tmp[3].total = accessibility_cost * contentHours;
+    setEstimate((e) => [...estimate]);
+  }
+
+  function translationsContentHoursEffect(translations, contentHours) {
+    let translateTotal =
+      translations.total * translations.value * (1 + margin) * contentHours;
+    estimate[4].total = Math.round(translateTotal);
+    setEstimate([...estimate]);
+  }
+
+  function translationEffect() {
+    let totalOSTWords = 0;
+    let totalVOWords = 0;
+    let translationTotal = 0;
+    schema.forEach((ele) => {
+      totalOSTWords += ele.OSTwords;
+      totalVOWords += ele.VOwords;
+      console.log(ele.OSTwords, ele.VOwords);
+    });
+    videos.forEach((ele) => {
+      totalOSTWords += ele.OSTwords;
+      totalVOWords += ele.VOwords;
+      console.log(ele.OSTwords, ele.VOwords);
+    });
+    // console.log(totalOSTWords, totalVOWords);
     let translationEstimate_tmp = translationEstimate;
     for (let i = 0; i < translationEstimate_tmp.length; i++) {
       if (
@@ -295,6 +381,7 @@ export default function Customise() {
         ) {
           translationTotal += translationEstimate_tmp[i].total;
         }
+        console.log(translationEstimate_tmp[i]);
       }
       if (
         translationEstimate_tmp[i].name === "vo-translation" ||
@@ -316,6 +403,7 @@ export default function Customise() {
         ) {
           translationTotal += translationEstimate_tmp[i].total;
         }
+        console.log(translationEstimate_tmp[i]);
       }
     }
     translationEstimate_tmp[translationEstimate_tmp.length - 1].total =
@@ -331,33 +419,7 @@ export default function Customise() {
       translations.total * translations.value * (1 + margin) * contentHours;
     estimate[4].total = Math.round(translateTotal);
     setEstimate([...estimate]);
-  }, [schema, videos, translation, contentHours, accessibility]);
-
-  useEffect(() => {
-    console.log("loop2");
-    let assetCreationCost = 0;
-    presentation.forEach((ele) => {
-      assetCreationCost += ele.total;
-    });
-    estimate[1].total = assetCreationCost;
-    setEstimate([...estimate]);
-  }, [presentation]);
-
-  useEffect(() => {
-    console.log("loop3");
-    let estimate_tmp = estimate
-    let accessibility_cost = accessibility[0].total + accessibility[1].total;
-    estimate_tmp[3].total = accessibility_cost * contentHours;
-    setEstimate((e) => [...estimate_tmp]);
-  }, [accessibility, contentHours]);
-
-  useEffect(() => {
-    console.log("loop4");
-    let translateTotal =
-      translations.total * translations.value * (1 + margin) * contentHours;
-    estimate[4].total = Math.round(translateTotal);
-    setEstimate([...estimate]);
-  }, [translations, contentHours]);
+  }
 
   function handleContentSlidesProportion(e) {
     let contentSlides = schema;
@@ -367,12 +429,12 @@ export default function Customise() {
         contentSlides[i].screens = Math.round(
           (e.target.value / 100) * 60 * contentSlidesCalSchema[i].screen_min
         );
-        contentSlides[i].total = 
+        contentSlides[i].total = Math.round(
           (e.target.value / 100) *
             60 *
             contentSlidesCalSchema[i].INR_screen *
             contentSlidesCalSchema[i].screen_min
-        ;
+        );
         contentSlides[i].OSTwords = Math.round(
           (e.target.value / 100) *
             60 *
@@ -386,12 +448,12 @@ export default function Customise() {
             contentSlidesCalSchema[i].screen_min
         );
       } else {
-        contentSlides[i].total = 
+        contentSlides[i].total = Math.round(
           (contentSlides[i].proportion / 100) *
             60 *
             contentSlidesCalSchema[i].INR_screen *
             contentSlidesCalSchema[i].screen_min
-        ;
+        );
         contentSlides[i].OSTwords = Math.round(
           (contentSlides[i].proportion / 100) *
             60 *
@@ -406,18 +468,16 @@ export default function Customise() {
         );
       }
     }
-    setSchema([...contentSlides]);
-  }
-
-  function handleContentSlidesScreens(e) {
-    let contentSlides = schema;
-    contentSlides.forEach((ele) => {
-      if (ele.name === e.target.name) {
-        ele.screens = parseInt(e.target.value);
-      }
+    setSchema(() => {
+      stoaryboardingAuthoringEffect(
+        contentSlides,
+        videos,
+        translation,
+        contentHours,
+        accessibility
+      );
+      return [...contentSlides];
     });
-    setSchema([...contentSlides]);
-    // calContentSlides(contentSlides, videos, estimate);
   }
 
   function handleVideoProportion(e) {
@@ -426,12 +486,12 @@ export default function Customise() {
       if (video_tmp[i].name === e.target.name) {
         video_tmp[i].proportion = e.target.value;
         video_tmp[i].minutes = Math.round((e.target.value / 100) * 60);
-        video_tmp[i].total = 
+        video_tmp[i].total = Math.round(
           (e.target.value / 100) *
             60 *
             videoCalSchema[i].INR_screen *
             videoCalSchema[i].minutes
-        ;
+        );
         video_tmp[i].OSTwords = Math.round(
           (e.target.value / 100) *
             60 *
@@ -445,12 +505,12 @@ export default function Customise() {
             videoCalSchema[i].minutes
         );
       } else {
-        video_tmp[i].total = 
+        video_tmp[i].total = Math.round(
           (video_tmp[i].proportion / 100) *
             60 *
             videoCalSchema[i].INR_screen *
             videoCalSchema[i].minutes
-        ;
+        );
         video_tmp[i].OSTwords = Math.round(
           (video_tmp[i].proportion / 100) *
             60 *
@@ -465,18 +525,16 @@ export default function Customise() {
         );
       }
     }
-    setVideos([...video_tmp]);
-  }
-
-  function handleVideoMinutes(e) {
-    let video_tmp = videos;
-    video_tmp.forEach((ele) => {
-      if (ele.name === e.target.name) {
-        ele.minutes = parseInt(e.target.value);
-      }
+    setVideos(() => {
+      stoaryboardingAuthoringEffect(
+        schema,
+        video_tmp,
+        translation,
+        contentHours,
+        accessibility
+      );
+      return [...video_tmp];
     });
-    setVideos([...video_tmp]);
-    // calVideo(video_tmp, schema, estimate);
   }
 
   function handleAccessibility(e) {
@@ -493,7 +551,17 @@ export default function Customise() {
           : 0;
       }
     }
-    setAccessibility([...acc_tmp]);
+    setAccessibility(() => {
+      stoaryboardingAuthoringEffect(
+        schema,
+        videos,
+        translation,
+        contentHours,
+        acc_tmp
+      );
+      accessibilityContentHoursEffect(acc_tmp, contentHours);
+      return [...acc_tmp];
+    });
   }
 
   function handlePresentationValue(e) {
@@ -501,20 +569,23 @@ export default function Customise() {
     for (let i = 0; i < presentation.length; i++) {
       if (present_tmp[i].name === e.target.name) {
         present_tmp[i].value = parseInt(e.target.value);
-        present_tmp[i].total = 
+        present_tmp[i].total = Math.round(
           e.target.value *
             presentationCalSchema[i].INR_item *
             presentationCalSchema[i].item
-        ;
+        );
       } else {
-        present_tmp[i].total = 
+        present_tmp[i].total = Math.round(
           present_tmp[i].value *
             presentationCalSchema[i].INR_item *
             presentationCalSchema[i].item
-        ;
+        );
       }
     }
-    setPresentation([...present_tmp]);
+    setPresentation(() => {
+      presentationEffect(present_tmp);
+      return [...present_tmp];
+    });
   }
 
   function handleTranslationValue(e) {
@@ -524,7 +595,17 @@ export default function Customise() {
         ele.checked = e.target.checked;
       }
     });
-    setTranslation([...translation_tmp]);
+    setTranslation(() => {
+      stoaryboardingAuthoringEffect(
+        schema,
+        videos,
+        translation_tmp,
+        contentHours,
+        accessibility
+      );
+      // translationEffect();
+      return [...translation_tmp];
+    });
   }
 
   function calOverAllPercentage() {
@@ -547,12 +628,26 @@ export default function Customise() {
   }
 
   function handleContentHours(e) {
-    setContentHours(e.target.value);
+    setContentHours(() => {
+      stoaryboardingAuthoringEffect(
+        schema,
+        videos,
+        translation,
+        e.target.value,
+        accessibility
+      );
+      accessibilityContentHoursEffect(accessibility, e.target.value);
+      translationsContentHoursEffect(translations, e.target.value);
+      return e.target.value;
+    });
   }
 
   function handleTranslations(e) {
     let tmp = { ...translations, value: parseInt(e.target.value) };
-    setTranslations(tmp);
+    setTranslations(() => {
+      translationsContentHoursEffect(tmp, contentHours);
+      return tmp;
+    });
   }
 
   return (
@@ -630,13 +725,7 @@ export default function Customise() {
                       />
                     </TableCell>
                     <TableCell>
-                      <Input
-                        type="number"
-                        min={0}
-                        value={row.screens}
-                        name={row.name}
-                        onChange={(v) => handleContentSlidesScreens(v)}
-                      />
+                      <div>{row.screens}</div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -697,13 +786,7 @@ export default function Customise() {
                       />
                     </TableCell>
                     <TableCell>
-                      <Input
-                        type="number"
-                        min={0}
-                        value={row.minutes}
-                        name={row.name}
-                        onChange={(v) => handleVideoMinutes(v)}
-                      />
+                      <div>{row.minutes}</div>
                     </TableCell>
                   </TableRow>
                 ))}
