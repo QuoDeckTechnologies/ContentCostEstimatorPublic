@@ -8,9 +8,9 @@ import {
     Modal
 } from 'semantic-ui-react'
 import { jsPDF } from "jspdf";
-import Logo from "../../assets/logo.png"
-import 'semantic-ui-css/semantic.min.css'
-
+import { useNavigate } from 'react-router-dom';
+import Logo from "../../assets/logo.png";
+import 'semantic-ui-css/semantic.min.css';
 
 const ContactForm = () => {
     const [name, setName] = useState('');
@@ -23,12 +23,15 @@ const ContactForm = () => {
     const [secondOpen, setSecondOpen] = useState(false)
     const [userData, setUserData] = useState({})
 
+    let navigate = useNavigate();
+
     const onSubmit = (event) => {
         setSecondOpen(true)
         event.preventDefault();
         const { target } = event;
         console.log('FormData', Object.fromEntries(new FormData(target)));
-
+        navigate("/thank-you")
+        generatePdf()
     }
 
     let handleChange = (e) => {
@@ -109,6 +112,7 @@ const ContactForm = () => {
                                 />
                                 <Form.Input
                                     label="Company Info"
+                                    required={true}
                                     placeholder='Company Info'
                                     name='companyInfo'
                                     value={companyInfo}
@@ -135,6 +139,7 @@ const ContactForm = () => {
                             <Form.Group widths='equal'>
                                 <Form.Input
                                     label="Phone Number"
+                                    required={true}
                                     placeholder='Phone Number'
                                     name='phoneNumber'
                                     value={phoneNumber}
@@ -159,10 +164,9 @@ const ContactForm = () => {
                             </Modal.Actions>
                         </Form>
                     </Modal.Description>
-
                 </Modal.Content>
 
-                <Modal
+                {/* <Modal
                     basic
                     onClose={() => setSecondOpen(false)}
                     onOpen={() => setSecondOpen(true)}
@@ -180,7 +184,7 @@ const ContactForm = () => {
                             <Icon name='checkmark' /> Yes
                         </Button>
                     </Modal.Actions>
-                </Modal>
+                </Modal> */}
             </Modal>
 
         </>
