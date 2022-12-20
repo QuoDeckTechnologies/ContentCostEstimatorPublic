@@ -14,11 +14,10 @@ import 'semantic-ui-css/semantic.min.css';
 
 const ContactForm = () => {
     const [name, setName] = useState('');
-    const [companyInfo, setCompanyInfo] = useState('');
+    const [organization, setOrganization] = useState('');
     const [email, setEmail] = useState('');
-    const [jobTitle, setJobTitle] = useState('');
+    const [designation, setDesignation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [industry, setIndustry] = useState('');
     const [open, setOpen] = useState(false)
     const [secondOpen, setSecondOpen] = useState(false)
     const [userData, setUserData] = useState({})
@@ -30,17 +29,16 @@ const ContactForm = () => {
         event.preventDefault();
         const { target } = event;
         console.log('FormData', Object.fromEntries(new FormData(target)));
-        navigate("/thank-you")
-        generatePdf()
+        navigate("/thank-you");
+        generatePdf();
     }
 
     let handleChange = (e) => {
         if (e.target.name === "name") { setName(e.target.value) }
-        if (e.target.name === "companyInfo") { setCompanyInfo(e.target.value) }
+        if (e.target.name === "organization") { setOrganization(e.target.value) }
         if (e.target.name === "email") { setEmail(e.target.value) }
-        if (e.target.name === "jobTitle") { setJobTitle(e.target.value) }
+        if (e.target.name === "designation") { setDesignation(e.target.value) }
         if (e.target.name === "phoneNumber") { setPhoneNumber(e.target.value) }
-        if (e.target.name === "industry") { setIndustry(e.target.value) }
     }
 
     var generateData = function (amount) {
@@ -86,108 +84,80 @@ const ContactForm = () => {
         doc.save("Details.pdf")
     }
     return (
-        <>
-            <Modal
-                closeIcon={true}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                open={open}
-                trigger={<Button>Show Modal</Button>}
-            >
-                <Modal.Header>
-                    Contact Us
-                </Modal.Header>
-                <Modal.Content >
-                    <p>We'll Get Back To You Soon</p>
-                    <Modal.Description>
-                        <Form onSubmit={onSubmit}>
-                            <Form.Group widths='equal'>
-                                <Form.Input
-                                    label="Name"
-                                    required={true}
-                                    placeholder='Name'
-                                    name='name'
-                                    value={name}
-                                    onChange={handleChange}
-                                />
-                                <Form.Input
-                                    label="Company Info"
-                                    required={true}
-                                    placeholder='Company Info'
-                                    name='companyInfo'
-                                    value={companyInfo}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Group widths='equal'>
-                                <Form.Input
-                                    label="Email"
-                                    required={true}
-                                    placeholder='Email'
-                                    name='email'
-                                    value={email}
-                                    onChange={handleChange}
-                                />
-                                <Form.Input
-                                    label="Job Title"
-                                    placeholder='Job Title'
-                                    name='jobTitle'
-                                    value={jobTitle}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Group widths='equal'>
-                                <Form.Input
-                                    label="Phone Number"
-                                    required={true}
-                                    placeholder='Phone Number'
-                                    name='phoneNumber'
-                                    value={phoneNumber}
-                                    onChange={handleChange}
-                                />
-                                <Form.Input
-                                    label="Industry"
-                                    placeholder='Industry'
-                                    name='industry'
-                                    value={industry}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Field
-                                control={TextArea}
-                                label='Tell us more about the project...'
+        <Modal
+            closeIcon={true}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={<Button>Show Modal</Button>}
+        >
+            <Modal.Header>
+                Download Quote
+            </Modal.Header>
+            <Modal.Content >
+                <p>We'll Get Back To You Soon</p>
+                <Modal.Description>
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group widths='equal'>
+                            <Form.Input
+                                label="Name"
+                                required={true}
+                                placeholder='Name'
+                                name='name'
+                                value={name}
+                                onChange={handleChange}
                             />
-                            <Modal.Actions>
-                                <Button onClick={() => onSubmit} primary>
-                                    Proceed <Icon name='right chevron' />
-                                </Button>
-                            </Modal.Actions>
-                        </Form>
-                    </Modal.Description>
-                </Modal.Content>
-
-                {/* <Modal
-                    basic
-                    onClose={() => setSecondOpen(false)}
-                    onOpen={() => setSecondOpen(true)}
-                    open={secondOpen}
-                >
-                    <Header icon>
-                        <Icon name='file alternate' />
-                        Download Pdf
-                    </Header>
-                    <Modal.Actions>
-                        <Button basic color='red' inverted onClick={() => setSecondOpen(false)}>
-                            <Icon name='remove' /> No
-                        </Button>
-                        <Button color='green' inverted onClick={() => generatePdf()}>
-                            <Icon name='checkmark' /> Yes
-                        </Button>
-                    </Modal.Actions>
-                </Modal> */}
-            </Modal>
-
-        </>
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+                            <Form.Input
+                                label="Organization"
+                                required={true}
+                                placeholder='Organization Name'
+                                name='organization'
+                                value={organization}
+                                onChange={handleChange}
+                            />
+                            <Form.Input
+                                label="Designation"
+                                required={true}
+                                placeholder='Enter your designation'
+                                name='designation'
+                                value={designation}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+                            <Form.Input
+                                label="Work email address"
+                                required={true}
+                                placeholder='example@quodeck.com'
+                                name='email'
+                                value={email}
+                                onChange={handleChange}
+                            />
+                            <Form.Input
+                                label="Mobile Number"
+                                required={true}
+                                placeholder='Enter your number'
+                                name='phoneNumber'
+                                value={phoneNumber}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Field
+                            control={TextArea}
+                            label='Anything else? (optional)'
+                            placeholder='What challenges are you looking to overcome with Quodeck?'
+                        />
+                        <Modal.Actions>
+                            <Button onClick={() => onSubmit} primary>
+                                Submit <Icon name='right chevron' />
+                            </Button>
+                        </Modal.Actions>
+                    </Form>
+                </Modal.Description>
+            </Modal.Content>
+        </Modal>
     )
 }
 
