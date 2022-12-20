@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react'
 import { jsPDF } from "jspdf";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Logo from "../../assets/logo.png";
 import 'semantic-ui-css/semantic.min.css';
 
@@ -31,6 +32,18 @@ const ContactForm = () => {
         console.log('FormData', Object.fromEntries(new FormData(target)));
         navigate("/thank-you");
         generatePdf();
+
+        let formData = Object.fromEntries(new FormData(target));
+        try {
+            axios.post("http://localhost:8080/api/email/send",
+                {
+                    user: formData
+                }
+            ).then((res) => console.log("email"))
+        }
+        catch (err) {
+            console.log("err", err)
+        }
     }
 
     let handleChange = (e) => {
