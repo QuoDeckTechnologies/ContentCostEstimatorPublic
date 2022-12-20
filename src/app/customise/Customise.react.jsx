@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "semantic-ui-react";
+import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import {
   Button,
@@ -11,9 +11,9 @@ import {
   TableRow,
   Paper,
   Switch,
+  TextField,
 } from "@mui/material";
 import {
-  margin,
   contentSlidesCalSchema,
   videoCalSchema,
   presentationCalSchema,
@@ -25,6 +25,7 @@ import "./Customise.css";
 
 export default function Customise() {
   const [contentHours, setContentHours] = useState(6);
+
   const [translations, setTranslations] = useState({
     name: "translations",
     total: 0,
@@ -37,8 +38,8 @@ export default function Customise() {
       text: "Textual Content Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 5,
-      screens: 3,
+      proportion: 0,
+      screens: 0,
       total: 0,
     },
     {
@@ -55,8 +56,8 @@ export default function Customise() {
       text: "Interactive Visual Content Slide",
       OSTwords: 0,
       VOwords: 0,
-      proportion: 26,
-      screens: 16,
+      proportion: 56,
+      screens: 34,
       total: 0,
     },
     {
@@ -92,64 +93,64 @@ export default function Customise() {
     {
       name: "story-based-slideshows",
       text: "Story-Based Slideshows",
-      proportion: 5,
+      proportion: 10,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 6,
       total: 0,
     },
     {
       name: "screencasts",
       text: "Screencasts",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
     {
       name: "iconic-infographic-video",
       text: "Iconic/Infographic Video",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
     {
       name: "2d-animated-story",
       text: "2D Animated Story",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
     {
       name: "whiteboard-animation",
       text: "Whiteboard Animation",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
     {
       name: "motion-graphics",
       text: "Motion graphics",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
     {
       name: "3d-animated-story",
       text: "3D Animated Story",
-      proportion: 5,
+      proportion: 0,
       OSTwords: 0,
       VOwords: 0,
-      minutes: 3,
+      minutes: 0,
       total: 0,
     },
   ]);
@@ -244,85 +245,80 @@ export default function Customise() {
     },
   ]);
 
-  function stoaryboardingAuthoringEffect(
+  function storyboardingAuthoringUseEffect(
     schema,
     videos,
     translation,
     contentHours,
     accessibility
   ) {
+    let total = 0;
+    schema.forEach((ele) => {
+      total += ele.total;
+    });
+    videos.forEach((ele) => {
+      total += ele.total;
+    });
+    if (accessibility[2].checked) {
+      total += accessibilityCalSchema[2].INR_hour * (translations.value + 1);
+    }
+    let storyboardingEstimate = Math.round(0.3 * total);
+    let authoringEstimate = Math.round(0.7 * total);
+    estimate[0].total = storyboardingEstimate * contentHours;
+    estimate[2].total = authoringEstimate * contentHours;
+    setEstimate([...estimate]);
+  }
+
+  function translationUseEffect(
+    translation,
+    contentH = contentHours,
+    translations_tmp = translations
+  ) {
+    let translationEstimate_tmp = translationEstimate;
     let totalOSTWords = 0;
     let totalVOWords = 0;
-    // let translationTotal = 0;
-    let storyboardingCost = 0;
+    let translationsTotal = 0;
     schema.forEach((ele) => {
       totalOSTWords += ele.OSTwords;
       totalVOWords += ele.VOwords;
-      storyboardingCost += ele.total;
     });
     videos.forEach((ele) => {
       totalOSTWords += ele.OSTwords;
       totalVOWords += ele.VOwords;
-      storyboardingCost += ele.total;
     });
-    storyboardingCost += accessibility[2].total;
-    estimate[0].total = Math.round(0.3 * storyboardingCost) * contentHours;
-    estimate[2].total = Math.round(0.7 * storyboardingCost) * contentHours;
-    // let translationEstimate_tmp = translationEstimate;
-    // for (let i = 0; i < translationEstimate_tmp.length; i++) {
-    //   if (
-    //     translationEstimate_tmp[i].name === "ost-translation" ||
-    //     translationEstimate_tmp[i].name === "ost-review"
-    //   ) {
-    //     translationEstimate_tmp[i].total = Math.round(
-    //       totalOSTWords * translationCalSchema[i].cost_word
-    //     );
-    //     if (translationEstimate_tmp[i].name === "ost-translation") {
-    //       translationTotal += translationEstimate_tmp[i].total;
-    //     }
-    //     if (
-    //       translationEstimate_tmp[i].name === "ost-review" &&
-    //       translation[1].checked
-    //     ) {
-    //       translationTotal += translationEstimate_tmp[i].total;
-    //     }
-    //   }
-    //   if (
-    //     translationEstimate_tmp[i].name === "vo-translation" ||
-    //     translationEstimate_tmp[i].name === "vo-review"
-    //   ) {
-    //     translationEstimate_tmp[i].total = Math.round(
-    //       totalVOWords * translationCalSchema[i].cost_word
-    //     );
-    //     if (
-    //       translationEstimate_tmp[i].name === "vo-translation" &&
-    //       translation[0].checked
-    //     ) {
-    //       translationTotal += translationEstimate_tmp[i].total;
-    //     }
-    //     if (
-    //       translationEstimate_tmp[i].name === "vo-review" &&
-    //       translation[0].checked &&
-    //       translation[1].checked
-    //     ) {
-    //       translationTotal += translationEstimate_tmp[i].total;
-    //     }
-    //   }
-    // }
-    // translationEstimate_tmp[translationEstimate_tmp.length - 1].total =
-    //   translationCalSchema[translationCalSchema.length - 1].cost;
-    // translationTotal +=
-    //   translationEstimate_tmp[translationEstimate_tmp.length - 1].total;
-    // setTranslationEstimate([...translationEstimate_tmp]);
-    // setTranslations({
-    //   ...translations,
-    //   total: translationTotal,
-    // });
-    // let translateTotal =
-    //   translations.total * translations.value * (1 + margin) * contentHours;
-    // estimate[4].total = Math.round(translateTotal);
-    translationEffect();
-    setEstimate([...estimate]);
+    translationEstimate_tmp[0].totalWords = totalOSTWords;
+    translationEstimate_tmp[2].totalWords = totalOSTWords;
+    translationEstimate_tmp[1].totalWords = totalVOWords;
+    translationEstimate_tmp[3].totalWords = totalVOWords;
+    translationEstimate_tmp[4].total = translationCalSchema[4].cost;
+    translationEstimate_tmp[0].total =
+      totalOSTWords * translationCalSchema[0].cost_word;
+    translationEstimate_tmp[4].total = translationCalSchema[4].cost;
+    if (translation[0].checked) {
+      translationEstimate_tmp[1].total =
+        totalVOWords * translationCalSchema[1].cost_word;
+    } else {
+      translationEstimate_tmp[1].total = 0;
+    }
+    if (translation[1].checked) {
+      translationEstimate_tmp[2].total =
+        totalOSTWords * translationCalSchema[2].cost_word;
+    } else {
+      translationEstimate_tmp[2].total = 0;
+    }
+    if (translation[0].checked && translation[1].checked) {
+      translationEstimate_tmp[3].total =
+        totalVOWords * translationCalSchema[3].cost_word;
+    } else {
+      translationEstimate_tmp[3].total = 0;
+    }
+    translationEstimate_tmp.forEach((ele) => {
+      translationsTotal += ele.total;
+    });
+    estimate[4].total = Math.round(
+      translationsTotal * translations_tmp.value * 1.55 * contentH
+    );
+    setTranslations({ ...translations_tmp });
   }
 
   function presentationEffect(presentation_tmp) {
@@ -339,86 +335,6 @@ export default function Customise() {
     let accessibility_cost = accessibility[0].total + accessibility[1].total;
     estimate_tmp[3].total = accessibility_cost * contentHours;
     setEstimate((e) => [...estimate]);
-  }
-
-  function translationsContentHoursEffect(translations, contentHours) {
-    let translateTotal =
-      translations.total * translations.value * (1 + margin) * contentHours;
-    estimate[4].total = Math.round(translateTotal);
-    setEstimate([...estimate]);
-  }
-
-  function translationEffect() {
-    let totalOSTWords = 0;
-    let totalVOWords = 0;
-    let translationTotal = 0;
-    schema.forEach((ele) => {
-      totalOSTWords += ele.OSTwords;
-      totalVOWords += ele.VOwords;
-      console.log(ele.OSTwords, ele.VOwords);
-    });
-    videos.forEach((ele) => {
-      totalOSTWords += ele.OSTwords;
-      totalVOWords += ele.VOwords;
-      console.log(ele.OSTwords, ele.VOwords);
-    });
-    // console.log(totalOSTWords, totalVOWords);
-    let translationEstimate_tmp = translationEstimate;
-    for (let i = 0; i < translationEstimate_tmp.length; i++) {
-      if (
-        translationEstimate_tmp[i].name === "ost-translation" ||
-        translationEstimate_tmp[i].name === "ost-review"
-      ) {
-        translationEstimate_tmp[i].total = Math.round(
-          totalOSTWords * translationCalSchema[i].cost_word
-        );
-        if (translationEstimate_tmp[i].name === "ost-translation") {
-          translationTotal += translationEstimate_tmp[i].total;
-        }
-        if (
-          translationEstimate_tmp[i].name === "ost-review" &&
-          translation[1].checked
-        ) {
-          translationTotal += translationEstimate_tmp[i].total;
-        }
-        console.log(translationEstimate_tmp[i]);
-      }
-      if (
-        translationEstimate_tmp[i].name === "vo-translation" ||
-        translationEstimate_tmp[i].name === "vo-review"
-      ) {
-        translationEstimate_tmp[i].total = Math.round(
-          totalVOWords * translationCalSchema[i].cost_word
-        );
-        if (
-          translationEstimate_tmp[i].name === "vo-translation" &&
-          translation[0].checked
-        ) {
-          translationTotal += translationEstimate_tmp[i].total;
-        }
-        if (
-          translationEstimate_tmp[i].name === "vo-review" &&
-          translation[0].checked &&
-          translation[1].checked
-        ) {
-          translationTotal += translationEstimate_tmp[i].total;
-        }
-        console.log(translationEstimate_tmp[i]);
-      }
-    }
-    translationEstimate_tmp[translationEstimate_tmp.length - 1].total =
-      translationCalSchema[translationCalSchema.length - 1].cost;
-    translationTotal +=
-      translationEstimate_tmp[translationEstimate_tmp.length - 1].total;
-    setTranslationEstimate([...translationEstimate_tmp]);
-    setTranslations({
-      ...translations,
-      total: translationTotal,
-    });
-    let translateTotal =
-      translations.total * translations.value * (1 + margin) * contentHours;
-    estimate[4].total = Math.round(translateTotal);
-    setEstimate([...estimate]);
   }
 
   function handleContentSlidesProportion(e) {
@@ -469,7 +385,7 @@ export default function Customise() {
       }
     }
     setSchema(() => {
-      stoaryboardingAuthoringEffect(
+      storyboardingAuthoringUseEffect(
         contentSlides,
         videos,
         translation,
@@ -526,7 +442,7 @@ export default function Customise() {
       }
     }
     setVideos(() => {
-      stoaryboardingAuthoringEffect(
+      storyboardingAuthoringUseEffect(
         schema,
         video_tmp,
         translation,
@@ -537,22 +453,22 @@ export default function Customise() {
     });
   }
 
-  function handleAccessibility(e) {
+  function handleAccessibility(e, tmp = translations) {
     let acc_tmp = accessibility;
     for (let i = 0; i < accessibility.length; i++) {
-      if (acc_tmp[i].name === e.target.name) {
+      if (acc_tmp[i].name === e?.target?.name) {
         acc_tmp[i].checked = e.target.checked;
         acc_tmp[i].total = e.target.checked
-          ? accessibilityCalSchema[i].INR_hour * (translations.value + 1)
+          ? accessibilityCalSchema[i].INR_hour * (tmp.value + 1)
           : 0;
       } else {
         acc_tmp[i].total = acc_tmp[i].checked
-          ? accessibilityCalSchema[i].INR_hour * (translations.value + 1)
+          ? accessibilityCalSchema[i].INR_hour * (tmp.value + 1)
           : 0;
       }
     }
     setAccessibility(() => {
-      stoaryboardingAuthoringEffect(
+      storyboardingAuthoringUseEffect(
         schema,
         videos,
         translation,
@@ -596,14 +512,7 @@ export default function Customise() {
       }
     });
     setTranslation(() => {
-      stoaryboardingAuthoringEffect(
-        schema,
-        videos,
-        translation_tmp,
-        contentHours,
-        accessibility
-      );
-      // translationEffect();
+      translationUseEffect(translation_tmp);
       return [...translation_tmp];
     });
   }
@@ -629,7 +538,7 @@ export default function Customise() {
 
   function handleContentHours(e) {
     setContentHours(() => {
-      stoaryboardingAuthoringEffect(
+      storyboardingAuthoringUseEffect(
         schema,
         videos,
         translation,
@@ -637,7 +546,7 @@ export default function Customise() {
         accessibility
       );
       accessibilityContentHoursEffect(accessibility, e.target.value);
-      translationsContentHoursEffect(translations, e.target.value);
+      translationUseEffect(translation, parseInt(e.target.value), translations);
       return e.target.value;
     });
   }
@@ -645,67 +554,119 @@ export default function Customise() {
   function handleTranslations(e) {
     let tmp = { ...translations, value: parseInt(e.target.value) };
     setTranslations(() => {
-      translationsContentHoursEffect(tmp, contentHours);
+      handleAccessibility(null, tmp);
+      translationUseEffect(translation, contentHours, tmp);
       return tmp;
     });
   }
 
+  function getTotalEstimateTable() {
+    return (
+      <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
+        <Table aria-label="simple table">
+          <TableHead sx={{ backgroundColor: "#45454533" }}>
+            <TableRow>
+              <TableCell
+                sx={{
+                  fontSize: "1.5em",
+                  fontWeight: "700",
+                  color: "#454545cc",
+                }}
+              >
+                Total Cost
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontSize: "1.5em",
+                  fontWeight: "700",
+                  color: "#454545cc",
+                }}
+                align="right"
+              >
+                {getTotalCost()}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+        </Table>
+      </TableContainer>
+    );
+  }
+
+  const inputStyle = {
+    "& label.Mui-focused": {
+      color: "#000",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#ffbf00",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#ffbf00",
+      },
+      "&:hover fieldset": {
+        borderColor: "#ffbf00",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#ffbf00",
+      },
+    },
+  };
+
+  const headerStyle = {
+    fontSize: {
+      xs: "1.2em",
+      sm: "1.5em",
+    },
+    fontWeight: "700",
+    color: "#000000cc",
+    py: 4,
+    fontFamily: "Oswald",
+  };
+
+  const cellStyle = {
+    fontFamily: "Roboto",
+    fontSize: {
+      xs: "1em",
+      sm: "1.2em",
+    },
+  };
+
   return (
     <div className="customise-container">
-      <h1 className="customise-header">
-        What you will get per hour of content:
-      </h1>
-      <div>
-        <Input
-          type="number"
-          min={0}
-          value={contentHours}
-          onChange={(v) => handleContentHours(v)}
-        />
-        <Input
-          type="number"
-          min={0}
-          value={translations.value}
-          onChange={(v) => handleTranslations(v)}
-        />
-      </div>
+      <h1 className="customise-header">Please input your requirements:</h1>
       <div className="customise-wrapper">
         <div className="customise-panel-container">
+          <div className="customise-input-container">
+            <Label style={{ borderRadius: "1em", flex: "1" }}>
+              <p className="customise-input-label">Content Hours:</p>
+              <Input
+                size="large"
+                type="number"
+                min={0}
+                value={contentHours}
+                onChange={(v) => handleContentHours(v)}
+              />
+            </Label>
+            <Label style={{ borderRadius: "1em", flex: "1" }}>
+              <p className="customise-input-label">Translations:</p>
+              <Input
+                size="large"
+                type="number"
+                min={0}
+                value={translations.value}
+                onChange={(v) => handleTranslations(v)}
+              />
+            </Label>
+          </div>
           <TableContainer component={Paper} sx={{ mb: 1, borderRadius: "1em" }}>
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                    width="35%"
-                  >
+                  <TableCell sx={headerStyle} width="35%">
                     Content Slides
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                  >
-                    Proportion
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                  >
-                    Screens
-                  </TableCell>
+                  <TableCell sx={headerStyle}>Proportion</TableCell>
+                  <TableCell sx={headerStyle}>Screens</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -714,7 +675,7 @@ export default function Customise() {
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
                     <TableCell>
@@ -724,7 +685,7 @@ export default function Customise() {
                         onChange={(v) => handleContentSlidesProportion(v)}
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={cellStyle}>
                       <div>{row.screens}</div>
                     </TableCell>
                   </TableRow>
@@ -736,37 +697,11 @@ export default function Customise() {
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                    width="35%"
-                  >
+                  <TableCell sx={headerStyle} width="35%">
                     Videos
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                  >
-                    Proportion
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                      py: 4,
-                    }}
-                  >
-                    Minutes
-                  </TableCell>
+                  <TableCell sx={headerStyle}>Proportion</TableCell>
+                  <TableCell sx={headerStyle}>Minutes</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -775,7 +710,7 @@ export default function Customise() {
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
                     <TableCell>
@@ -785,7 +720,7 @@ export default function Customise() {
                         onChange={(v) => handleVideoProportion(v)}
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={cellStyle}>
                       <div>{row.minutes}</div>
                     </TableCell>
                   </TableRow>
@@ -831,25 +766,10 @@ export default function Customise() {
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                    width="35%"
-                  >
+                  <TableCell sx={headerStyle} width="35%">
                     Accessibility AddOns in 1 languages
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                  >
-                    Required
-                  </TableCell>
+                  <TableCell sx={headerStyle}>Required</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -860,7 +780,7 @@ export default function Customise() {
                       "&:last-child td, &:last-child th": { border: 0 },
                     }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
                     <TableCell>
@@ -891,25 +811,10 @@ export default function Customise() {
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                    width="35%"
-                  >
+                  <TableCell sx={headerStyle} width="35%">
                     Presentation AddOns
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                  >
-                    Required
-                  </TableCell>
+                  <TableCell sx={headerStyle}>Required</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -918,7 +823,7 @@ export default function Customise() {
                     key={row.text}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
                     <TableCell>
@@ -939,25 +844,10 @@ export default function Customise() {
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                    width="35%"
-                  >
+                  <TableCell sx={headerStyle} width="35%">
                     Translation AddOns
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                  >
-                    Required
-                  </TableCell>
+                  <TableCell sx={headerStyle}>Required</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -966,7 +856,7 @@ export default function Customise() {
                     key={row.text}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
                     <TableCell>
@@ -999,24 +889,9 @@ export default function Customise() {
             <Table aria-label="simple table">
               <TableHead sx={{ backgroundColor: "#45454533" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                  >
-                    Price Estimator
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                    align="right"
-                  >
-                    INR for 10 hours in 1 languages
+                  <TableCell sx={headerStyle}>Price Estimator</TableCell>
+                  <TableCell sx={headerStyle} align="right">
+                    INR for 10 hours in {translations.value} languages
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -1026,10 +901,10 @@ export default function Customise() {
                     key={row.text}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell sx={cellStyle} component="th" scope="row">
                       {row.text}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell sx={cellStyle} align="right">
                       <h3>{row.total}</h3>
                     </TableCell>
                   </TableRow>
@@ -1037,50 +912,61 @@ export default function Customise() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                  >
-                    Total Cost
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontSize: "1.5em",
-                      fontWeight: "700",
-                      color: "#454545cc",
-                    }}
-                    align="right"
-                  >
-                    {getTotalCost()}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            </Table>
-          </TableContainer>
-          <Button
-            variant="outlined"
-            sx={{
-              borderRadius: "0.4em",
-              fontSize: "1.5em",
-              color: "#fff",
-              borderColor: "#fff",
-              transition: "1s",
-              ":hover": {
-                backgroundColor: "#ffbf00",
-                color: "#000",
-              },
-              fontWeight: "700",
-            }}
-          >
-            proceed to get the PDF
-          </Button>
+          <div className="customise-total-price-container">
+            {getTotalEstimateTable()}
+            <div className="cta-button">
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{
+                  borderRadius: "0.4em",
+                  fontSize: "1.5em",
+                  color: "#000",
+                  borderColor: "#000",
+                  transition: "1s",
+                  ":hover": {
+                    backgroundColor: "#ffbf00",
+                    color: "#fff",
+                  },
+                  fontWeight: "700",
+                }}
+              >
+                proceed to get the PDF
+              </Button>
+            </div>
+          </div>
+        </div>
+        {/* <div className="cusomise-price-total-mobile-seperator"></div> */}
+        <div className="cusomise-price-total-mobile-container">
+          <div className="cusomise-price-total-mobile-wrapper">
+            <div className="estimatetable-mobile-container">
+              <h4 className="customise-price-total-text">Total Cost</h4>
+              <h4 className="customise-price-total-text">{getTotalCost()}</h4>
+            </div>
+            <div className="cta-button-mobile-container">
+              <Button
+                fullWidth
+                variant="outlined"
+                sx={{
+                  borderRadius: "0.4em",
+                  fontSize: {
+                    xs: "0.8em",
+                    sm: "1em",
+                  },
+                  color: "#000",
+                  borderColor: "#000",
+                  transition: "1s",
+                  ":hover": {
+                    backgroundColor: "#ffbf00",
+                    color: "#fff",
+                  },
+                  fontWeight: "700",
+                }}
+              >
+                proceed to get the PDF
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

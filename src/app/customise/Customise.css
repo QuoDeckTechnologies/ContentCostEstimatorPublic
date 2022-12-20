@@ -1,16 +1,13 @@
-.customise-container {
-    background-color: #45454599;
-    padding: 5em;
-}
-
 .customise-wrapper {
     display: flex;
     gap: 2em;
+    position: relative;
 }
 
 .customise-panel-container {
     flex: 1;
     width: 100%;
+    position: relative;
 }
 
 .customise-panel-price-estimator {
@@ -24,25 +21,112 @@
     position: static;
 }
 
-.customise-header {
-    color: #fff;
+.customise-container .customise-header {
+    margin-top: 1em;
+    font-family: "Oswald", sans-serif;
+    font-size: 1.5em;
 }
 
-@media only screen and (max-width: 1000px) {
-    .customise-wrapper {
-        flex-direction: column;
+.customise-input-label {
+    font-size: 1.5em;
+    font-family: 'Oswald', sans-serif;
+    display: inline-block;
+    margin-bottom: 0;
+    color: #000000cc;
+}
+
+.customise-input-container {
+    margin: 2em 0;
+    display: flex;
+    gap: 2em;
+    justify-content: space-between;
+}
+
+.cusomise-price-total-mobile-container {
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.customise-total-price-container {
+    width: 100%;
+}
+
+.cta-button-mobile-container {
+    flex: 1;
+}
+
+.estimatetable-mobile-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.customise-price-total-text {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.cusomise-price-total-mobile-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (min-width: 700px) {
+    .customise-container .customise-header {
+        font-size: 2em;
+    }
+
+    .customise-input-label {
+        font-size: 1.8em;
     }
 }
 
-@media only screen and (min-width: 1000px) {
+
+@media only screen and (min-width: 1200px) {
     .customise-wrapper {
-        width: 55%;
+        width: 50%;
     }
 
     .customise-panel-price-estimator {
         width: 35%;
         position: fixed;
-        right: 5em;
+        right: 12em;
     }
 
+    .cusomise-price-total-mobile-container {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 1315px) {
+    .cta-button {
+        font-size: 0.8em;
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .customise-wrapper {
+        flex-direction: column;
+    }
+
+    .customise-input-container {
+        justify-content: left;
+    }
+
+    .customise-total-price-container {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .customise-input-container {
+        flex-direction: column;
+    }
 }
