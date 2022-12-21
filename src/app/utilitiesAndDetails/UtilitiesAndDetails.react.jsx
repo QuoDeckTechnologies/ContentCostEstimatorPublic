@@ -62,54 +62,62 @@ function UtilitiesAndDetails() {
     color: "#fff",
     transition: "1s",
     padding: "0 2em",
+    border: "2px solid #fff",
   };
 
   return (
-    <Box sx={{ width: "100%", px: { xs: 4, lg: 20 }, pt: 3 }}>
-      <Box>
-        <Image src={logo} alt="" width="300em" />
-      </Box>
+    <Box sx={{ width: "100%",backgroundColor:'#f4f4f4' }}>
       <Box>
         <Box
           sx={{
             borderBottom: 1,
             borderColor: "divider",
             backgroundColor: "#454545cc",
-            mt: 5,
+            padding: "1em 0",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             fontSize: {
-              xs: "0.5em",
-              sm: "0.7em",
+              xs: "0.55em",
+              sm: "0.8em",
               md: "1em",
             },
+            position: "fixed",
+            top: "0",
+            width: "100%",
+            zIndex: "99",
           }}
         >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-            sx={{
-              "& .MuiTabs-indicator": {
-                backgroundColor: "transparent",
-              },
-              minHeight: 0,
-              "& :hover": {
-                color: "#fff",
-              },
-              "& .Mui-selected": {
-                border: "2px solid #000",
-              },
-            }}
-          >
-            <Tab sx={tabStyle} label="View Details" {...a11yProps(0)} />
-            <Tab
-              sx={{ ...tabStyle, ml: 2 }}
-              label="Customise"
-              {...a11yProps(1)}
-            />
-          </Tabs>
+          <Box sx={{ display: "flex", justifyContentL: "left" }}>
+            <Box sx={{ ml: { xs: 4, lg: 15 } }}>
+              <Image src={logo} alt="" width="200em" />
+            </Box>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              sx={{
+                "& .MuiTabs-indicator": {
+                  backgroundColor: "transparent",
+                },
+                minHeight: 0,
+                "& :hover": {
+                  color: "#fff",
+                },
+                "& .Mui-selected": {
+                  border: "2px solid #000",
+                },
+                ml: 4,
+              }}
+            >
+              <Tab sx={tabStyle} label="View Details" {...a11yProps(0)} />
+              <Tab
+                sx={{ ...tabStyle, ml: 2 }}
+                label="Customise"
+                {...a11yProps(1)}
+              />
+            </Tabs>
+          </Box>
           <Box sx={{ fontSize: "2em" }}>
             <Link to="#" style={{ color: "#fff" }}>
               <i className="fab fa-facebook"></i>
@@ -117,12 +125,18 @@ function UtilitiesAndDetails() {
             <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
               <i class="fab fa-twitter"></i>
             </Link>
-            <Link to="#" style={{ color: "#fff", margin: "0 1em" }}>
+            <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
               <i class="fab fa-youtube"></i>
+            </Link>
+            {/* <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
+            <i className="fab fa-instagram-square"></i>
+            </Link> */}
+            <Link to="#" style={{ color: "#fff", margin: "0 1em" }}>
+              <i className="fab fa-linkedin"></i>
             </Link>
           </Box>
         </Box>
-        <Box>
+        <Box sx={{ px: { xs: 4, xl: 15 }, pt: 10 }}>
           <TabPanel value={value} index={0}>
             <ViewDetails />
           </TabPanel>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
+import ContactForm from "../contactForm/ContactForm.react";
 import {
   Button,
   Table,
@@ -11,7 +12,6 @@ import {
   TableRow,
   Paper,
   Switch,
-  TextField,
 } from "@mui/material";
 import {
   contentSlidesCalSchema,
@@ -22,10 +22,11 @@ import {
 } from "../utilities/calculations";
 import "semantic-ui-css/semantic.min.css";
 import "./Customise.css";
+import { Box } from "@mui/system";
 
 export default function Customise() {
   const [contentHours, setContentHours] = useState(6);
-
+  const [open, setOpen] = useState(false);
   const [translations, setTranslations] = useState({
     name: "translations",
     total: 0,
@@ -542,12 +543,16 @@ export default function Customise() {
         schema,
         videos,
         translation,
-        e.target.value,
+        Math.abs(e.target.value),
         accessibility
       );
-      accessibilityContentHoursEffect(accessibility, e.target.value);
-      translationUseEffect(translation, parseInt(e.target.value), translations);
-      return e.target.value;
+      accessibilityContentHoursEffect(accessibility, Math.abs(e.target.value));
+      translationUseEffect(
+        translation,
+        parseInt(Math.abs(e.target.value)),
+        translations
+      );
+      return Math.abs(e.target.value);
     });
   }
 
@@ -560,30 +565,22 @@ export default function Customise() {
     });
   }
 
+  function numberFormat(value) {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+    }).format(value);
+  }
+
   function getTotalEstimateTable() {
     return (
-      <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
+      <TableContainer component={Paper} sx={{ mb: 2, borderRadius: "1em" }}>
         <Table aria-label="simple table">
-          <TableHead sx={{ backgroundColor: "#45454533" }}>
+          <TableHead sx={{ backgroundColor:'#ffbf00' }}>
             <TableRow>
-              <TableCell
-                sx={{
-                  fontSize: "1.5em",
-                  fontWeight: "700",
-                  color: "#454545cc",
-                }}
-              >
-                Total Cost
-              </TableCell>
-              <TableCell
-                sx={{
-                  fontSize: "1.5em",
-                  fontWeight: "700",
-                  color: "#454545cc",
-                }}
-                align="right"
-              >
-                {getTotalCost()}
+              <TableCell sx={{ ...headerStyle, p: 2 }}>Total Cost</TableCell>
+              <TableCell sx={{ ...headerStyle, p: 2 }} align="right">
+                {numberFormat(getTotalCost())}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -592,34 +589,25 @@ export default function Customise() {
     );
   }
 
-  const inputStyle = {
-    "& label.Mui-focused": {
-      color: "#000",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#ffbf00",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#ffbf00",
-      },
-      "&:hover fieldset": {
-        borderColor: "#ffbf00",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#ffbf00",
-      },
-    },
-  };
+  function calBaseContent() {
+    let total = 0;
+    schema.forEach((ele) => {
+      total += ele.total;
+    });
+    videos.forEach((ele) => {
+      total += ele.total;
+    });
+    return total;
+  }
 
   const headerStyle = {
     fontSize: {
       xs: "1.2em",
-      sm: "1.5em",
+      sm: "1.6em",
     },
     fontWeight: "700",
     color: "#000000cc",
-    py: 4,
+    py: 2.5,
     fontFamily: "Oswald",
   };
 
@@ -627,348 +615,378 @@ export default function Customise() {
     fontFamily: "Roboto",
     fontSize: {
       xs: "1em",
-      sm: "1.2em",
+      sm: "1.3em",
     },
+  };
+
+  const rightCellStyle = {
+    width: "20%",
   };
 
   return (
     <div className="customise-container">
       <h1 className="customise-header">Please input your requirements:</h1>
-      <div className="customise-wrapper">
-        <div className="customise-panel-container">
-          <div className="customise-input-container">
-            <Label style={{ borderRadius: "1em", flex: "1" }}>
-              <p className="customise-input-label">Content Hours:</p>
-              <Input
-                size="large"
-                type="number"
-                min={0}
-                value={contentHours}
-                onChange={(v) => handleContentHours(v)}
-              />
-            </Label>
-            <Label style={{ borderRadius: "1em", flex: "1" }}>
-              <p className="customise-input-label">Translations:</p>
-              <Input
-                size="large"
-                type="number"
-                min={0}
-                value={translations.value}
-                onChange={(v) => handleTranslations(v)}
-              />
-            </Label>
-          </div>
-          <TableContainer component={Paper} sx={{ mb: 1, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle} width="35%">
-                    Content Slides
-                  </TableCell>
-                  <TableCell sx={headerStyle}>Proportion</TableCell>
-                  <TableCell sx={headerStyle}>Screens</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {schema.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell>
-                      <CustomizedSlider
-                        value={row.proportion}
-                        name={row.name}
-                        onChange={(v) => handleContentSlidesProportion(v)}
-                      />
-                    </TableCell>
-                    <TableCell sx={cellStyle}>
-                      <div>{row.screens}</div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mb: 2, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle} width="35%">
-                    Videos
-                  </TableCell>
-                  <TableCell sx={headerStyle}>Proportion</TableCell>
-                  <TableCell sx={headerStyle}>Minutes</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {videos.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell>
-                      <CustomizedSlider
-                        value={row.proportion}
-                        name={row.name}
-                        onChange={(v) => handleVideoProportion(v)}
-                      />
-                    </TableCell>
-                    <TableCell sx={cellStyle}>
-                      <div>{row.minutes}</div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="customise-total-base-contest">
+      <Box
+        sx={{
+          backgroundColor: "#45454566",
+          p: 5,
+          borderRadius: "0.5em",
+          boxShadow: "inset 0px 2px 10px #00000080",
+        }}
+      >
+        <div className="customise-wrapper">
+          <div className="customise-panel-container">
+            <div className="customise-input-container">
+              <Label style={{ borderRadius: "1em", flex: "1" }}>
+                <p className="customise-input-label">Content Hours:</p>
+                <input
+                  className="customise-header-input"
+                  type="number"
+                  min={0}
+                  value={contentHours}
+                  onChange={(v) => handleContentHours(v)}
+                />
+              </Label>
+              <Label style={{ borderRadius: "1em", flex: "1" }}>
+                <p className="customise-input-label">Translations: </p>
+                <input
+                  className="customise-header-input"
+                  type="number"
+                  min={0}
+                  value={translations.value}
+                  onChange={(v) => handleTranslations(v)}
+                />
+              </Label>
+            </div>
             <TableContainer
               component={Paper}
-              sx={{ mb: 5, borderRadius: "1em" }}
+              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
             >
               <Table aria-label="simple table">
-                <TableHead sx={{ backgroundColor: "#ffbf0099" }}>
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
                   <TableRow>
-                    <TableCell
-                      sx={{
-                        fontSize: "1.5em",
-                        fontWeight: "700",
-                      }}
-                      width="70%"
-                    >
-                      Total Base Content
+                    <TableCell sx={headerStyle} width="35%">
+                      Content Slides
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        fontWeight: "700",
-                        pr: 5,
-                      }}
-                    >
-                      <Input
-                        type="number"
-                        min={0}
-                        value={calOverAllPercentage()}
-                      />
-                    </TableCell>
+                    <TableCell sx={headerStyle}>Proportion</TableCell>
+                    <TableCell sx={headerStyle}>Screens</TableCell>
                   </TableRow>
                 </TableHead>
+                <TableBody>
+                  {schema.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell>
+                        <CustomizedSlider
+                          value={row.proportion}
+                          name={row.name}
+                          onChange={(v) => handleContentSlidesProportion(v)}
+                        />
+                      </TableCell>
+                      <TableCell sx={{ ...cellStyle, ...rightCellStyle }}>
+                        <Paper>{row.screens}</Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle} width="35%">
+                      Videos
+                    </TableCell>
+                    <TableCell sx={headerStyle}>Proportion</TableCell>
+                    <TableCell sx={headerStyle}>Minutes</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {videos.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell>
+                        <CustomizedSlider
+                          value={row.proportion}
+                          name={row.name}
+                          onChange={(v) => handleVideoProportion(v)}
+                        />
+                      </TableCell>
+                      <TableCell sx={{ ...cellStyle, ...rightCellStyle }}>
+                        <Paper>{row.minutes}</Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className="customise-total-base-contest">
+              <TableContainer
+                component={Paper}
+                sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+              >
+                <Table aria-label="simple table">
+                  <TableHead sx={{ backgroundColor: "#ffbf00" }}>
+                    <TableRow>
+                      <TableCell sx={headerStyle} width="35%">
+                        Total Base Content
+                      </TableCell>
+                      <TableCell sx={{...cellStyle,width:'32%'}}>
+                        <Paper sx={{lineHeight:'2.5em',borderRadius:'0.5em',textIndent:'0.5em',fontWeight:'700'}}>{calOverAllPercentage()}%</Paper>
+                      </TableCell>
+                      <TableCell
+                        sx={{ ...cellStyle, ...rightCellStyle,width:'32%' }}
+                        width="35%"
+                      >
+                        <Paper sx={{lineHeight:'2.5em',borderRadius:'0.5em',textIndent:'0.5em',fontWeight:'700'}}>{numberFormat(calBaseContent())}</Paper>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
+            </div>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle} width="35%">
+                      Accessibility AddOns
+                    </TableCell>
+                    <TableCell sx={headerStyle}>Required</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {accessibility.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={row.checked}
+                          name={row.name}
+                          onChange={(v) => handleAccessibility(v)}
+                          sx={{
+                            "& .MuiSwitch-switchBase.Mui-checked": {
+                              color: "#ffbf00",
+                              "&:hover": {
+                                backgroundColor: "##ffbf0040",
+                              },
+                            },
+                            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
+                              {
+                                backgroundColor: "#ffbf00",
+                              },
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle} width="35%">
+                      Presentation AddOns
+                    </TableCell>
+                    <TableCell sx={headerStyle}>Required</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {presentation.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          type="number"
+                          size="big"
+                          min={0}
+                          value={row.value}
+                          name={row.name}
+                          onChange={(v) => handlePresentationValue(v)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle} width="35%">
+                      Translation AddOns
+                    </TableCell>
+                    <TableCell sx={headerStyle}>Required</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {translation.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={row.checked}
+                          name={row.name}
+                          onChange={(v) => handleTranslationValue(v)}
+                          sx={{
+                            "& .MuiSwitch-switchBase.Mui-checked": {
+                              color: "#ffbf00",
+                              "&:hover": {
+                                backgroundColor: "#ffbf0040",
+                              },
+                            },
+                            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
+                              {
+                                backgroundColor: "#ffbf00",
+                              },
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
               </Table>
             </TableContainer>
           </div>
-          <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle} width="35%">
-                    Accessibility AddOns in 1 languages
-                  </TableCell>
-                  <TableCell sx={headerStyle}>Required</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {accessibility.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                    }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell>
-                      <Switch
-                        checked={row.checked}
-                        name={row.name}
-                        onChange={(v) => handleAccessibility(v)}
-                        sx={{
-                          "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "#ffbf00",
-                            "&:hover": {
-                              backgroundColor: "##ffbf0040",
-                            },
-                          },
-                          "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                            {
-                              backgroundColor: "#ffbf00",
-                            },
-                        }}
-                      />
+          <div className="customise-panel-price-estimator">
+            <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>Price Estimator</TableCell>
+                    <TableCell sx={headerStyle} align="right">
+                      INR for 10 hours in {translations.value} languages
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle} width="35%">
-                    Presentation AddOns
-                  </TableCell>
-                  <TableCell sx={headerStyle}>Required</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {presentation.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell>
-                      <Input
-                        type="number"
-                        min={0}
-                        value={row.value}
-                        name={row.name}
-                        onChange={(v) => handlePresentationValue(v)}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle} width="35%">
-                    Translation AddOns
-                  </TableCell>
-                  <TableCell sx={headerStyle}>Required</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {translation.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell>
-                      <Switch
-                        checked={row.checked}
-                        name={row.name}
-                        onChange={(v) => handleTranslationValue(v)}
-                        sx={{
-                          "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "#ffbf00",
-                            "&:hover": {
-                              backgroundColor: "##ffbf0040",
-                            },
-                          },
-                          "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                            {
-                              backgroundColor: "#ffbf00",
-                            },
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <div className="customise-panel-price-estimator">
-          <TableContainer component={Paper} sx={{ mb: 5, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>Price Estimator</TableCell>
-                  <TableCell sx={headerStyle} align="right">
-                    INR for 10 hours in {translations.value} languages
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {estimate.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <h3>{row.total}</h3>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="customise-total-price-container">
-            {getTotalEstimateTable()}
-            <div className="cta-button">
-              <Button
-                variant="outlined"
-                fullWidth
-                sx={{
-                  borderRadius: "0.4em",
-                  fontSize: "1.5em",
-                  color: "#000",
-                  borderColor: "#000",
-                  transition: "1s",
-                  ":hover": {
-                    backgroundColor: "#ffbf00",
+                </TableHead>
+                <TableBody>
+                  {estimate.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <h3>{numberFormat(row.total)}</h3>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className="customise-total-price-container">
+              {getTotalEstimateTable()}
+              <div className="cta-button">
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{
+                    borderRadius: "0.4em",
+                    fontSize: "1.5em",
                     color: "#fff",
-                  },
-                  fontWeight: "700",
-                }}
-              >
-                proceed to get the PDF
-              </Button>
+                    borderColor: "#fff",
+                    transition: "1s",
+                    ":hover": {
+                      backgroundColor: "#ffbf00",
+                      borderColor: "#000",
+                      color: "#000",
+                    },
+                    fontWeight: "700",
+                  }}
+                  onClick={() => setOpen(true)}
+                >
+                  proceed to get the PDF
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="cusomise-price-total-mobile-container">
+            <div className="cusomise-price-total-mobile-wrapper">
+              <div className="estimatetable-mobile-container">
+                <h4 className="customise-price-total-text">Total Cost</h4>
+                <h4 className="customise-price-total-text">
+                  {numberFormat(getTotalCost())}
+                </h4>
+              </div>
+              <div className="cta-button-mobile-container">
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "0.4em",
+                    fontSize: {
+                      xs: "0.8em",
+                      sm: "1em",
+                    },
+                    color: "#000",
+                    borderColor: "#000",
+                    transition: "1s",
+                    ":hover": {
+                      backgroundColor: "#ffbf00",
+                      color: "#fff",
+                    },
+                    fontWeight: "700",
+                  }}
+                  onClick={() => setOpen(true)}
+                >
+                  proceed to get the PDF
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-        {/* <div className="cusomise-price-total-mobile-seperator"></div> */}
-        <div className="cusomise-price-total-mobile-container">
-          <div className="cusomise-price-total-mobile-wrapper">
-            <div className="estimatetable-mobile-container">
-              <h4 className="customise-price-total-text">Total Cost</h4>
-              <h4 className="customise-price-total-text">{getTotalCost()}</h4>
-            </div>
-            <div className="cta-button-mobile-container">
-              <Button
-                fullWidth
-                variant="outlined"
-                sx={{
-                  borderRadius: "0.4em",
-                  fontSize: {
-                    xs: "0.8em",
-                    sm: "1em",
-                  },
-                  color: "#000",
-                  borderColor: "#000",
-                  transition: "1s",
-                  ":hover": {
-                    backgroundColor: "#ffbf00",
-                    color: "#fff",
-                  },
-                  fontWeight: "700",
-                }}
-              >
-                proceed to get the PDF
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </Box>
+      <div className="cusomise-price-total-mobile-seperator"></div>
     </div>
   );
 }

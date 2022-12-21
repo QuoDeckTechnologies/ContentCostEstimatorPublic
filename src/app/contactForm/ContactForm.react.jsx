@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Button,
     Form,
@@ -13,13 +13,13 @@ import axios from 'axios';
 import Logo from "../../assets/logo.png";
 import 'semantic-ui-css/semantic.min.css';
 
-function ContactForm() {
+function ContactForm({openModal,onClose}) {
     const [name, setName] = useState('');
     const [organization, setOrganization] = useState('');
     const [email, setEmail] = useState('');
     const [designation, setDesignation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(openModal)
     const [secondOpen, setSecondOpen] = useState(false)
     const [userData, setUserData] = useState({})
 
@@ -97,13 +97,17 @@ function ContactForm() {
         doc.save("Details.pdf")
     };
 
+    useEffect(()=>{setOpen(openModal)},[openModal])
+
     return (
         <Modal
             closeIcon={true}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+                onClose(false)
+                setOpen(false)
+            }}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Show Modal</Button>}
         >
             <Modal.Header>
                 Download Quote
