@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import React, { useState } from 'react'
 import {
     Button,
     Form,
@@ -95,7 +95,8 @@ const ContactForm = () => {
         doc.addImage(Logo, 'PNG', 140, 20, 160, 40);
         doc.table(75, 80, generateData(20), headers, { autoSize: true });
         doc.save("Details.pdf")
-    }
+    };
+
     return (
         <Modal
             closeIcon={true}
@@ -147,6 +148,8 @@ const ContactForm = () => {
                                 name='email'
                                 value={email}
                                 onChange={handleChange}
+                                pattern="^[a-zA-Z0-9_.]+@(?!gmail|hotmail|rediffmail|outlook|yahoo|zohomail).*\.(com|in|org|net|co.in)\b$"
+                                title="Note: Use organization email address"
                             />
                             <Form.Input
                                 label="Mobile Number"
@@ -155,6 +158,7 @@ const ContactForm = () => {
                                 name='phoneNumber'
                                 value={phoneNumber}
                                 onChange={handleChange}
+                                pattern="[6789][0-9]{9}"
                             />
                         </Form.Group>
                         <Form.Field
@@ -163,7 +167,7 @@ const ContactForm = () => {
                             placeholder='What challenges are you looking to overcome with Quodeck?'
                         />
                         <Modal.Actions>
-                            <Button onClick={() => onSubmit} primary>
+                            <Button onClick={() => onSubmit} color='yellow'>
                                 Submit <Icon name='right chevron' />
                             </Button>
                         </Modal.Actions>
