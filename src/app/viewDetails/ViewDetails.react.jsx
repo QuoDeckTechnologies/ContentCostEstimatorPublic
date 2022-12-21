@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Paper,
@@ -38,7 +38,7 @@ const cellStyle = {
   },
 };
 
-const ViewDetails = () => {
+function ViewDetails() {
   const dataDetails = useSelector((state) => state.root.recommendedLevel.list);
   const [level, setLevel] = useState();
   const [hrs, setHrs] = useState();
@@ -107,7 +107,7 @@ const ViewDetails = () => {
   let ivcsOSTwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsOSTwords =
     textualQuestionSlideProportion > 0
@@ -132,7 +132,7 @@ const ViewDetails = () => {
   let iivOSTwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 30)
+      (oneScreenPerMinute * 60 * 30)
       : 0;
   let ddasOSTwords =
     ddAnimatedStoryProportion > 0
@@ -163,7 +163,7 @@ const ViewDetails = () => {
   let ivcsVOwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsVOwords =
     textualQuestionSlideProportion > 0
@@ -188,7 +188,7 @@ const ViewDetails = () => {
   let iivVOwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let ddasVOwords =
     ddAnimatedStoryProportion > 0
@@ -591,10 +591,10 @@ const ViewDetails = () => {
       screenDimensions.width <= 400
         ? "300px"
         : screenDimensions <= 600
-        ? "400px"
-        : screenDimensions <= 900
-        ? "auto"
-        : "auto",
+          ? "400px"
+          : screenDimensions <= 900
+            ? "auto"
+            : "auto",
   }));
   return (
     <Grid container justifyContent="center" alignItems="center">

@@ -8,7 +8,7 @@ import { Image } from "semantic-ui-react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 
-const UtilitiesAndDetails = () => {
+function UtilitiesAndDetails() {
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 

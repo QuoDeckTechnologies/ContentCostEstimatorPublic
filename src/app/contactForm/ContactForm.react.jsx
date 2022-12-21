@@ -13,7 +13,7 @@ import axios from 'axios';
 import Logo from "../../assets/logo.png";
 import 'semantic-ui-css/semantic.min.css';
 
-const ContactForm = () => {
+function ContactForm() {
     const [name, setName] = useState('');
     const [organization, setOrganization] = useState('');
     const [email, setEmail] = useState('');

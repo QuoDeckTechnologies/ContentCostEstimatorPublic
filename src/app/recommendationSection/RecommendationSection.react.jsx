@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { Grid, Typography, Button, Paper, styled, Stack, Modal, Box, Backdrop, Fade } from '@mui/material';
 import Vector from "../../assets/Vector.png"
 // import BlessIcon from "../../assets/bless.png"
 import { useNavigate } from 'react-router-dom';
 
-const RecommendationSection = (props) => {
+function RecommendationSection(props) {
     const recommendationData = useSelector((state) => state.root.recommendedLevel.list)
     const [open, setOpen] = useState(props.open);
     const [level, setLevel] = useState(0);
@@ -105,7 +105,7 @@ const RecommendationSection = (props) => {
                                         <Typography variant="h4" sx={{ fontFamily: "oswald", color: "#fff" }} align='center'>
                                             That's All, Thanks <span>
                                                 {/* <img src={BlessIcon} style={{ width: "1.5em", height: "1.5em", margin: "0" }} /> */}
-                                                </span>
+                                            </span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sx={{ mb: 2 }}>
