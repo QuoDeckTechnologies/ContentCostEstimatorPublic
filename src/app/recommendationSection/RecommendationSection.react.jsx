@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { Grid, Typography, Button, Paper, styled, Stack, Modal, Box, Backdrop, Fade } from '@mui/material';
 import Vector from "../../assets/Vector.png"
-import BlessIcon from "../../assets/old-bless.png"
+// import BlessIcon from "../../assets/bless.png"
 import { useNavigate } from 'react-router-dom';
 
 const RecommendationSection = (props) => {
@@ -103,7 +103,9 @@ const RecommendationSection = (props) => {
                                 <Grid container item xs={12} sm={6} md={6} lg={6} alignItems="end" justifyContent="center">
                                     <Grid item xs={12}>
                                         <Typography variant="h4" sx={{ fontFamily: "oswald", color: "#fff" }} align='center'>
-                                            That's All, Thanks <span><img src={BlessIcon} style={{ width: "1em", height: "1em" }} /></span>
+                                            That's All, Thanks <span>
+                                                {/* <img src={BlessIcon} style={{ width: "1.5em", height: "1.5em", margin: "0" }} /> */}
+                                                </span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sx={{ mb: 2 }}>
