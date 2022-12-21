@@ -127,6 +127,12 @@ export default function QuestionSlider(props) {
         }
     };
 
+    const preventMinusValue = (e) => {
+        if (e.code === 'Minus') {
+            e.preventDefault();
+        }
+    };
+
     const handlePrev = () => {
         SetCurrentSlide((prevState) => prevState -= 1)
         if (currentSlide > 0) {
@@ -143,6 +149,7 @@ export default function QuestionSlider(props) {
         dispatch(setRecommendedLevel(recommendLevel))
         props.onSubmit()
         SetCurrentSlide(0)
+        SetEnbleBtn(true)
     };
 
     const settings = {
@@ -244,7 +251,14 @@ export default function QuestionSlider(props) {
                                 </center>
                                 <div style={dropdownStyle}>
                                     {slide.type === "number" ?
-                                        <Input fluid placeholder='choose number' type="number" onChange={(e) => { daysCount(e) }} /> :
+                                        <Input
+                                            fluid
+                                            placeholder='choose number'
+                                            type="number"
+                                            min={0}
+                                            onKeyPress={preventMinusValue}
+                                            onChange={(e) => { daysCount(e) }}
+                                        /> :
                                         <Dropdown
                                             placeholder='Select options'
                                             fluid
