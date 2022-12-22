@@ -121,9 +121,16 @@ export default function QuestionSlider(props) {
     };
 
     const daysCount = (e) => {
+        let value = parseInt(e.target.value)
         setEstimateTime(e.target.value)
         if (e.target.value.length >= 1) {
             SetEnbleBtn(false)
+        }
+        else if (e.target.value.length === 0) {
+            SetEnbleBtn(true)
+        }
+        if (value === 0) {
+            SetEnbleBtn(true)
         }
     };
 
@@ -251,14 +258,21 @@ export default function QuestionSlider(props) {
                                 </center>
                                 <div style={dropdownStyle}>
                                     {slide.type === "number" ?
-                                        <Input
-                                            fluid
-                                            placeholder='choose number'
-                                            type="number"
-                                            min={0}
-                                            onKeyPress={preventMinusValue}
-                                            onChange={(e) => { daysCount(e) }}
-                                        /> :
+                                        <div>
+                                            <Input
+                                                fluid
+                                                placeholder='choose number'
+                                                type="number"
+                                                min={1}
+                                                onKeyPress={preventMinusValue}
+                                                onChange={(e) => { daysCount(e) }}
+                                            />
+                                            {parseInt(estimateTime) === 0 &&
+                                                <center>
+                                                    <h4 style={{ color: "#fff" }}>
+                                                        Number should be greater than 0</h4>
+                                                </center>
+                                            }</div> :
                                         <Dropdown
                                             placeholder='Select options'
                                             fluid
