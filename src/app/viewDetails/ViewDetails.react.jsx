@@ -608,8 +608,8 @@ function ViewDetails() {
         accessibilityAddonsData,
         presentationAddonsData,
         translationAddonsData,
-        allEstimatedCosts,
         translationEstimate,
+        allEstimatedCosts,
         recommendedLevel
       )
     );
