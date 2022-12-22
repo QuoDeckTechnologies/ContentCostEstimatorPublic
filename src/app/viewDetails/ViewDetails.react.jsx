@@ -10,23 +10,22 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Stack,
   Box,
-  Container,
-  Typography,
-  TextField,
+  Button,
 } from "@mui/material";
+import { Label } from "semantic-ui-react";
 import { setDetailsData } from "../../actions/index";
 import recommendedLevel from "../../reducers/dataReducer";
+import ContactForm from "../contactForm/ContactForm.react";
 
 const headerStyle = {
   fontSize: {
     xs: "1.2em",
-    sm: "1.5em",
+    sm: "1.6em",
   },
   fontWeight: "700",
   color: "#000000cc",
-  py: 4,
+  py: 2.5,
   fontFamily: "Oswald",
 };
 
@@ -34,11 +33,12 @@ const cellStyle = {
   fontFamily: "Roboto",
   fontSize: {
     xs: "1em",
-    sm: "1.2em",
+    sm: "1.3em",
   },
 };
 
 function ViewDetails() {
+  const [open, setOpen] = useState(false);
   const dataDetails = useSelector((state) => state.root.recommendedLevel.list);
   const [level, setLevel] = useState();
   const [hrs, setHrs] = useState();
@@ -107,7 +107,7 @@ function ViewDetails() {
   let ivcsOSTwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsOSTwords =
     textualQuestionSlideProportion > 0
@@ -132,7 +132,7 @@ function ViewDetails() {
   let iivOSTwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-      (oneScreenPerMinute * 60 * 30)
+        (oneScreenPerMinute * 60 * 30)
       : 0;
   let ddasOSTwords =
     ddAnimatedStoryProportion > 0
@@ -163,7 +163,7 @@ function ViewDetails() {
   let ivcsVOwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsVOwords =
     textualQuestionSlideProportion > 0
@@ -188,7 +188,7 @@ function ViewDetails() {
   let iivVOwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let ddasVOwords =
     ddAnimatedStoryProportion > 0
@@ -280,7 +280,7 @@ function ViewDetails() {
 
   let customeIllustrationsCost = 2500 * (1 + pricingModalMargin / 100);
   let customeIllustrationsP = customeIllustrationsCost * customeIllustrations;
-  let customeIllustrationsTotalCost = (customeIllustrationsP + 0) * (1 + 0)
+  let customeIllustrationsTotalCost = (customeIllustrationsP + 0) * (1 + 0);
 
   //Authoring Estimated Price
   let textualContentSlideCost = 700 * (1 + pricingModalMargin / 100);
@@ -336,10 +336,26 @@ function ViewDetails() {
     60 *
     oneScreenPerMinute *
     iconicInfographicVideoCost;
-  let ddAnimationStoryTotalCost = (ddAnimatedStoryProportion / 100) * 60 * oneScreenPerMinute * ddAnimationStoryCost;
-  let whiteboardAnimationTotalCost = (whiteboardAnimationProportion / 100) * 60 * oneScreenPerMinute * whiteboardAnimationStoryCost;
-  let motionGraphicsTotalCost = (motionGraphicsProportion / 100) * 60 * oneScreenPerMinute * motionGraphicsCost;
-  let dddAnimationStoryTotalCost = (ddAnimatedStoryProportion / 100) * 60 * oneScreenPerMinute * dddAnimationStoryCost;
+  let ddAnimationStoryTotalCost =
+    (ddAnimatedStoryProportion / 100) *
+    60 *
+    oneScreenPerMinute *
+    ddAnimationStoryCost;
+  let whiteboardAnimationTotalCost =
+    (whiteboardAnimationProportion / 100) *
+    60 *
+    oneScreenPerMinute *
+    whiteboardAnimationStoryCost;
+  let motionGraphicsTotalCost =
+    (motionGraphicsProportion / 100) *
+    60 *
+    oneScreenPerMinute *
+    motionGraphicsCost;
+  let dddAnimationStoryTotalCost =
+    (ddAnimatedStoryProportion / 100) *
+    60 *
+    oneScreenPerMinute *
+    dddAnimationStoryCost;
   let gamifiedStoryTotalCost =
     gamifiedStory === "Y" ? gamifiedStoryCost * languages : 0;
 
@@ -397,15 +413,15 @@ function ViewDetails() {
     finalVoiceOverCost;
 
   let allEstimatedCost = (text, total) => {
-    return { text, total }
-  }
+    return { text, total };
+  };
   let allEstimatedCosts = [
     allEstimatedCost("Storyboarding", finalStoryBoardingCost),
     allEstimatedCost("Asset Creation", finalStockCharacterCost),
     allEstimatedCost("Authoring", finalAuthoringCost),
     allEstimatedCost("Voiceovers", finalVoiceOverCost),
     allEstimatedCost("Translations", finalTranslationCost),
-  ]
+  ];
 
   let csDetailsData = (name, text, proportions, screens, total) => {
     return { name, text, proportions, screens, total };
@@ -476,7 +492,7 @@ function ViewDetails() {
       "Slideshows",
       slideShowsProportion,
       level === "1" ? "3" : level === "2" ? "6" : level === "3" ? "3" : "0",
-      slideShowsTotalCost,
+      slideShowsTotalCost
     ),
 
     vDetailsData(
@@ -537,8 +553,18 @@ function ViewDetails() {
       machineVoiceOver,
       totalMachineVoiceOverPrice
     ),
-    accessAddonsData("human-voiceovers", "Human VoiceOvers", humanVoiceOver, totalHumanVoiceoverPrice),
-    accessAddonsData("gamified-story", "Gamified story", gamifiedStory, gamifiedStoryTotalCost),
+    accessAddonsData(
+      "human-voiceovers",
+      "Human VoiceOvers",
+      humanVoiceOver,
+      totalHumanVoiceoverPrice
+    ),
+    accessAddonsData(
+      "gamified-story",
+      "Gamified story",
+      gamifiedStory,
+      gamifiedStoryTotalCost
+    ),
   ];
   const presentationAddonsData = [
     presentAddonsData(
@@ -573,8 +599,26 @@ function ViewDetails() {
     priceEstimatorData("Authoring", numberFormat(finalAuthoringCost)),
     priceEstimatorData("Voiceovers", numberFormat(finalVoiceOverCost)),
     priceEstimatorData("Translations", numberFormat(finalTranslationCost)),
-    priceEstimatorData(totalCost(), numberFormat(totalEstimatedCost)),
+    // priceEstimatorData(totalCost(), numberFormat(totalEstimatedCost)),
   ];
+
+  function getTotalEstimateCost() {
+    return (
+      <TableContainer component={Paper} sx={{ mb: 2, borderRadius: "1em" }}>
+        <Table aria-label="simple table">
+          <TableHead sx={{ backgroundColor: "#ffbf00" }}>
+            <TableRow>
+              <TableCell sx={{ ...headerStyle, p: 2 }}>Total Cost</TableCell>
+              <TableCell sx={{ ...headerStyle, p: 2 }} align="right">
+                {numberFormat(totalEstimatedCost)}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+        </Table>
+      </TableContainer>
+    );
+  }
+
   let details = () => {
     if (Object.keys(dataDetails).length >= 1) {
       setLevel(dataDetails.data.level);
@@ -596,8 +640,8 @@ function ViewDetails() {
     setScreenDimensions({ width, height });
   };
   let translationEstimate = {
-    "total": totalTranslationCost
-  }
+    total: totalTranslationCost,
+  };
   useEffect(() => {
     window.addEventListener("resize", getScreenDimensions);
     details();
@@ -625,297 +669,383 @@ function ViewDetails() {
       screenDimensions.width <= 400
         ? "300px"
         : screenDimensions <= 600
-          ? "400px"
-          : screenDimensions <= 900
-            ? "auto"
-            : "auto",
+        ? "400px"
+        : screenDimensions <= 900
+        ? "auto"
+        : "auto",
   }));
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      {/* <Box
-                component="img"
-                alignItems="start"
-                sx={{
-                    height: "3em",
-                    width: "12em",
-                    // maxHeight: { xs: 233, md: 167 },
-                    // maxWidth: { xs: 350, md: 250 },
-                }}
-                alt="The house from the offer."
-                src={Logo}
-            /> */}
-      <div> Hrs : {hrs}</div>
-      <div> &nbsp;&nbsp;&nbsp; Level : {level}</div>
-      <TextField
-        id="standard-basic"
-        label="Add Translation"
-        variant="standard"
-        onChange={(e) => handleInput(e)}
-        sx={{ m: 2 }}
-      />
-      {/* <Stack direction="row">
+    <div className="customise-container">
+      <h1 className="customise-header">We recommend you:</h1>
+      <Box
+        sx={{
+          backgroundColor: "#45454566",
+          p: 5,
+          borderRadius: "0.5em",
+          boxShadow: "inset 0px 2px 10px #00000080",
+          position: "relative",
+        }}
+      >
+        <div className="customise-wrapper">
+          <div className="customise-panel-container">
+            <div className="customise-input-container">
+              <Label style={{ borderRadius: "1em", flex: "1" }}>
+                <p
+                  className="customise-input-label"
+                  style={{ padding: "0.35em 0" }}
+                >
+                  Content Hours: {hrs}
+                </p>
+                {/* <input
+                  className="customise-header-input"
+                  type="number"
+                  min={0}
+                  value={contentHours}
+                  onChange={(v) => handleContentHours(v)}
+                /> */}
+              </Label>
+              <Label style={{ borderRadius: "1em", flex: "1" }}>
+                <p
+                  className="customise-input-label"
+                  style={{ padding: "0.35em 0" }}
+                >
+                  Module Complexity: {level}{" "}
+                </p>
+                {/* <input
+                  className="customise-header-input"
+                  type="number"
+                  min={0}
+                  value={translations.value}
+                  onChange={(v) => handleTranslations(v)}
+                /> */}
+              </Label>
+              {/* <div> Hrs : {hrs}</div>
+              <div> &nbsp;&nbsp;&nbsp; Level : {level}</div> */}
+              {/* <TextField
+            id="standard-basic"
+            label="Add Translation"
+            variant="standard"
+            onChange={(e) => handleInput(e)}
+            sx={{ m: 2 }}
+          /> */}
+            </div>
+            {/* <Stack direction="row">
                 <TextField id="standard-basic" label="Add Hrs" variant="standard" className='one' onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
                 <TextField id="standard-basic" label="Add Level" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
                 <TextField id="standard-basic" label="Add Translation" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
             </Stack> */}
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={6}>
-          <TableContainer component={Paper} sx={{ borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>
-                    <b>ContentSlides</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Proportions</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Screens</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {contentSlidesData.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.proportions}%
-                      </Paper>
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.screens}
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mt: 3, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>
-                    <b>Videos</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Proportions</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Minutes</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {videosTableData.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.proportions}%
-                      </Paper>
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.minutes}
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mt: 3, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>
-                    <b>Accessibility AddOns in 1 languages</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Available</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {accessibilityAddonsData.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.checked}
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ mt: 3, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>
-                    <b>Presentaion AddOns</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Count</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {presentationAddonsData.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.count}
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TableContainer component={Paper} sx={{ my: 3, borderRadius: "1em" }}>
-            <Table aria-label="simple table">
-              <TableHead sx={{ backgroundColor: "#45454533" }}>
-                <TableRow>
-                  <TableCell sx={headerStyle}>
-                    <b>Translation AddOns</b>
-                  </TableCell>
-                  <TableCell sx={headerStyle} align="center">
-                    <b>Available</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {translationAddonsData.map((row) => (
-                  <TableRow
-                    key={row.text}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.text}
-                    </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={0}
-                        align="center"
-                        sx={{ width: "3em", margin: "auto" }}
-                      >
-                        {row.checked}
-                      </Paper>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={6}
-          className="customise-panel-price-estimator"
-          sx={{ mb: 3 }}
-        >
-          <TableContainer component={Paper} sx={{ borderRadius: "1em" }}>
-            <Paper
-              elevation={0}
-              sx={{
-                px: 2.1,
-                backgroundColor: "#45454533",
-                borderRadius: "0",
-                fontSize: {
-                  xs: "1.2em",
-                  sm: "1.5em",
-                },
-                fontWeight: "700",
-                color: "#000000cc",
-                py: 4,
-                fontFamily: "Oswald",
-              }}
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
-              <b>Price Estimator</b>
-            </Paper>
-            <Table aria-label="simple table">
-              <TableBody>
-                {estimatorPriceRow.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell sx={cellStyle} component="th" scope="row">
-                      {row.name}
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>
+                      <b>ContentSlides</b>
                     </TableCell>
-                    <TableCell sx={cellStyle} align="right">
-                      <Paper
-                        elevation={2}
-                        align="center"
-                        sx={{ width: "10em", margin: "auto", p: 0.5 }}
-                      >
-                        {row.estimatePrice}
-                      </Paper>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Proportions</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Screens</b>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
-    </Grid>
+                </TableHead>
+                <TableBody>
+                  {contentSlidesData.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.proportions}%
+                        </Paper>
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.screens}
+                        </Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>
+                      <b>Videos</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Proportions</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Minutes</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {videosTableData.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.proportions}%
+                        </Paper>
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.minutes}
+                        </Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>
+                      <b>Accessibility AddOns in 1 languages</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Available</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {accessibilityAddonsData.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.checked}
+                        </Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>
+                      <b>Presentaion AddOns</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Count</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {presentationAddonsData.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.count}
+                        </Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>
+                      <b>Translation AddOns</b>
+                    </TableCell>
+                    <TableCell sx={headerStyle} align="center">
+                      <b>Available</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {translationAddonsData.map((row) => (
+                    <TableRow
+                      key={row.text}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.text}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <Paper
+                          elevation={0}
+                          align="center"
+                          sx={{ width: "3em", margin: "auto" }}
+                        >
+                          {row.checked}
+                        </Paper>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+          <div className="customise-panel-price-estimator">
+            <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+            >
+              <Table aria-label="simple table">
+                <TableHead sx={{ backgroundColor: "#45454533" }}>
+                  <TableRow>
+                    <TableCell sx={headerStyle}>Price Estimator</TableCell>
+                    <TableCell sx={headerStyle} align="right"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {estimatorPriceRow.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell sx={cellStyle} component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell sx={cellStyle} align="right">
+                        <h3>{row.estimatePrice}</h3>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className="customise-total-price-container">
+              <div className="customise-total-price-container-table">
+                {getTotalEstimateCost()}
+              </div>
+              <div className="cta-button">
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{
+                    borderRadius: "0.4em",
+                    fontSize: "1.5em",
+                    color: "#fff",
+                    borderColor: "#fff",
+                    transition: "1s",
+                    ":hover": {
+                      backgroundColor: "#ffbf00",
+                      borderColor: "#000",
+                      color: "#000",
+                    },
+                    fontWeight: "700",
+                  }}
+                  onClick={() => setOpen(true)}
+                >
+                  proceed to get the PDF
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="cusomise-price-total-mobile-container">
+            <div className="cusomise-price-total-mobile-wrapper">
+              <div className="estimatetable-mobile-container">
+                <h4 className="customise-price-total-text">Total Cost</h4>
+                <h4 className="customise-price-total-text">
+                  {numberFormat(totalEstimatedCost)}
+                </h4>
+              </div>
+              {/* <div className="cta-button-mobile-container">
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "0.4em",
+                    fontSize: {
+                      xs: "0.8em",
+                      sm: "1em",
+                    },
+                    color: "#000",
+                    borderColor: "#000",
+                    transition: "1s",
+                    ":hover": {
+                      backgroundColor: "#ffbf00",
+                      color: "#fff",
+                    },
+                    fontWeight: "700",
+                  }}
+                  onClick={() => setOpen(true)}
+                >
+                  proceed to get the PDF
+                </Button>
+              </div> */}
+            </div>
+          </div>
+        </div>
+      </Box>
+      <div className="cusomise-price-total-mobile-seperator"></div>
+    </div>
   );
-};
+}
 
 export default ViewDetails;

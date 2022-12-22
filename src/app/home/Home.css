@@ -2,12 +2,11 @@
     background-image: url("../../assets/header-bg.png");
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 0em 8em;
+    padding: 3em 6em;
 }
 
 .logoimg {
     width: 100%;
-    padding: 3em 0em 0em 0em;
     margin: 0;
     height: fit-content;
 }
@@ -19,11 +18,15 @@
     text-align: center;
 }
 
+.alignment {
+    display: flex;
+    flex-direction: row;
+}
+
 .services {
     padding: 1em 1em 0em 0em;
     z-index: 999;
     background-color: #fff;
-    transition: 5s;
     padding: 1em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
@@ -35,6 +38,7 @@
     position: relative;
     top: -1em;
     right: -1em;
+    transition: 5s;
 }
 
 .custom {
@@ -42,24 +46,29 @@
     position: absolute;
     height: 70px;
     width: 150px;
-    background-color: orange;
+    background-color: gray;
     float: right;
     right: 1em;
     top: 1em;
 }
 
 .custom1 {
+    /* opacity: 0.2; */
+    background-image: url("../../assets/footer-bg-01.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 5px;
-    z-index: 999;
+    z-index: 1;
     position: absolute;
     height: auto;
     width: 90%;
-    background-color: #56544D;
+    background-color: gray;
     bottom: -18em;
 }
 
 .circle {
-    padding: 10px;
+    font-size: 1em;
+    padding: 0.5em;
     border-radius: 50%;
     border: 1px solid #fff;
 }
@@ -69,12 +78,21 @@
     transition: 5s;
 }
 
+.fontstyle {
+    font-size: 2.5em;
+}
+
+.fontstyle1 {
+    font-size: 1.75em;
+}
+
+
 
 @media screen and (max-width: 740px) {
     .main-container {
         background-image: none;
         background-color: #454545;
-        padding: 0em 3em;
+        padding: 3em;
     }
 
     .center-align {
@@ -84,5 +102,10 @@
         align-items: center;
         text-align: center;
         justify-content: center;
+    }
+
+    .alignment {
+        display: flex;
+        flex-direction: column;
     }
 }

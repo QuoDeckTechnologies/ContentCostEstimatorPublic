@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Image, Icon } from "semantic-ui-react";
 import { Button, Typography, Grid } from "@mui/material";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Img from "../../assets/img-promo.png";
+import Img from "../../assets/img-promo1.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
 import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
 import RecommendationSection from "../recommendationSection/RecommendationSection.react";
 import "./Home.css";
-import { borderBottom } from "@mui/system";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -71,8 +71,8 @@ export default function Home() {
     <div>
       <Grid
         container
-        spacing={2}
-        style={{ minHeight: "100vh", backgroundColor: "#454545" }}
+        item
+        style={{ minheight: "100vh", backgroundColor: "#454545" }}
         className="main-container"
       >
         <QuestionSlider open={open} onSubmit={() => handleModal()} />
@@ -83,13 +83,14 @@ export default function Home() {
           showButton
         />
         <div className="logoimg">
-          <Image src={logo} alt="" height="50m" width="180em" />
+          <Image src={logo} alt="" minheight="43px" width="174px" />
         </div>
         <Grid
           item
           xs={12}
           md={6}
           sm={12}
+          mt={7}
           className="center-align"
           order={{ xs: 2, sm: 2, md: 1, lg: 1 }}
         >
@@ -102,7 +103,7 @@ export default function Home() {
               fontWeight: 700,
             }}
           >
-            <p>Cost Estimator</p>
+            Cost Estimator
           </Typography>
           <Typography
             sx={{
@@ -113,9 +114,8 @@ export default function Home() {
               letterSpacing: "0.5px",
               fontWeight: 300,
             }}
-            className="fontstyle"
           >
-            <p>Kick Start your journey to awesome content with quodeck</p>
+            Kick Start your journey to awesome content with quodeck
           </Typography>
           <Button
             variant="outlined"
@@ -147,6 +147,7 @@ export default function Home() {
           xs={12}
           md={6}
           sm={12}
+          mt={7}
           order={{ xs: 1, sm: 1, md: 2, lg: 2 }}
         >
           <Image src={Img} alt="" height="auto" />
@@ -157,10 +158,14 @@ export default function Home() {
         xs={12}
         md={12}
         sm={12}
-        sx={{ p: 5, overflow: "hidden" }}
+        sx={{ p: 5, pt: 8, overflow: "hidden" }}
         textAlign="center"
       >
-        <h1>Trusted by India’s largest players…</h1>
+        <h1
+          style={{ marginBottom: "0.8em", fontSize: "3em", color: "#454545" }}
+        >
+          Trusted by India’s largest players…
+        </h1>
         <Slider className="carousel" {...settings}>
           <div>
             <Image alt="" src="assets/client3.png" />
@@ -182,12 +187,12 @@ export default function Home() {
           </div>
         </Slider>
       </Grid>
-      <Grid sx={{ p: 5 }} xs={12} md={12} container>
+      <Grid item sx={{ p: 5 }} xs={12} md={12} container>
         <Grid item xs={12} md={6} sx={{ p: 3.5 }}>
           <Image
-            src="assets/home-img-1.jpg"
+            src="assets/home-img-3.png"
             alt=""
-            minheight="500px"
+            minheight="50em"
             width="auto"
           />
         </Grid>
@@ -196,7 +201,8 @@ export default function Home() {
             sx={{
               padding: "0 0 15px 0",
               color: "#454545",
-              fontSize: "40px",
+              fontSize: "3em",
+              letterSpacing: 1,
               lineHeight: 4,
               fontWeight: 700,
             }}
@@ -243,136 +249,185 @@ export default function Home() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container sx={{ px: 5 }}>
-        <Grid textAlign="center" xs={12}>
-          <h1 style={{ color: " #000000", fontWeight: 500 }}>
+      <Grid item container sx={{ px: 5 }}>
+        <Grid item textAlign="center" xs={12}>
+          <h1
+            style={{ color: "#454545", fontSize: "3em", marginBottom: "0.8em" }}
+          >
             Services Included
           </h1>
         </Grid>
-        <Grid xs={12} md={6} sx={{ p: 5, position: "relative" }}>
+        <Grid item xs={12} md={6} sx={{ p: 5, position: "relative" }}>
           <div className="custom"></div>
-          <div class="services">
+          <div className="services">
             <Image
-              src="assets/client3.png"
+              src="assets/service1.png"
               width="164"
               height="103"
               alt="Video Based Learning"
             />
-            <h2 style={{ color: "#5CCCFC" }}>2D Videos</h2>
-            <p class="para_style">
+            <h2 style={{ color: "#454545" }}>2D Videos</h2>
+            <p className="para_style">
               Learners are being engaged in captivating 2D videos with relevant
               concepts to help them to understand any concepts from top to
               bottom.
             </p>
           </div>
         </Grid>
-        <Grid xs={12} md={6} sx={{ p: 5, position: "relative" }}>
+        <Grid item xs={12} md={6} sx={{ p: 5, position: "relative" }}>
           <div className="custom"></div>
-          <div class="services">
+          <div className="services">
             <Image
-              src="assets/client4.png"
+              src="assets/service2.png"
               width="164"
               height="103"
               alt="Online Video Training Platform"
               u
             />
-            <h2 style={{ color: "#5CCCFC" }}>3D Videos</h2>
-            <p class="para_style">
+            <h2 style={{ color: "#454545" }}>3D Videos</h2>
+            <p className="para_style">
               3D videos could accord technical concepts, walkthroughs, and other
               product demos with the well-rounded concepts in the videos.
             </p>
           </div>
         </Grid>
-        <Grid xs={12} md={6} sx={{ p: 5, position: "relative" }}>
+        <Grid item xs={12} md={6} sx={{ p: 5, position: "relative" }}>
           <div className="custom"></div>
-          <div class="services">
+          <div className="services">
             <Image
-              src="assets/client5.png"
+              src="assets/service3.png"
               width="164"
               height="103"
               alt="Video Course Platform"
             />
-            <h2 style={{ color: "#5CCCFC" }}>Interactive Videos</h2>
-            <p class="para_style">
+            <h2 style={{ color: "#454545" }}>Interactive Videos</h2>
+            <p className="para_style">
               Invoke the attention of learners by integrating dynamic and
               interactive elements in the environment needed to enhance their
               attention.
             </p>
           </div>
         </Grid>
-        <Grid xs={12} md={6} sx={{ p: 5, position: "relative" }}>
+        <Grid item xs={12} md={6} sx={{ p: 5, position: "relative" }}>
           <div className="custom"></div>
-          <div class="services">
+          <div className="services">
             <Image
-              src="assets/client6.png"
+              src="assets/service4.png"
               width="164"
               height="103"
               alt="Video Based Learning"
             />
-            <h2 style={{ color: "#5CCCFC" }}>Live Action Videos</h2>
-            <p class="para_style">
+            <h2 style={{ color: "#454545" }}>Live Action Videos</h2>
+            <p className="para_style">
               This type of videos is demonstrated live through anchors or
               instructors creating a viable environment for the learners.
             </p>
           </div>
         </Grid>
       </Grid>
-      <Grid container sx={{ p: 5 }}>
-        <Grid textAlign="center" xs={12}>
-          <p style={{ color: "#2D7DE2", fontWeight: 700 }}>
+      <Grid item container sx={{ p: 5 }}>
+        <Grid item textAlign="center" xs={12}>
+          <h1 style={{ color: "#454545", fontSize: "3em" }}>
             THINGS THAT WE PROMISE
-          </p>
-          <h1>With Our Content Writing Services</h1>
+          </h1>
+          <h1
+            style={{ color: "#454545", fontSize: "1.7em", marginTop: "-0.3em" }}
+          >
+            With Our Content Writing Services
+          </h1>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>Quick Turnaround Time</h2>
-          <p>
-            As soon as you order your content our team of professional content
-            creators in India start working as per the guidelines.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className="alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>Quick Turnaround Time</h3>
+              <p>
+                As soon as you order your content our team of professional
+                content creators in India start working as per the guidelines.
+              </p>
+            </span>
+          </div>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>Well Researched</h2>
-          <p>
-            We focus on providing well researched content solutions through our
-            services in India and everything goes as per a solid content
-            strategy.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className=" alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" fontSize="3em" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>Well Researched</h3>
+              <p>
+                We focus on providing well researched content solutions through
+                our services in India and everything goes as per a solid content
+                strategy.
+              </p>
+            </span>
+          </div>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>SEO Optimized Content</h2>
-          <p>
-            The content that we deliver is optimized for both the users and
-            search engines. It allows our clients to get better results for
-            their online SEO campaigns.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className=" alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>SEO Optimized Content</h3>
+              <p>
+                The content that we deliver is optimized for both the users and
+                search engines. It allows our clients to get better results for
+                their online SEO campaigns.
+              </p>
+            </span>
+          </div>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>Copyscape Passed</h2>
-          <p>
-            We hate copied content as much as you people do. Plagiarism free
-            content is always on our priority list and the end product for our
-            clients would be 100% unique and engaging content.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className=" alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>Copyscape Passed</h3>
+              <p>
+                We hate copied content as much as you people do. Plagiarism free
+                content is always on our priority list and the end product for
+                our clients would be 100% unique and engaging content.
+              </p>
+            </span>
+          </div>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>Tailor-Made</h2>
-          <p>
-            We ask enough questions before starting a project to know all about
-            your needs and requirements. This makes sure that the content aligns
-            with your brand's goals.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className=" alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>Tailor-Made</h3>
+              <p>
+                We ask enough questions before starting a project to know all
+                about your needs and requirements. This makes sure that the
+                content aligns with your brand's goals.
+              </p>
+            </span>
+          </div>
         </Grid>
-        <Grid xs={12} md={4} sx={{ p: 5 }} className="center-align">
-          <h2>Fully Managed</h2>
-          <p>
-            You don't need to manage writers and their gigs as we provide fully
-            managed content writing services. Focus on the things that you are
-            good at and let us do the content part for you.
-          </p>
+        <Grid item xs={12} md={4} sx={{ p: 5 }}>
+          <div className=" alignment center-align">
+            <span style={{ padding: "0 1em 0 0" }}>
+              <Icon name="checkmark box" />
+            </span>
+            <span>
+              <h3 style={{ color: "#43454599" }}>Fully Managed</h3>
+              <p>
+                You don't need to manage writers and their gigs as we provide
+                fully managed content writing services. Focus on the things that
+                you are good at and let us do the content part for you.
+              </p>
+            </span>
+          </div>
         </Grid>
       </Grid>
       <Grid
+        item
         sx={{
           px: 5,
           py: 10,
@@ -382,81 +437,93 @@ export default function Home() {
         }}
         container
       >
-        <Grid xs={6} md={3}>
-          <span>
-            <Icon name="smile outline" size="big" />
+        <Grid
+          item
+          xs={6}
+          md={3}
+          sx={{ fontWeight: "bolder", pb: { xs: 5, md: 0 } }}
+        >
+          <span style={{ fontSize: "1.8em" }}>
+            <Icon name="smile outline" size="large" />
           </span>
-          <h2>75+</h2>
+          <h2 className="fontstyle">75+</h2>
           <hr
             className="seprator"
             style={{
               textAlign: "center",
-              width: "25%",
+              width: "15%",
               backgroundColor: "#fff",
             }}
           ></hr>
-          <h3>Happy Clients</h3>
+          <h3 className="fontstyle1">Happy Clients</h3>
         </Grid>
-        <Grid xs={6} md={3}>
-          <span>
-            <Icon name="user outline" size="big" />
+        <Grid
+          item
+          xs={6}
+          md={3}
+          sx={{ fontWeight: "bolder", pb: { xs: 5, md: 0 } }}
+        >
+          <span style={{ fontSize: "1.8em" }}>
+            <Icon name="user outline" size="large" />
           </span>
-          <h2>5,000,000+</h2>
+          <h2 className="fontstyle">5,000,000+</h2>
           <hr
             className="seprator"
             style={{
               textAlign: "center",
-              width: "25%",
+              width: "15%",
               backgroundColor: "#fff",
             }}
           ></hr>
-          <h3>Engaged Learners</h3>
+          <h3 className="fontstyle1">Engaged Learners</h3>
         </Grid>
-        <Grid xs={6} md={3}>
-          <span>
-            <Icon name="trophy" size="big" />
+        <Grid item xs={6} md={3} sx={{ fontWeight: "bolder" }}>
+          <span style={{ fontSize: "1.8em" }}>
+            <Icon name="trophy" size="large" />
           </span>
-          <h2>500+</h2>
+          <h2 className="fontstyle">500+</h2>
           <hr
             className="seprator"
             style={{
               textAlign: "center",
-              width: "25%",
+              width: "15%",
               backgroundColor: "#fff",
             }}
           ></hr>
-          <h3>Game Constructs</h3>
+          <h3 className="fontstyle1">Game Constructs</h3>
         </Grid>
-        <Grid xs={6} md={3}>
-          <span>
-            <Icon name="book" size="big" />
+        <Grid item xs={6} md={3} sx={{ fontWeight: "bolder" }}>
+          <span style={{ fontSize: "1.8em" }}>
+            <Icon name="book" size="large" />
           </span>
-          <h2>10,000+</h2>
+          <h2 className="fontstyle">10,000+</h2>
           <hr
             className="seprator"
             style={{
               textAlign: "center",
-              width: "25%",
+              width: "15%",
               backgroundColor: "#fff",
             }}
           ></hr>
-          <h3>Content Hours</h3>
+          <h3 className="fontstyle1">Content Hours</h3>
         </Grid>
       </Grid>
       <Grid
+        item
         sx={{ px: 10, py: 5, backgroundColor: "#F5F5F5" }}
         container
         justifyContent="space-evenly"
-        alignItem="center"
+        alignitems="center"
         position="relative"
       >
-        <Grid xs={12} textAlign="center">
-          <h1>Blog</h1>
+        <Grid item xs={12} textAlign="center">
+          <h1 style={{ color: "#454545", fontSize: "3em" }}>Blog</h1>
         </Grid>
         <Grid
+          item
           xs={12}
           md={3}
-          p="1.5em"
+          p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
         >
           <Image
@@ -467,15 +534,20 @@ export default function Home() {
               padding: " 0.5em 0em",
             }}
           />
-          <p>Article</p>
-          <h3>
+          <span>Article</span>
+          <h3
+            style={{
+              marginTop: "0.5em",
+            }}
+          >
             How hyper-casual gaming can be used to transformenterprise outcomes
           </h3>
         </Grid>
         <Grid
+          item
           xs={12}
           md={3}
-          p="1.5em"
+          p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
         >
           <Image
@@ -486,13 +558,20 @@ export default function Home() {
               padding: " 0.5em 0em",
             }}
           />
-          <p>Article</p>
-          <h3>5 Ways to elevate your sales rep training & onboarding</h3>
+          <span>Article</span>
+          <h3
+            style={{
+              marginTop: "0.5em",
+            }}
+          >
+            5 Ways to elevate your sales rep training & onboarding
+          </h3>
         </Grid>
         <Grid
+          item
           xs={12}
           md={3}
-          p="1.5em"
+          p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
         >
           <Image
@@ -503,21 +582,26 @@ export default function Home() {
               padding: " 0.5em 0em",
             }}
           />
-          <p>Article</p>
-          <h3>
+          <span>Article</span>
+          <h3
+            style={{
+              marginTop: "0.5em",
+            }}
+          >
             7 Tips for employee learning and development: expert tips on how to
             train your employees
           </h3>
         </Grid>
         <Grid
+          item
           xs={10}
           container
-          sx={{ p: 8 }}
-          alignItems="center"
+          sx={{ py: { xs: 7, md: 10 }, px: { xs: 5, md: 8 } }}
+          alignitems="center"
           justifyContent="space-between"
           className="custom1 center-align"
         >
-          <Grid sx={{ color: "#fff" }}>
+          <Grid item sx={{ color: "#fff" }}>
             <h1 style={{ fontSize: "2.5em" }}>Why to wait?</h1>
           </Grid>
           <Button
@@ -533,7 +617,6 @@ export default function Home() {
               fontWeight: 500,
               textTransform: "uppercase",
               transition: "1s",
-              marginTop: "2em",
               color: "#fff",
               ":hover": {
                 backgroundColor: "#ffbf00",
@@ -547,62 +630,80 @@ export default function Home() {
         </Grid>
       </Grid>
       <Grid
+        item
         sx={{
           px: 5,
-          pt: 40,
+          pt: 35,
           color: "#fff",
           backgroundColor: "#454545",
           borderBottom: "0.05px solid gray",
-          clipPath: "ellipse(100% 85% at 50% 100%)",
+          clipPath: "ellipse(100% 80% at 50% 100%)",
         }}
         container
         justifyContent="space-evenly"
       >
-        <Grid xs={12} md={3} p="1.5em">
+        <Grid item xs={12} md={3} p="1.5em">
           <Image src={logo} alt="" height="50m" width="180em" />
-          <p style={{ padding: "1em 0em" }}>
+          <p style={{ padding: "1em 0 0 0" }}>
             A simple but powerful platform builder to deliver interactive
             experiences that your learners engage with, not because they are
             forced to, but because they want to......
           </p>
-          <span className="circle">
-            <Icon name="facebook" size="large" />
-          </span>
-          <span className="circle">
-            <Icon name="twitter" size="large" />
-          </span>
-          <span className="circle">
-            <Icon name="instagram" size="large" />
-          </span>
-          <span className="circle">
-            <Icon name="youtube" size="large" />
-          </span>
-          <span className="circle">
-            <Icon name="linkedin" size="large" />
-          </span>
+          <Link to="http://www.facebook.com/QuoDeck" style={{ color: "#fff" }}>
+            <i className="circle fab fa-facebook"></i>
+          </Link>
+          <Link
+            to="http://twitter.com/QuoDeck"
+            style={{ color: "#fff", marginLeft: "0.5em" }}
+          >
+            <i className="circle fab fa-twitter"></i>
+          </Link>
+          <Link
+            to="http://www.instagram.com/quodeck/"
+            style={{ color: "#fff", marginLeft: "0.5em" }}
+          >
+            <i className="circle fab fa-youtube"></i>
+          </Link>
+          <Link
+            to="http://www.youtube.com/channel/UCfyQaRg6MiZG_42qy8hCyww/videos?disable_polymer=true"
+            style={{ color: "#fff", marginLeft: "0.5em" }}
+          >
+            <i className="circle fab fa-instagram"></i>
+          </Link>
+          <Link
+            to="http://www.linkedin.com/company/quodeck/"
+            style={{ color: "#fff", margin: "0 0.5em" }}
+          >
+            <i className="circle fab fa-linkedin"></i>
+          </Link>
         </Grid>
-        <Grid xs={12} md={3} p="1.5em">
+        <Grid item xs={12} md={3} p="1.5em">
           <h3>Quick Links</h3>
           <span>----------------------------------------</span>
           <p>Privacy Policy</p>
           <p>Copyright Policy</p>
           <p>Contact us</p>
         </Grid>
-        <Grid xs={12} md={3} p="1.5em">
+        <Grid item xs={12} md={3} p="1.5em">
           <h3>Get in Touch</h3>
           <span>----------------------------------------</span>
-          <p>
-            <Icon name="envelope" color="yellow" />
-            <span> markcenter@quodeck.com</span>
-          </p>
-          <p>
+          <div>
+            <Icon name="envelope" color="yellow"></Icon>
+            <span>markcenter@quodeck.com</span>
+          </div>
+          <div>
             <Icon name="world" color="yellow" />
-            <span> www.quodeck.com</span>
-          </p>
+            <span>www.quodeck.com</span>
+          </div>
         </Grid>
       </Grid>
-      <Grid sx={{ backgroundColor: "#454545" }} container textAlign="center">
-        <Grid xs={12} py="1em" color="gray">
+      <Grid
+        item
+        sx={{ backgroundColor: "#454545" }}
+        container
+        textAlign="center"
+      >
+        <Grid item xs={12} py="1em" color="gray">
           <h4>&copy; 2022 QuoDeck Technologies PLC</h4>
         </Grid>
       </Grid>
