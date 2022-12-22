@@ -162,7 +162,7 @@ function ContactForm({openModal,onClose}) {
                                 name='phoneNumber'
                                 value={phoneNumber}
                                 onChange={handleChange}
-                                pattern="[6789][0-9]{9}"
+                                pattern="[6789][0-9]{9,11}"
                             />
                         </Form.Group>
                         <Form.Field
