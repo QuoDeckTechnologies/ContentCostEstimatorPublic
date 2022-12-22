@@ -413,14 +413,14 @@ function ViewDetails() {
   let vDetailsData = (name, text, proportions, minutes, total) => {
     return { name, text, proportions, minutes, total };
   };
-  let accessAddonsData = (name, text, available, total) => {
-    return { name, text, available, total };
+  let accessAddonsData = (name, text, checked, total) => {
+    return { name, text, checked, total };
   };
   let presentAddonsData = (name, text, count, total) => {
     return { name, text, count, total };
   };
-  let translationAddons = (name, text, available) => {
-    return { name, text, available };
+  let translationAddons = (name, text, checked) => {
+    return { name, text, checked };
   };
   let priceEstimatorData = (name, estimatePrice) => {
     return { name, estimatePrice };
@@ -617,7 +617,6 @@ function ViewDetails() {
       window.removeEventListener("resize", getScreenDimensions);
     };
   });
-  console.log(contentSlidesData, "\n", videosTableData, "\n", accessibilityAddonsData, "\n", presentationAddonsData, "\n", translationAddonsData,)
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: "center",
@@ -782,7 +781,7 @@ function ViewDetails() {
                         align="center"
                         sx={{ width: "3em", margin: "auto" }}
                       >
-                        {row.available}
+                        {row.checked}
                       </Paper>
                     </TableCell>
                   </TableRow>
@@ -852,7 +851,7 @@ function ViewDetails() {
                         align="center"
                         sx={{ width: "3em", margin: "auto" }}
                       >
-                        {row.available}
+                        {row.checked}
                       </Paper>
                     </TableCell>
                   </TableRow>
