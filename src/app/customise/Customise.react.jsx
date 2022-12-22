@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import ContactForm from "../contactForm/ContactForm.react";
@@ -23,212 +23,103 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import "./Customise.css";
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 
 export default function Customise() {
-  const [contentHours, setContentHours] = useState(6);
   const [open, setOpen] = useState(false);
+  const [contentHours, setContentHours] = useState(
+    useSelector((state) => state.root.recommendedLevel.list.data.hrs)
+  );
   const [translations, setTranslations] = useState({
     name: "translations",
     total: 0,
     value: 1,
   });
 
-  const [schema, setSchema] = useState([
-    {
-      name: "textual-content-slide",
-      text: "Textual Content Slide",
-      OSTwords: 0,
-      VOwords: 0,
-      proportion: 0,
-      screens: 0,
-      total: 0,
-    },
-    {
-      name: "visual-content-slide",
-      text: "Visual Content Slide",
-      OSTwords: 0,
-      VOwords: 0,
-      proportion: 14,
-      screens: 8,
-      total: 0,
-    },
-    {
-      name: "interactive-visual-slide",
-      text: "Interactive Visual Content Slide",
-      OSTwords: 0,
-      VOwords: 0,
-      proportion: 56,
-      screens: 34,
-      total: 0,
-    },
-    {
-      name: "textual-question-slide",
-      text: "Textual Question Slide",
-      OSTwords: 0,
-      VOwords: 0,
-      proportion: 5,
-      screens: 6,
-      total: 0,
-    },
-    {
-      name: "visual-quetion-slide",
-      text: "Visual Question Slide",
-      OSTwords: 0,
-      VOwords: 0,
-      proportion: 10,
-      screens: 12,
-      total: 0,
-    },
-  ]);
+  const [schema, setSchema] = useState(
+    useSelector((state) => {
+      let data = [...state.root.dataProportions.dataProp.contentSlideData];
+      let tmp_arr = [];
+      data.forEach((ele) => {
+        let tmp_proportion = parseInt(ele.proportion);
+        let tmp_screens = parseInt(ele.screens);
+        tmp_arr.push({
+          ...ele,
+          proportion: tmp_proportion,
+          screens: tmp_screens,
+        });
+      });
+      return tmp_arr;
+    })
+  );
 
-  const [videos, setVideos] = useState([
-    {
-      name: "slideshows",
-      text: "Slideshows",
-      proportion: 5,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 3,
-      total: 0,
-    },
-    {
-      name: "story-based-slideshows",
-      text: "Story-Based Slideshows",
-      proportion: 10,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 6,
-      total: 0,
-    },
-    {
-      name: "screencasts",
-      text: "Screencasts",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-    {
-      name: "iconic-infographic-video",
-      text: "Iconic/Infographic Video",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-    {
-      name: "2d-animated-story",
-      text: "2D Animated Story",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-    {
-      name: "whiteboard-animation",
-      text: "Whiteboard Animation",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-    {
-      name: "motion-graphics",
-      text: "Motion graphics",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-    {
-      name: "3d-animated-story",
-      text: "3D Animated Story",
-      proportion: 0,
-      OSTwords: 0,
-      VOwords: 0,
-      minutes: 0,
-      total: 0,
-    },
-  ]);
+  const [videos, setVideos] = useState(
+    useSelector((state) => {
+      let data = [...state.root.dataProportions.dataProp.videosTableData];
+      let tmp_arr = [];
+      data.forEach((ele) => {
+        let tmp_proportion = parseInt(ele.proportion);
+        let tmp_minutes = parseInt(ele.minutes);
+        tmp_arr.push({
+          ...ele,
+          proportion: tmp_proportion,
+          minutes: tmp_minutes,
+        });
+      });
+      return tmp_arr;
+    })
+  );
 
-  const [accessibility, setAccessibility] = useState([
-    {
-      text: "Machine Voiceovers",
-      name: "machine-voiceover",
-      total: 0,
-      checked: false,
-    },
-    {
-      text: "Human Voiceovers",
-      name: "human-voiceover",
-      total: 0,
-      checked: true,
-    },
-    {
-      text: "Gamified Story",
-      name: "gamified-story",
-      total: 0,
-      checked: false,
-    },
-  ]);
+  const [accessibility, setAccessibility] = useState(
+    useSelector((state) => {
+      let data = [
+        ...state.root.dataProportions.dataProp.accessibilityAddonsData,
+      ];
+      let tmp_arr = [];
+      data.forEach((ele) => {
+        if (ele.checked === "Y") {
+          let dataT = { ...ele, checked: true };
+          tmp_arr.push(dataT);
+        } else {
+          let dataT = { ...ele, checked: false };
+          tmp_arr.push(dataT);
+        }
+      });
+      return tmp_arr;
+    })
+  );
 
-  const [presentation, setPresentation] = useState([
-    {
-      text: "Stock Character with 6 Poses",
-      name: "stock-character-with-6-poses",
-      total: 0,
-      value: 5,
-    },
-    {
-      text: "Custom Illustrations",
-      name: "custom-illustrations",
-      total: 0,
-      value: 8,
-    },
-  ]);
+  const [presentation, setPresentation] = useState(
+    useSelector(
+      (state) => state.root.dataProportions.dataProp.presentationAddonsData
+    )
+  );
 
-  const [translation, setTranslation] = useState([
-    {
-      text: "Translate Voiceover Scripts",
-      name: "translate-voiceover-scripts",
-      checked: false,
-    },
-    {
-      text: "External Translation Review",
-      name: "external-translation-review",
-      checked: false,
-    },
-  ]);
+  const [translation, setTranslation] = useState(
+    useSelector((state) => {
+      let data = [...state.root.dataProportions.dataProp.translationAddonsData];
+      let tmp_arr = [];
+      data.forEach((ele) => {
+        if (ele.checked === "Y") {
+          let dataT = { ...ele, checked: true };
+          tmp_arr.push(dataT);
+        } else {
+          let dataT = { ...ele, checked: false };
+          tmp_arr.push(dataT);
+        }
+      });
+      return tmp_arr;
+    })
+  );
 
-  const [estimate, setEstimate] = useState([
-    {
-      text: "Storyboarding",
-      total: 0,
-    },
-    {
-      text: "Asset Creation",
-      total: 0,
-    },
-    {
-      text: "Authoring",
-      total: 0,
-    },
-    {
-      text: "Voiceovers",
-      total: 0,
-    },
-    {
-      text: "Translations",
-      total: 0,
-    },
-  ]);
+  const [estimate, setEstimate] = useState(
+    useSelector((state) => {
+      let data = [...state.root.dataProportions.dataProp.allEstimatedCost];
+      return data;
+    })
+  );
 
-  const [translationEstimate, setTranslationEstimate] = useState([
+  const [translationEstimate] = useState([
     {
       name: "ost-translation",
     },
@@ -521,10 +412,10 @@ export default function Customise() {
   function calOverAllPercentage() {
     let percentage = 0;
     for (let ele of schema) {
-      percentage += ele.proportion;
+      percentage += parseInt(ele.proportion);
     }
     for (let ele of videos) {
-      percentage += ele.proportion;
+      percentage += parseInt(ele.proportion);
     }
     return percentage;
   }
