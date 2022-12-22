@@ -6,6 +6,7 @@ import ViewDetails from "../viewDetails/ViewDetails.react";
 import Customise from "../customise/Customise.react";
 import { Image } from "semantic-ui-react";
 import logo from "../../assets/logo.png";
+import smallLogo from "../../assets/favicon.png";
 import { Link } from "react-router-dom";
 
 function UtilitiesAndDetails() {
@@ -42,6 +43,7 @@ function UtilitiesAndDetails() {
     };
   }
   const [value, setValue] = React.useState(0);
+  const [index, setIndex] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -61,18 +63,22 @@ function UtilitiesAndDetails() {
     },
     color: "#fff",
     transition: "1s",
-    padding: "0 2em",
+    px: { xs: 0, sm: 2 },
     border: "2px solid #fff",
   };
 
+  function handleTab(index) {
+    setIndex(index);
+  }
+
   return (
-    <Box sx={{ width: "100%",backgroundColor:'#f4f4f4' }}>
+    <Box sx={{ width: "100%", backgroundColor: "#f4f4f4" }}>
       <Box>
         <Box
           sx={{
             borderBottom: 1,
             borderColor: "divider",
-            backgroundColor: "#454545cc",
+            backgroundColor: "#686868",
             padding: "1em 0",
             display: "flex",
             justifyContent: "space-between",
@@ -86,11 +92,32 @@ function UtilitiesAndDetails() {
             top: "0",
             width: "100%",
             zIndex: "99",
+            boxShadow: "0 2px 10px #00000080",
           }}
         >
-          <Box sx={{ display: "flex", justifyContentL: "left" }}>
-            <Box sx={{ ml: { xs: 4, lg: 15 } }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContentL: "left",
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                ml: { xs: 4, xl: 15 },
+                display: { xs: "none", md: "inline-block" },
+              }}
+            >
               <Image src={logo} alt="" width="200em" />
+            </Box>
+            <Box
+              sx={{
+                ml: { xs: 1, sm: 4, xl: 15 },
+                display: { md: "none" },
+                width: "6em",
+              }}
+            >
+              <Image src={smallLogo} alt="" />
             </Box>
             <Tabs
               value={value}
@@ -107,46 +134,53 @@ function UtilitiesAndDetails() {
                 "& .Mui-selected": {
                   border: "2px solid #000",
                 },
-                ml: 4,
+                ml: { xs: 1, md: 4 },
               }}
             >
-              <Tab sx={tabStyle} label="View Details" {...a11yProps(0)} />
+              <Tab
+                sx={tabStyle}
+                label="View Details"
+                {...a11yProps(0)}
+                onClick={(e) => handleTab(0)}
+              />
               <Tab
                 sx={{ ...tabStyle, ml: 2 }}
                 label="Customise"
                 {...a11yProps(1)}
+                onClick={(e) => handleTab(1)}
               />
             </Tabs>
           </Box>
-          <Box sx={{ fontSize: "2em" }}>
+          <Box
+            sx={{
+              fontSize: "2em",
+              mr: { xs: 1, sm: 5, xl: 15 },
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.5em",
+            }}
+          >
             <Link to="#" style={{ color: "#fff" }}>
               <i className="fab fa-facebook"></i>
             </Link>
-            <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
-              <i class="fab fa-twitter"></i>
+            <Link to="#" style={{ color: "#fff" }}>
+              <i className="fab fa-twitter"></i>
             </Link>
-            <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
-              <i class="fab fa-youtube"></i>
+            <Link to="#" style={{ color: "#fff" }}>
+              <i className="fab fa-youtube"></i>
             </Link>
-            {/* <Link to="#" style={{ color: "#fff", marginLeft: "1em" }}>
-            <i className="fab fa-instagram-square"></i>
-            </Link> */}
-            <Link to="#" style={{ color: "#fff", margin: "0 1em" }}>
+            <Link to="#" style={{ color: "#fff" }}>
               <i className="fab fa-linkedin"></i>
             </Link>
           </Box>
         </Box>
         <Box sx={{ px: { xs: 4, xl: 15 }, pt: 10 }}>
-          <TabPanel value={value} index={0}>
-            <ViewDetails />
-          </TabPanel>
-          <TabPanel value={value} index={1} sx={{ backgroundColor: "#6f6f6f" }}>
-            <Customise />
-          </TabPanel>
+          {index === 0 && <ViewDetails />}
+          {index === 1 && <Customise />}
         </Box>
       </Box>
     </Box>
   );
-};
+}
 
 export default UtilitiesAndDetails;

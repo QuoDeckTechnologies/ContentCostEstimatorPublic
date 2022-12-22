@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import ContactForm from "../contactForm/ContactForm.react";
@@ -576,7 +576,7 @@ export default function Customise() {
     return (
       <TableContainer component={Paper} sx={{ mb: 2, borderRadius: "1em" }}>
         <Table aria-label="simple table">
-          <TableHead sx={{ backgroundColor:'#ffbf00' }}>
+          <TableHead sx={{ backgroundColor: "#ffbf00" }}>
             <TableRow>
               <TableCell sx={{ ...headerStyle, p: 2 }}>Total Cost</TableCell>
               <TableCell sx={{ ...headerStyle, p: 2 }} align="right">
@@ -632,6 +632,7 @@ export default function Customise() {
           p: 5,
           borderRadius: "0.5em",
           boxShadow: "inset 0px 2px 10px #00000080",
+          position: "relative",
         }}
       >
         <div className="customise-wrapper">
@@ -660,7 +661,7 @@ export default function Customise() {
             </div>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -689,7 +690,9 @@ export default function Customise() {
                         />
                       </TableCell>
                       <TableCell sx={{ ...cellStyle, ...rightCellStyle }}>
-                        <Paper>{row.screens}</Paper>
+                        <Paper sx={{ lineHeight: "2em", textIndent: "0.5em" }}>
+                          {row.screens}
+                        </Paper>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -698,7 +701,7 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -727,7 +730,9 @@ export default function Customise() {
                         />
                       </TableCell>
                       <TableCell sx={{ ...cellStyle, ...rightCellStyle }}>
-                        <Paper>{row.minutes}</Paper>
+                        <Paper sx={{ lineHeight: "2em", textIndent: "0.5em" }}>
+                          {row.minutes}
+                        </Paper>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -737,7 +742,11 @@ export default function Customise() {
             <div className="customise-total-base-contest">
               <TableContainer
                 component={Paper}
-                sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+                sx={{
+                  mb: 2,
+                  borderRadius: "1em",
+                  border: "2px solid #45454599",
+                }}
               >
                 <Table aria-label="simple table">
                   <TableHead sx={{ backgroundColor: "#ffbf00" }}>
@@ -745,14 +754,32 @@ export default function Customise() {
                       <TableCell sx={headerStyle} width="35%">
                         Total Base Content
                       </TableCell>
-                      <TableCell sx={{...cellStyle,width:'32%'}}>
-                        <Paper sx={{lineHeight:'2.5em',borderRadius:'0.5em',textIndent:'0.5em',fontWeight:'700'}}>{calOverAllPercentage()}%</Paper>
+                      <TableCell sx={{ ...cellStyle, width: "32%" }}>
+                        <Paper
+                          sx={{
+                            lineHeight: "2.5em",
+                            borderRadius: "0.5em",
+                            textIndent: "0.5em",
+                            fontWeight: "700",
+                          }}
+                        >
+                          {calOverAllPercentage()}%
+                        </Paper>
                       </TableCell>
                       <TableCell
-                        sx={{ ...cellStyle, ...rightCellStyle,width:'32%' }}
+                        sx={{ ...cellStyle, ...rightCellStyle, width: "32%" }}
                         width="35%"
                       >
-                        <Paper sx={{lineHeight:'2.5em',borderRadius:'0.5em',textIndent:'0.5em',fontWeight:'700'}}>{numberFormat(calBaseContent())}</Paper>
+                        <Paper
+                          sx={{
+                            lineHeight: "2.5em",
+                            borderRadius: "0.5em",
+                            textIndent: "0.5em",
+                            fontWeight: "700",
+                          }}
+                        >
+                          {numberFormat(calBaseContent())}
+                        </Paper>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -761,7 +788,7 @@ export default function Customise() {
             </div>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -809,7 +836,7 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -846,7 +873,7 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em" ,border:'2px solid #45454599'}}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -895,7 +922,7 @@ export default function Customise() {
             <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em",border:'2px solid #45454599' }}
+              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -924,7 +951,9 @@ export default function Customise() {
               </Table>
             </TableContainer>
             <div className="customise-total-price-container">
-              {getTotalEstimateTable()}
+              <div className="customise-total-price-container-table">
+                {getTotalEstimateTable()}
+              </div>
               <div className="cta-button">
                 <Button
                   variant="outlined"
@@ -949,7 +978,7 @@ export default function Customise() {
               </div>
             </div>
           </div>
-          
+
           <div className="cusomise-price-total-mobile-container">
             <div className="cusomise-price-total-mobile-wrapper">
               <div className="estimatetable-mobile-container">
@@ -958,7 +987,7 @@ export default function Customise() {
                   {numberFormat(getTotalCost())}
                 </h4>
               </div>
-              <div className="cta-button-mobile-container">
+              {/* <div className="cta-button-mobile-container">
                 <Button
                   fullWidth
                   variant="outlined"
@@ -981,7 +1010,7 @@ export default function Customise() {
                 >
                   proceed to get the PDF
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -16,7 +16,8 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    right: 4em;
+    right: 12em;
+    width: 35%;
 }
 
 .customise-container .customise-header {
@@ -59,11 +60,14 @@
 }
 
 .estimatetable-mobile-container {
-    flex: 1;
+    background-color: #ffbf00;
+    padding: 0.5em 1em;
+    box-shadow: 0 2px 10px #00000080;
+    font-size: 1.4em;
+    flex: 1 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1em;
 }
 
 .customise-price-total-text {
@@ -110,11 +114,19 @@
         display: none;
     }
 
-    /* .customise-panel-price-estimator {
-        margin-top: 2em;
-    } */
     .customise-wrapper {
         gap: 2em;
+    }
+
+    .cusomise-price-total-mobile-seperator {
+        height: 0.5em;
+    }
+}
+
+
+@media only screen and (max-width: 1536px) {
+    .customise-panel-price-estimator {
+        right: 5em;
     }
 }
 
@@ -134,13 +146,14 @@
         justify-content: left;
     }
 
-    .customise-total-price-container {
+    .customise-total-price-container-table {
         display: none;
     }
 
-    /* .customise-panel-price-estimator {
-        margin-bottom: 2em;
-    } */
+    .customise-panel-price-estimator {
+        width: 100%;
+    }
+
     .customise-panel-price-estimator {
         position: static;
     }
