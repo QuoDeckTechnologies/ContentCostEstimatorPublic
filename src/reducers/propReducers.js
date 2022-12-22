@@ -4,10 +4,10 @@ const initialState = {
 const dataProportions = (state = initialState, action) => {
     switch (action.type) {
         case "SET_DETAILS_DATA":
-            const { id, contentSlideData,
+            const { id, level, contentSlideData,
                 videosTableData,
                 accessibilityAddonsData, presentationAddonsData,
-                translationAddonsData, allEstimatedCost, translationEstimate, level } = action.payload;
+                translationAddonsData, allEstimatedCost, translationEstimate } = action.payload;
             return {
                 ...state,
                 dataProp:
@@ -19,8 +19,8 @@ const dataProportions = (state = initialState, action) => {
                     accessibilityAddonsData: accessibilityAddonsData,
                     presentationAddonsData: presentationAddonsData,
                     translationAddonsData: translationAddonsData,
-                    allEstimatedCost: allEstimatedCost,
                     translationEstimate: translationEstimate,
+                    allEstimatedCost: allEstimatedCost,
                 }
 
             }
