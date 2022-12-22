@@ -107,7 +107,7 @@ function ViewDetails() {
   let ivcsOSTwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsOSTwords =
     textualQuestionSlideProportion > 0
@@ -132,7 +132,7 @@ function ViewDetails() {
   let iivOSTwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 30)
+      (oneScreenPerMinute * 60 * 30)
       : 0;
   let ddasOSTwords =
     ddAnimatedStoryProportion > 0
@@ -163,7 +163,7 @@ function ViewDetails() {
   let ivcsVOwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsVOwords =
     textualQuestionSlideProportion > 0
@@ -188,7 +188,7 @@ function ViewDetails() {
   let iivVOwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let ddasVOwords =
     ddAnimatedStoryProportion > 0
@@ -423,17 +423,17 @@ function ViewDetails() {
     allEstimatedCost("Translations", finalTranslationCost),
   ];
 
-  let csDetailsData = (name, text, proportions, screens, total) => {
-    return { name, text, proportions, screens, total };
+  let csDetailsData = (name, text, proportion, screens, total, OSTwords, VOwords) => {
+    return { name, text, proportion, screens, total, OSTwords, VOwords };
   };
-  let vDetailsData = (name, text, proportions, minutes, total) => {
-    return { name, text, proportions, minutes, total };
+  let vDetailsData = (name, text, proportion, minutes, total, OSTwords, VOwords) => {
+    return { name, text, proportion, minutes, total, OSTwords, VOwords };
   };
   let accessAddonsData = (name, text, checked, total) => {
     return { name, text, checked, total };
   };
-  let presentAddonsData = (name, text, count, total) => {
-    return { name, text, count, total };
+  let presentAddonsData = (name, text, value, total) => {
+    return { name, text, value, total };
   };
   let translationAddons = (name, text, checked) => {
     return { name, text, checked };
@@ -455,35 +455,35 @@ function ViewDetails() {
       "Textual Content Slide",
       textualContentSlideProportion,
       level === "1" ? "19" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      textualContentSlideTotalCost
+      textualContentSlideTotalCost, tcsOSTwords, tcsVOwords
     ),
     csDetailsData(
       "visual-content-slide",
       "Visual Content Slide",
       visualContentSlideProportion,
       level === "1" ? "19" : level === "2" ? "27" : level === "3" ? "8" : "8",
-      visualContentSlideTotalCost
+      visualContentSlideTotalCost, vcsOSTwords, vcsVOwords
     ),
     csDetailsData(
       "interactive-content",
       "Interactive Content",
       interactiveVisualcontentSlideProportion,
       level === "1" ? "10" : level === "2" ? "18" : level === "3" ? "34" : "0",
-      interactiveVisualContentSlideTotalCost
+      interactiveVisualContentSlideTotalCost, ivcsOSTwords, ivcsVOwords
     ),
     csDetailsData(
       "textual-question-slide",
       "Textual Question Slide",
       textualQuestionSlideProportion,
       level === "1" ? "18" : level === "2" ? "12" : level === "3" ? "6" : "0",
-      textualQuestionSlideTotalCost
+      textualQuestionSlideTotalCost, tqsOSTwords, tqsVOwords
     ),
     csDetailsData(
       "visual-question-slide",
       "Visual Question Slide",
       visualQuestionSlideProportion,
       level === "1" ? "0" : level === "2" ? "6" : level === "3" ? "12" : "0",
-      visualQuestionSlideTotalCost
+      visualQuestionSlideTotalCost, vqsOSTwords, vqsVOwords
     ),
   ];
   const videosTableData = [
@@ -492,7 +492,7 @@ function ViewDetails() {
       "Slideshows",
       slideShowsProportion,
       level === "1" ? "3" : level === "2" ? "6" : level === "3" ? "3" : "0",
-      slideShowsTotalCost
+      slideShowsTotalCost, slideSOSTwords, slideSVOwords
     ),
 
     vDetailsData(
@@ -500,7 +500,7 @@ function ViewDetails() {
       "Story Based Slideshows",
       storyBasedSlideShowsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "6" : "0",
-      storyBasedSlideShowsTotalCost
+      storyBasedSlideShowsTotalCost, sbsOSTwords, sbsVOwords
     ),
 
     vDetailsData(
@@ -508,42 +508,42 @@ function ViewDetails() {
       "Screencasts",
       screenCastsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      screenCastsTotalCost
+      screenCastsTotalCost, scOSTwords, scVOwords
     ),
     vDetailsData(
       "iconic-infographic-video/ Infograph Video",
       "Iconic / Infograph Video",
       iconicInfographicVideoProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      iconicInfographicVideoTotalCost
+      iconicInfographicVideoTotalCost, iivOSTwords, iivVOwords
     ),
     vDetailsData(
       "2D-animated-story",
       "2D Animated Story",
       ddAnimatedStoryProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      ddAnimationStoryTotalCost
+      ddAnimationStoryTotalCost, ddasOSTwords, ddasVOwords
     ),
     vDetailsData(
       "whiteboard-animation",
       "Whiteboard Animation",
       whiteboardAnimationProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      whiteboardAnimationTotalCost
+      whiteboardAnimationTotalCost, waOSTwords, waVOwords
     ),
     vDetailsData(
       "motion-graphics",
       "Motion Graphics",
       motionGraphicsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      motionGraphicsTotalCost
+      motionGraphicsTotalCost, mgOSTwords, mgVOwords
     ),
     vDetailsData(
       "3d-animation",
       "3D Animation Story",
       dddAnimationStoryProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      dddAnimationStoryTotalCost
+      dddAnimationStoryTotalCost, dddOSTwords, dddVOwords
     ),
   ];
   const accessibilityAddonsData = [
@@ -669,10 +669,10 @@ function ViewDetails() {
       screenDimensions.width <= 400
         ? "300px"
         : screenDimensions <= 600
-        ? "400px"
-        : screenDimensions <= 900
-        ? "auto"
-        : "auto",
+          ? "400px"
+          : screenDimensions <= 900
+            ? "auto"
+            : "auto",
   }));
   return (
     <div className="customise-container">
@@ -767,7 +767,7 @@ function ViewDetails() {
                           align="center"
                           sx={{ width: "3em", margin: "auto" }}
                         >
-                          {row.proportions}%
+                          {row.proportion}%
                         </Paper>
                       </TableCell>
                       <TableCell sx={cellStyle} align="right">
@@ -817,7 +817,7 @@ function ViewDetails() {
                           align="center"
                           sx={{ width: "3em", margin: "auto" }}
                         >
-                          {row.proportions}%
+                          {row.proportion}%
                         </Paper>
                       </TableCell>
                       <TableCell sx={cellStyle} align="right">
@@ -902,7 +902,7 @@ function ViewDetails() {
                           align="center"
                           sx={{ width: "3em", margin: "auto" }}
                         >
-                          {row.count}
+                          {row.value}
                         </Paper>
                       </TableCell>
                     </TableRow>
