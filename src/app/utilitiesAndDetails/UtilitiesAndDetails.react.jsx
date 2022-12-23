@@ -174,7 +174,7 @@ function UtilitiesAndDetails() {
             </Link>
           </Box>
         </Box>
-        <Box sx={{ px: { xs: 4, xl: 15 }, pt: 10 }}>
+        <Box sx={{ px: { xs: 1, xl: 15 }, pt: 10 }}>
           {index === 0 && <ViewDetails />}
           {index === 1 && <Customise />}
         </Box>

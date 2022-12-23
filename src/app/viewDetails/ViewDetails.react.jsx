@@ -604,7 +604,7 @@ function ViewDetails() {
 
   function getTotalEstimateCost() {
     return (
-      <TableContainer component={Paper} sx={{ mb: 2, borderRadius: "1em" }}>
+      <TableContainer component={Paper} sx={{ mb: {xs: 1, md:2}, borderRadius: "1em" }}>
         <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#ffbf00" }}>
             <TableRow>
@@ -680,7 +680,7 @@ function ViewDetails() {
       <Box
         sx={{
           backgroundColor: "#45454566",
-          p: 5,
+          p: { xs: 1, sm: 2, md: 3, lg: 5 },
           borderRadius: "0.5em",
           boxShadow: "inset 0px 2px 10px #00000080",
           position: "relative",
@@ -736,7 +736,7 @@ function ViewDetails() {
             </Stack> */}
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -786,7 +786,7 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -836,7 +836,7 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -874,7 +874,7 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -912,7 +912,7 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -953,7 +953,7 @@ function ViewDetails() {
             <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
             <TableContainer
               component={Paper}
-              sx={{ mb: 2, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
