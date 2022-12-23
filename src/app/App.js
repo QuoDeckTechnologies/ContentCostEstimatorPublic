@@ -5,14 +5,15 @@ import ViewDetails from "./viewDetails/ViewDetails.react";
 import UtilitiesAndDetails from "./utilitiesAndDetails/UtilitiesAndDetails.react";
 import ThankyouPage from "./contactForm/ThankyouPage.react";
 import {
-  BrowserRouter,
+  // BrowserRouter,
   Routes,
   Route,
+  HashRouter,
 } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -22,7 +23,7 @@ function App() {
         <Route path="/utilities" element={<UtilitiesAndDetails />} />
         <Route path="/thank-you" element={<ThankyouPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
