@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Image, Icon } from "semantic-ui-react";
 import { Button, Typography, Grid } from "@mui/material";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Img from "../../assets/img-promo1.png";
 import logo from "../../assets/logo1.png";
 import "semantic-ui-css/semantic.min.css";
 import QuestionSlider from "../QuestionSlider/QuestionSlider.react";
@@ -83,7 +81,7 @@ export default function Home() {
           showButton
         />
         <div className="logoimg">
-          <Image src={logo} alt="" minheight="43px" width="174px" />
+          <Image src={logo} alt="" height="50em" width="200em" />
         </div>
         <Grid
           item
@@ -91,31 +89,46 @@ export default function Home() {
           md={6}
           sm={12}
           mt={7}
+          sx={{ pr: { xs: 0, md: 10 } }}
           className="center-align"
           order={{ xs: 2, sm: 2, md: 1, lg: 1 }}
         >
           <Typography
             sx={{
-              padding: "0 0 15px 0",
+              padding: "0 0 15px 2px",
+              margin: "-0.5em  0em",
               color: "#fff",
-              fontSize: "40px",
-              lineHeight: 4,
+              fontSize: "18px",
+              lineHeight: 1.2,
               fontWeight: 700,
             }}
           >
-            Cost Estimator
+            Looking to get a content cost estimate?
           </Typography>
           <Typography
             sx={{
               padding: "0 0 15px 0",
+              color: "#fff",
+              fontSize: "38px",
+              lineHeight: 1.2,
+              fontWeight: 700,
+            }}
+          >
+            Get an instant estimate with just a few clicks
+          </Typography>
+          <Typography
+            sx={{
+              padding: "1.2em 0 3em 0",
               fontSize: "18px",
-              lineHeight: 2,
+              lineHeight: 1.2,
               color: "#fff",
               letterSpacing: "0.5px",
               fontWeight: 300,
             }}
           >
-            Kick Start your journey to awesome content with quodeck
+            QuoDeck content cost estimator helps you to estimate your cost in
+            content creation and ensure that it is not at an exorbitant price
+            tag.
           </Typography>
           <Button
             variant="outlined"
@@ -130,7 +143,6 @@ export default function Home() {
               fontWeight: 500,
               textTransform: "uppercase",
               transition: "1s",
-              marginTop: "2em",
               color: "#fff",
               ":hover": {
                 backgroundColor: "#ffbf00",
@@ -148,9 +160,10 @@ export default function Home() {
           md={6}
           sm={12}
           mt={7}
+          className="center-align"
           order={{ xs: 1, sm: 1, md: 2, lg: 2 }}
         >
-          <Image src={Img} alt="" height="auto" />
+          <Image src="assets/img-promo1.png" alt="" />
         </Grid>
       </Grid>
       <Grid
@@ -187,15 +200,23 @@ export default function Home() {
           </div>
         </Slider>
       </Grid>
-      <Grid item sx={{ p: 5 }} xs={12} md={12} container>
-        <Grid item xs={12} md={6} sx={{ p: 3.5 }}>
-          <Image
-            src="assets/home-img-3.png"
-            alt=""
-            minheight="50em"
-            width="auto"
-          />
+      <Grid
+        item
+        sx={{ px: { md: 10, xs: 5 }, py: { md: 5, xs: 2 } }}
+        xs={12}
+        md={12}
+        container
+      >
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ mb: { xs: 2, md: 0 } }}
+          className="center-align"
+        >
+          <Image src="assets/home-img-3.png" alt="" width="auto" />
         </Grid>
+
         <Grid item xs={12} md={6} className="center-align">
           <Typography
             sx={{
@@ -207,13 +228,10 @@ export default function Home() {
               fontWeight: 700,
             }}
           >
-            <p>
-              BE PART OF OUR TEAM<br></br>OF SKILLED WRITERS
-            </p>
+            <p>TEAM OF PROFESSIONAL CONTENT CREATORS</p>
           </Typography>
           <Typography
             sx={{
-              padding: "0 0 15px 0",
               fontSize: "18px",
               lineHeight: 2,
               color: "#454545",
@@ -222,37 +240,35 @@ export default function Home() {
             }}
           >
             <p>
-              PayPerContent’s Team of outstanding writers have provided online
-              content for thousands of clients around the world. Their articles
-              have appeared on various international websites and have garnered
-              praise from our clients.
+              We are a team of professional content creators with over 6+ years
+              of combined experience in the industry.<br></br> We believe in
+              providing great customer experience through excellent content
+              writing services keeping your business goals and target audience
+              in mind.
             </p>
 
             <p>
-              You can join our talented team wherever you are in the world.
-              PayPerContent welcomes anyone who has the skill, versatility, and
-              creativity. Our freelance writers provide online content writing
-              from home, and they come from the US, the UK, Kenya, India,
-              Australia, Singapore, and the Philippines. Once you become a
-              member of the Team, you will receive editorial guidance, excellent
-              compensation, and the opportunity to write as many articles as you
-              want and earn as much as you want
-            </p>
-
-            <p>
-              On top of that, we give you a wonderful opportunity to do content
-              writing jobs from home — or anywhere you want. Whether you want to
-              write in your living room or your favorite coffee shop, it’s okay
-              with us as long as you have a decent internet connection, can
-              produce awesome articles, and submit your work on time.
+              Our goal is to ensure that the customers get what they need –
+              expert quality content written to your specifications using a
+              variety of techniques and resources.
             </p>
           </Typography>
         </Grid>
       </Grid>
-      <Grid item container sx={{ px: 5 }}>
+      <Grid item container sx={{ px: { md: 5, xs: 2 }, py: { md: 10, xs: 5 } }}>
         <Grid item textAlign="center" xs={12}>
           <h1
-            style={{ color: "#454545", fontSize: "3em", marginBottom: "0.8em" }}
+            style={{
+              color: "#454545",
+              fontSize: "3em",
+              margin: "0",
+              padding: "0",
+            }}
+          >
+            Make your business work smarter, not harder
+          </h1>
+          <h1
+            style={{ color: "#454545", fontSize: "1.7em", margin: "0 0 2em 0" }}
           >
             Services Included
           </h1>
@@ -261,16 +277,16 @@ export default function Home() {
           <div className="custom"></div>
           <div className="services">
             <Image
-              src="assets/service1.png"
+              src="assets/service4.png"
               width="164"
               height="103"
               alt="Video Based Learning"
             />
-            <h2 style={{ color: "#454545" }}>2D Videos</h2>
+            <h2 style={{ color: "#454545" }}>Interactive Content</h2>
             <p className="para_style">
-              Learners are being engaged in captivating 2D videos with relevant
-              concepts to help them to understand any concepts from top to
-              bottom.
+              Invoke the attention of learners by integrating dynamic and
+              interactive which will enhance their learning, allowing them to
+              engage in a more active way with the course content.
             </p>
           </div>
         </Grid>
@@ -284,10 +300,10 @@ export default function Home() {
               alt="Online Video Training Platform"
               u
             />
-            <h2 style={{ color: "#454545" }}>3D Videos</h2>
+            <h2 style={{ color: "#454545" }}>Videos</h2>
             <p className="para_style">
-              3D videos could accord technical concepts, walkthroughs, and other
-              product demos with the well-rounded concepts in the videos.
+              Videos are here to stay. Engaging videos allow your customers to
+              learn about your products in a way that was never possible before.
             </p>
           </div>
         </Grid>
@@ -300,11 +316,11 @@ export default function Home() {
               height="103"
               alt="Video Course Platform"
             />
-            <h2 style={{ color: "#454545" }}>Interactive Videos</h2>
+            <h2 style={{ color: "#454545" }}>Illustrations</h2>
             <p className="para_style">
-              Invoke the attention of learners by integrating dynamic and
-              interactive elements in the environment needed to enhance their
-              attention.
+              Our engaging illustrations, appropriate graphics and helpful text
+              make the material easy to understand and help you retain more of
+              the information.
             </p>
           </div>
         </Grid>
@@ -312,20 +328,21 @@ export default function Home() {
           <div className="custom"></div>
           <div className="services">
             <Image
-              src="assets/service4.png"
+              src="assets/services5.png"
               width="164"
               height="103"
               alt="Video Based Learning"
             />
-            <h2 style={{ color: "#454545" }}>Live Action Videos</h2>
+            <h2 style={{ color: "#454545" }}>Voiceover and translations</h2>
             <p className="para_style">
-              This type of videos is demonstrated live through anchors or
-              instructors creating a viable environment for the learners.
+              Voice-overs and translations can be of great help in many ways.
+              Voice overs can clearly persuade your target audience and hold
+              their interest for longer.
             </p>
           </div>
         </Grid>
       </Grid>
-      <Grid item container sx={{ p: 5 }}>
+      <Grid item container sx={{ p: { md: 5, xs: 2 } }}>
         <Grid item textAlign="center" xs={12}>
           <h1 style={{ color: "#454545", fontSize: "3em" }}>
             THINGS THAT WE PROMISE
@@ -333,7 +350,7 @@ export default function Home() {
           <h1
             style={{ color: "#454545", fontSize: "1.7em", marginTop: "-0.3em" }}
           >
-            With Our Content Writing Services
+            With Our Content Creation Services
           </h1>
         </Grid>
         <Grid item xs={12} md={4} sx={{ p: 5 }}>
@@ -342,10 +359,11 @@ export default function Home() {
               <Icon name="checkmark box" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>Quick Turnaround Time</h3>
-              <p>
-                As soon as you order your content our team of professional
-                content creators in India start working as per the guidelines.
+              <h3 style={{ color: "#454545cc" }}>Speedy Turnaround Time</h3>
+              <p className="para_style">
+                We take pride in our ability to deliver on time, every time.Our
+                team is ready to start working on your content as soon as you
+                order it.
               </p>
             </span>
           </div>
@@ -356,11 +374,10 @@ export default function Home() {
               <Icon name="checkmark box" fontSize="3em" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>Well Researched</h3>
-              <p>
-                We focus on providing well researched content solutions through
-                our services in India and everything goes as per a solid content
-                strategy.
+              <h3 style={{ color: "#454545cc" }}>High quality content</h3>
+              <p className="para_style">
+                We offer focused, reliable and high quality Content Solutions
+                Services in business and personal domains across the globe.
               </p>
             </span>
           </div>
@@ -371,11 +388,11 @@ export default function Home() {
               <Icon name="checkmark box" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>SEO Optimized Content</h3>
-              <p>
-                The content that we deliver is optimized for both the users and
-                search engines. It allows our clients to get better results for
-                their online SEO campaigns.
+              <h3 style={{ color: "#454545cc" }}>flexible pricing </h3>
+              <p className="para_style">
+                It lets you create content without breaking the bank. We offer
+                both the best creative design at a point that matches your
+                budget, while still staying within your target budget.
               </p>
             </span>
           </div>
@@ -386,11 +403,11 @@ export default function Home() {
               <Icon name="checkmark box" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>Copyscape Passed</h3>
-              <p>
-                We hate copied content as much as you people do. Plagiarism free
-                content is always on our priority list and the end product for
-                our clients would be 100% unique and engaging content.
+              <h3 style={{ color: "#454545cc" }}>Customised Content</h3>
+              <p className="para_style">
+                We understand how important your brand is to you, and that’s why
+                we work closely with you to ensure that our materials will
+                deliver exactly what you need.
               </p>
             </span>
           </div>
@@ -401,11 +418,10 @@ export default function Home() {
               <Icon name="checkmark box" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>Tailor-Made</h3>
-              <p>
-                We ask enough questions before starting a project to know all
-                about your needs and requirements. This makes sure that the
-                content aligns with your brand's goals.
+              <h3 style={{ color: "#454545cc" }}>We’re here to Manage</h3>
+              <p className="para_style">
+                Let us manage all aspects of getting your content ready so that
+                you can focus on what is important: your business!
               </p>
             </span>
           </div>
@@ -416,11 +432,11 @@ export default function Home() {
               <Icon name="checkmark box" />
             </span>
             <span>
-              <h3 style={{ color: "#43454599" }}>Fully Managed</h3>
-              <p>
-                You don't need to manage writers and their gigs as we provide
-                fully managed content writing services. Focus on the things that
-                you are good at and let us do the content part for you.
+              <h3 style={{ color: "#454545cc" }}>Plagiarism Free</h3>
+              <p className="para_style">
+                We focus on making content that is unique, simple and engaging.
+                So you can rest assured that your content will reach the right
+                audience.
               </p>
             </span>
           </div>
@@ -429,8 +445,8 @@ export default function Home() {
       <Grid
         item
         sx={{
-          px: 5,
-          py: 10,
+          px: { md: 5, xs: 2 },
+          py: { md: 10, xs: 5 },
           backgroundColor: "#454545",
           color: "#fff",
           textAlign: "center",
@@ -510,7 +526,12 @@ export default function Home() {
       </Grid>
       <Grid
         item
-        sx={{ px: 10, py: 5, backgroundColor: "#F5F5F5" }}
+        sx={{
+          px: 10,
+          py: 5,
+          backgroundColor: "#F5F5F5",
+          display: { md: "flex", xs: "none" },
+        }}
         container
         justifyContent="space-evenly"
         alignitems="center"
@@ -525,23 +546,30 @@ export default function Home() {
           md={3}
           p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
+          className="article"
         >
-          <Image
-            src="assets/article1.jpg"
-            style={{
-              borderRadius: "1.5em",
-              width: "100%",
-              padding: " 0.5em 0em",
-            }}
-          />
-          <span>Article</span>
-          <h3
-            style={{
-              marginTop: "0.5em",
-            }}
+          <a
+            target="_blank"
+            href="https://quodeckspeak.com/2022/10/06/game-based-learning-market-worth-29-7-billion-by-2026-report-by-marketsandmarkets/"
           >
-            How hyper-casual gaming can be used to transformenterprise outcomes
-          </h3>
+            <Image
+              src="assets/article1.png"
+              style={{
+                borderRadius: "1.5em",
+                width: "100%",
+                padding: " 0.5em 0em",
+              }}
+            />
+            <span>Article</span>
+            <h3
+              style={{
+                marginTop: "0.5em",
+              }}
+            >
+              GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 – REPORT BY
+              MARKETS AND MARKETS
+            </h3>
+          </a>
         </Grid>
         <Grid
           item
@@ -549,23 +577,29 @@ export default function Home() {
           md={3}
           p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
+          className="article"
         >
-          <Image
-            src="assets/article2.jpg"
-            style={{
-              borderRadius: "1.5em",
-              width: "100%",
-              padding: " 0.5em 0em",
-            }}
-          />
-          <span>Article</span>
-          <h3
-            style={{
-              marginTop: "0.5em",
-            }}
+          <a
+            target="_blank"
+            href=" https://quodeckspeak.com/2019/07/15/reasons-to-use-videos-for-employee-training/"
           >
-            5 Ways to elevate your sales rep training & onboarding
-          </h3>
+            <Image
+              src="assets/article2.png"
+              style={{
+                borderRadius: "1.5em",
+                width: "100%",
+                padding: " 0.5em 0em",
+              }}
+            />
+            <span>Article</span>
+            <h3
+              style={{
+                marginTop: "0.5em",
+              }}
+            >
+              REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
+            </h3>
+          </a>
         </Grid>
         <Grid
           item
@@ -573,32 +607,137 @@ export default function Home() {
           md={3}
           p="1.2em"
           sx={{ borderRadius: "2em", backgroundColor: "#fff", my: 5 }}
+          className="article"
         >
-          <Image
-            src="assets/article3.jpg"
-            style={{
-              borderRadius: "1.5em",
-              width: "100%",
-              padding: " 0.5em 0em",
-            }}
-          />
-          <span>Article</span>
-          <h3
-            style={{
-              marginTop: "0.5em",
-            }}
+          <a
+            target="_blank"
+            href="https://quodeckspeak.com/2021/01/14/4-micro-learning-strategies-for-employee-engagement/"
           >
-            7 Tips for employee learning and development: expert tips on how to
-            train your employees
-          </h3>
+            <Image
+              src="assets/article3.png"
+              style={{
+                borderRadius: "1.5em",
+                width: "100%",
+                padding: " 0.5em 0em",
+              }}
+            />
+            <span>Article</span>
+            <h3
+              style={{
+                marginTop: "0.5em",
+              }}
+            >
+              MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
+            </h3>
+          </a>
         </Grid>
+      </Grid>
+      <Grid
+        item
+        sx={{
+          py: { md: 10, xs: 5 },
+          px: { md: 5, xs: 2 },
+          display: { md: "none", xs: "flex" },
+        }}
+        container
+        // justifyContent="space-evenly"
+        // alignitems="center"
+      >
+        <Grid item xs={12} textAlign="center">
+          <h1 style={{ color: "#454545", fontSize: "3em" }}>Blog</h1>
+        </Grid>
+        <Grid item sx={{ py: 3 }}>
+          <a
+            target="_blank"
+            href="https://quodeckspeak.com/2022/10/06/game-based-learning-market-worth-29-7-billion-by-2026-report-by-marketsandmarkets/"
+          >
+            <div className="flex">
+              <Image
+                src="assets/article1.png"
+                style={{
+                  height: "100px",
+                  width: "250px",
+                  padding: " 0.5em",
+                }}
+              />
+              <span>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 –
+                  REPORT BY MARKETS AND MARKETS
+                </h3>
+              </span>
+            </div>
+          </a>
+        </Grid>
+        <Grid item sx={{ py: 3 }}>
+          <a href=" https://quodeckspeak.com/2019/07/15/reasons-to-use-videos-for-employee-training/">
+            <div className="flex">
+              <Image
+                src="assets/article2.png"
+                style={{
+                  height: "100px",
+                  width: "250px",
+                  padding: " 0.5em",
+                }}
+              />
+              <span>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
+                </h3>
+              </span>
+            </div>
+          </a>
+        </Grid>
+        <Grid item sx={{ py: 3 }}>
+          <a
+            target="_blank"
+            href="https://quodeckspeak.com/2021/01/14/4-micro-learning-strategies-for-employee-engagement/"
+          >
+            <div className="flex">
+              <Image
+                src="assets/article3.png"
+                style={{
+                  height: "100px",
+                  width: "250px",
+                  padding: " 0.5em",
+                }}
+              />
+              <span>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
+                </h3>
+              </span>
+            </div>
+          </a>
+        </Grid>
+      </Grid>
+      <Grid position="relative" container justifyContent="center">
         <Grid
           item
-          xs={10}
+          md={10}
+          xs={11.5}
           container
-          sx={{ py: { xs: 7, md: 10 }, px: { xs: 5, md: 8 } }}
-          alignitems="center"
-          justifyContent="space-between"
+          sx={{
+            py: { xs: 7, md: 10 },
+            px: { xs: 5, md: 8 },
+            justifyContent: { xs: "center", md: "space-between" },
+          }}
+          alignItems="center"
           className="custom1 center-align"
         >
           <Grid item sx={{ color: "#fff" }}>
@@ -632,66 +771,95 @@ export default function Home() {
       <Grid
         item
         sx={{
-          px: 5,
+          px: { md: 5, xs: 2 },
           pt: 35,
           color: "#fff",
           backgroundColor: "#454545",
           borderBottom: "0.05px solid gray",
-          clipPath: "ellipse(100% 80% at 50% 100%)",
+          clipPath: {
+            md: "ellipse(100% 80% at 50% 100%)",
+            xs: "inset(20% 0% 0% 0%);",
+          },
         }}
         container
         justifyContent="space-evenly"
       >
         <Grid item xs={12} md={3} p="1.5em">
           <Image src={logo} alt="" height="50m" width="180em" />
-          <p style={{ padding: "1em 0 0 0" }}>
+          <p style={{ margin: "1em 0", fontSize: "1.25em" }}>
             A simple but powerful platform builder to deliver interactive
             experiences that your learners engage with, not because they are
             forced to, but because they want to......
           </p>
-          <Link to="http://www.facebook.com/QuoDeck" style={{ color: "#fff" }}>
+          <a
+            target="_blank"
+            href="https://www.facebook.com/QuoDeck"
+            style={{ color: "#fff" }}
+          >
             <i className="circle fab fa-facebook"></i>
-          </Link>
-          <Link
-            to="http://twitter.com/QuoDeck"
+          </a>
+          <a
+            target="-blank"
+            href="https://twitter.com/QuoDeck"
             style={{ color: "#fff", marginLeft: "0.5em" }}
           >
             <i className="circle fab fa-twitter"></i>
-          </Link>
-          <Link
-            to="http://www.instagram.com/quodeck/"
+          </a>
+          <a
+            target="-blank"
+            href="https://www.instagram.com/quodeck/"
             style={{ color: "#fff", marginLeft: "0.5em" }}
           >
             <i className="circle fab fa-youtube"></i>
-          </Link>
-          <Link
-            to="http://www.youtube.com/channel/UCfyQaRg6MiZG_42qy8hCyww/videos?disable_polymer=true"
+          </a>
+          <a
+            target="-blank"
+            href="https://www.youtube.com/channel/UCfyQaRg6MiZG_42qy8hCyww/videos?disable_polymer=true"
             style={{ color: "#fff", marginLeft: "0.5em" }}
           >
             <i className="circle fab fa-instagram"></i>
-          </Link>
-          <Link
-            to="http://www.linkedin.com/company/quodeck/"
+          </a>
+          <a
+            target="-blank"
+            href="https://www.linkedin.com/company/quodeck/"
             style={{ color: "#fff", margin: "0 0.5em" }}
           >
             <i className="circle fab fa-linkedin"></i>
-          </Link>
+          </a>
         </Grid>
         <Grid item xs={12} md={3} p="1.5em">
-          <h3>Quick Links</h3>
+          <h3 style={{ padding: 0, margin: 0 }}>Quick Links</h3>
           <span>----------------------------------------</span>
-          <p>Privacy Policy</p>
-          <p>Copyright Policy</p>
-          <p>Contact us</p>
+          <a target="_blank" href="https://www.quodeck.com/welcome/">
+            <p
+              style={{ color: "#fff", margin: "0.5em 0em", fontSize: "1.25em" }}
+            >
+              Privacy Policy
+            </p>
+          </a>
+          <a target="_blank" href="https://www.quodeck.com/welcome/">
+            <p
+              style={{ color: "#fff", margin: "0.5em 0em", fontSize: "1.25em" }}
+            >
+              Copyright Policy
+            </p>
+          </a>
+          <a target="_blank" href="https://www.quodeck.com/welcome/">
+            <p
+              style={{ color: "#fff", margin: "0.5em 0em", fontSize: "1.25em" }}
+            >
+              Contact us
+            </p>
+          </a>
         </Grid>
         <Grid item xs={12} md={3} p="1.5em">
-          <h3>Get in Touch</h3>
+          <h3 style={{ padding: 0, margin: 0 }}>Get in Touch</h3>
           <span>----------------------------------------</span>
-          <div>
+          <div className="footer">
             <Icon name="envelope" color="yellow"></Icon>
             <span>markcenter@quodeck.com</span>
           </div>
-          <div>
+          <div className="footer">
             <Icon name="world" color="yellow" />
             <span>www.quodeck.com</span>
           </div>

@@ -2,7 +2,7 @@
     background-image: url("../../assets/header-bg.png");
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 3em 6em;
+    padding: 3em 8em;
 }
 
 .logoimg {
@@ -23,15 +23,17 @@
     flex-direction: row;
 }
 
+.para_style {
+    font-size: 1.25em;
+}
+
 .services {
+    min-height: 22em;
     padding: 1em 1em 0em 0em;
     z-index: 999;
     background-color: #fff;
     padding: 1em;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .services:hover {
@@ -53,10 +55,6 @@
 }
 
 .custom1 {
-    /* opacity: 0.2; */
-    background-image: url("../../assets/footer-bg-01.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
     border-radius: 5px;
     z-index: 1;
     position: absolute;
@@ -86,9 +84,31 @@
     font-size: 1.75em;
 }
 
+.footer {
+    color: #fff;
+    margin: 0.5em 0;
+    font-size: 1.25em;
+}
 
+a {
+    color: #000;
+    text-decoration: none;
+}
 
-@media screen and (max-width: 740px) {
+a:hover {
+    color: #000;
+}
+
+.article {
+    min-height: 25em;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
     .main-container {
         background-image: none;
         background-color: #454545;
