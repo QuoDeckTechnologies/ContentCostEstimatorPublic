@@ -107,7 +107,7 @@ function ViewDetails() {
   let ivcsOSTwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsOSTwords =
     textualQuestionSlideProportion > 0
@@ -132,7 +132,7 @@ function ViewDetails() {
   let iivOSTwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-      (oneScreenPerMinute * 60 * 30)
+        (oneScreenPerMinute * 60 * 30)
       : 0;
   let ddasOSTwords =
     ddAnimatedStoryProportion > 0
@@ -163,7 +163,7 @@ function ViewDetails() {
   let ivcsVOwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsVOwords =
     textualQuestionSlideProportion > 0
@@ -188,7 +188,7 @@ function ViewDetails() {
   let iivVOwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-      (oneScreenPerMinute * 60 * 100)
+        (oneScreenPerMinute * 60 * 100)
       : 0;
   let ddasVOwords =
     ddAnimatedStoryProportion > 0
@@ -423,10 +423,26 @@ function ViewDetails() {
     allEstimatedCost("Translations", finalTranslationCost),
   ];
 
-  let csDetailsData = (name, text, proportion, screens, total, OSTwords, VOwords) => {
+  let csDetailsData = (
+    name,
+    text,
+    proportion,
+    screens,
+    total,
+    OSTwords,
+    VOwords
+  ) => {
     return { name, text, proportion, screens, total, OSTwords, VOwords };
   };
-  let vDetailsData = (name, text, proportion, minutes, total, OSTwords, VOwords) => {
+  let vDetailsData = (
+    name,
+    text,
+    proportion,
+    minutes,
+    total,
+    OSTwords,
+    VOwords
+  ) => {
     return { name, text, proportion, minutes, total, OSTwords, VOwords };
   };
   let accessAddonsData = (name, text, checked, total) => {
@@ -455,35 +471,45 @@ function ViewDetails() {
       "Textual Content Slide",
       textualContentSlideProportion,
       level === "1" ? "19" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      textualContentSlideTotalCost, tcsOSTwords, tcsVOwords
+      textualContentSlideTotalCost,
+      tcsOSTwords,
+      tcsVOwords
     ),
     csDetailsData(
       "visual-content-slide",
       "Visual Content Slide",
       visualContentSlideProportion,
       level === "1" ? "19" : level === "2" ? "27" : level === "3" ? "8" : "8",
-      visualContentSlideTotalCost, vcsOSTwords, vcsVOwords
+      visualContentSlideTotalCost,
+      vcsOSTwords,
+      vcsVOwords
     ),
     csDetailsData(
       "interactive-content",
       "Interactive Content",
       interactiveVisualcontentSlideProportion,
       level === "1" ? "10" : level === "2" ? "18" : level === "3" ? "34" : "0",
-      interactiveVisualContentSlideTotalCost, ivcsOSTwords, ivcsVOwords
+      interactiveVisualContentSlideTotalCost,
+      ivcsOSTwords,
+      ivcsVOwords
     ),
     csDetailsData(
       "textual-question-slide",
       "Textual Question Slide",
       textualQuestionSlideProportion,
       level === "1" ? "18" : level === "2" ? "12" : level === "3" ? "6" : "0",
-      textualQuestionSlideTotalCost, tqsOSTwords, tqsVOwords
+      textualQuestionSlideTotalCost,
+      tqsOSTwords,
+      tqsVOwords
     ),
     csDetailsData(
       "visual-question-slide",
       "Visual Question Slide",
       visualQuestionSlideProportion,
       level === "1" ? "0" : level === "2" ? "6" : level === "3" ? "12" : "0",
-      visualQuestionSlideTotalCost, vqsOSTwords, vqsVOwords
+      visualQuestionSlideTotalCost,
+      vqsOSTwords,
+      vqsVOwords
     ),
   ];
   const videosTableData = [
@@ -492,7 +518,9 @@ function ViewDetails() {
       "Slideshows",
       slideShowsProportion,
       level === "1" ? "3" : level === "2" ? "6" : level === "3" ? "3" : "0",
-      slideShowsTotalCost, slideSOSTwords, slideSVOwords
+      slideShowsTotalCost,
+      slideSOSTwords,
+      slideSVOwords
     ),
 
     vDetailsData(
@@ -500,7 +528,9 @@ function ViewDetails() {
       "Story Based Slideshows",
       storyBasedSlideShowsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "6" : "0",
-      storyBasedSlideShowsTotalCost, sbsOSTwords, sbsVOwords
+      storyBasedSlideShowsTotalCost,
+      sbsOSTwords,
+      sbsVOwords
     ),
 
     vDetailsData(
@@ -508,42 +538,54 @@ function ViewDetails() {
       "Screencasts",
       screenCastsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      screenCastsTotalCost, scOSTwords, scVOwords
+      screenCastsTotalCost,
+      scOSTwords,
+      scVOwords
     ),
     vDetailsData(
       "iconic-infographic-video/ Infograph Video",
       "Iconic / Infograph Video",
       iconicInfographicVideoProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      iconicInfographicVideoTotalCost, iivOSTwords, iivVOwords
+      iconicInfographicVideoTotalCost,
+      iivOSTwords,
+      iivVOwords
     ),
     vDetailsData(
       "2D-animated-story",
       "2D Animated Story",
       ddAnimatedStoryProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      ddAnimationStoryTotalCost, ddasOSTwords, ddasVOwords
+      ddAnimationStoryTotalCost,
+      ddasOSTwords,
+      ddasVOwords
     ),
     vDetailsData(
       "whiteboard-animation",
       "Whiteboard Animation",
       whiteboardAnimationProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      whiteboardAnimationTotalCost, waOSTwords, waVOwords
+      whiteboardAnimationTotalCost,
+      waOSTwords,
+      waVOwords
     ),
     vDetailsData(
       "motion-graphics",
       "Motion Graphics",
       motionGraphicsProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      motionGraphicsTotalCost, mgOSTwords, mgVOwords
+      motionGraphicsTotalCost,
+      mgOSTwords,
+      mgVOwords
     ),
     vDetailsData(
       "3d-animation",
       "3D Animation Story",
       dddAnimationStoryProportion,
       level === "1" ? "0" : level === "2" ? "0" : level === "3" ? "0" : "0",
-      dddAnimationStoryTotalCost, dddOSTwords, dddVOwords
+      dddAnimationStoryTotalCost,
+      dddOSTwords,
+      dddVOwords
     ),
   ];
   const accessibilityAddonsData = [
@@ -604,7 +646,10 @@ function ViewDetails() {
 
   function getTotalEstimateCost() {
     return (
-      <TableContainer component={Paper} sx={{ mb: {xs: 1, md:2}, borderRadius: "1em" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ mb: { xs: 1, md: 2 }, borderRadius: "1em" }}
+      >
         <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#ffbf00" }}>
             <TableRow>
@@ -669,10 +714,10 @@ function ViewDetails() {
       screenDimensions.width <= 400
         ? "300px"
         : screenDimensions <= 600
-          ? "400px"
-          : screenDimensions <= 900
-            ? "auto"
-            : "auto",
+        ? "400px"
+        : screenDimensions <= 900
+        ? "auto"
+        : "auto",
   }));
   return (
     <div className="customise-container">
@@ -690,12 +735,17 @@ function ViewDetails() {
           <div className="customise-panel-container">
             <div className="customise-input-container">
               <Label style={{ borderRadius: "1em", flex: "1" }}>
-                <p
-                  className="customise-input-label"
-                  style={{ padding: "0.35em 0" }}
+                <div
+                  className="customise-input-label-view-details"
+                  style={{
+                    padding: "0.35em 0",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
-                  Content Hours: {hrs}
-                </p>
+                  Content Hours:
+                  {<div className="view-detials-input-wrapper">{hrs}</div>}
+                </div>
                 {/* <input
                   className="customise-header-input"
                   type="number"
@@ -705,12 +755,21 @@ function ViewDetails() {
                 /> */}
               </Label>
               <Label style={{ borderRadius: "1em", flex: "1" }}>
-                <p
-                  className="customise-input-label"
-                  style={{ padding: "0.35em 0" }}
+                <div
+                  className="customise-input-label-view-details"
+                  style={{
+                    padding: "0.35em 0",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
-                  Module Complexity: {level}{" "}
-                </p>
+                  Module Complexity:{" "}
+                  {
+                    <div className="view-detials-input-wrapper">
+                      Level {level}
+                    </div>
+                  }
+                </div>
                 {/* <input
                   className="customise-header-input"
                   type="number"
@@ -736,7 +795,11 @@ function ViewDetails() {
             </Stack> */}
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -786,7 +849,11 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -836,7 +903,11 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -874,7 +945,11 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -912,7 +987,11 @@ function ViewDetails() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -953,7 +1032,11 @@ function ViewDetails() {
             <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>

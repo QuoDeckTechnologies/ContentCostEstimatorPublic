@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ViewDetails from "../viewDetails/ViewDetails.react";
 import Customise from "../customise/Customise.react";
 import { Image } from "semantic-ui-react";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo1.png";
 import smallLogo from "../../assets/favicon.png";
 import { Link } from "react-router-dom";
 
@@ -54,6 +54,7 @@ function UtilitiesAndDetails() {
     fontWeight: 700,
     borderRadius: "0.5em",
     color: "#fff",
+    minWidth: "12em",
     "&.Mui-selected": {
       color: "#000",
       backgroundColor: "#ffbf00",
@@ -65,6 +66,18 @@ function UtilitiesAndDetails() {
     transition: "1s",
     px: { xs: 0, sm: 2 },
     border: "2px solid #fff",
+  };
+
+  const linkStyle = {
+    color: "#6f6f6f",
+    fontSize: "0.6em",
+    background: "#fff",
+    width: "2em",
+    height: "2em",
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 
   function handleTab(index) {
@@ -154,24 +167,24 @@ function UtilitiesAndDetails() {
           <Box
             sx={{
               fontSize: "2em",
-              mr: { xs: 1, sm: 5, xl: 15 },
+              mr: { xs: 1, sm: 5, xl: 16 },
               display: "flex",
               flexWrap: "wrap",
-              gap: "0.5em",
+              gap: "1em",
             }}
           >
-            <Link to="#" style={{ color: "#fff" }}>
-              <i className="fab fa-facebook"></i>
-            </Link>
-            <Link to="#" style={{ color: "#fff" }}>
+            <a href="https://www.facebook.com/QuoDeck" style={linkStyle}>
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/QuoDeck" style={linkStyle}>
               <i className="fab fa-twitter"></i>
-            </Link>
-            <Link to="#" style={{ color: "#fff" }}>
+            </a>
+            <a href="https://www.youtube.com/channel/UCfyQaRg6MiZG_42qy8hCyww/videos" style={linkStyle}>
               <i className="fab fa-youtube"></i>
-            </Link>
-            <Link to="#" style={{ color: "#fff" }}>
-              <i className="fab fa-linkedin"></i>
-            </Link>
+            </a>
+            <a href="https://www.linkedin.com/company/quodeck/mycompany/" style={linkStyle}>
+              <i className="fab fa-linkedin-in"></i>
+            </a>
           </Box>
         </Box>
         <Box sx={{ px: { xs: 1, xl: 15 }, pt: 10 }}>

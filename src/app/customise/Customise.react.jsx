@@ -239,40 +239,40 @@ export default function Customise() {
         );
         contentSlides[i].total = Math.round(
           (e.target.value / 100) *
-          60 *
-          contentSlidesCalSchema[i].INR_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].INR_screen *
+            contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].OSTwords = Math.round(
           (e.target.value / 100) *
-          60 *
-          contentSlidesCalSchema[i].OST_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].OST_screen *
+            contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].VOwords = Math.round(
           (e.target.value / 100) *
-          60 *
-          contentSlidesCalSchema[i].VO_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].VO_screen *
+            contentSlidesCalSchema[i].screen_min
         );
       } else {
         contentSlides[i].total = Math.round(
           (contentSlides[i].proportion / 100) *
-          60 *
-          contentSlidesCalSchema[i].INR_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].INR_screen *
+            contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].OSTwords = Math.round(
           (contentSlides[i].proportion / 100) *
-          60 *
-          contentSlidesCalSchema[i].OST_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].OST_screen *
+            contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].VOwords = Math.round(
           (contentSlides[i].proportion / 100) *
-          60 *
-          contentSlidesCalSchema[i].VO_screen *
-          contentSlidesCalSchema[i].screen_min
+            60 *
+            contentSlidesCalSchema[i].VO_screen *
+            contentSlidesCalSchema[i].screen_min
         );
       }
     }
@@ -296,40 +296,40 @@ export default function Customise() {
         video_tmp[i].minutes = Math.round((e.target.value / 100) * 60);
         video_tmp[i].total = Math.round(
           (e.target.value / 100) *
-          60 *
-          videoCalSchema[i].INR_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].INR_screen *
+            videoCalSchema[i].minutes
         );
         video_tmp[i].OSTwords = Math.round(
           (e.target.value / 100) *
-          60 *
-          videoCalSchema[i].OST_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].OST_screen *
+            videoCalSchema[i].minutes
         );
         video_tmp[i].VOwords = Math.round(
           (e.target.value / 100) *
-          60 *
-          videoCalSchema[i].VO_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].VO_screen *
+            videoCalSchema[i].minutes
         );
       } else {
         video_tmp[i].total = Math.round(
           (video_tmp[i].proportion / 100) *
-          60 *
-          videoCalSchema[i].INR_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].INR_screen *
+            videoCalSchema[i].minutes
         );
         video_tmp[i].OSTwords = Math.round(
           (video_tmp[i].proportion / 100) *
-          60 *
-          videoCalSchema[i].OST_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].OST_screen *
+            videoCalSchema[i].minutes
         );
         video_tmp[i].VOwords = Math.round(
           (video_tmp[i].proportion / 100) *
-          60 *
-          videoCalSchema[i].VO_screen *
-          videoCalSchema[i].minutes
+            60 *
+            videoCalSchema[i].VO_screen *
+            videoCalSchema[i].minutes
         );
       }
     }
@@ -379,14 +379,14 @@ export default function Customise() {
         present_tmp[i].value = parseInt(e.target.value);
         present_tmp[i].total = Math.round(
           e.target.value *
-          presentationCalSchema[i].INR_item *
-          presentationCalSchema[i].item
+            presentationCalSchema[i].INR_item *
+            presentationCalSchema[i].item
         );
       } else {
         present_tmp[i].total = Math.round(
           present_tmp[i].value *
-          presentationCalSchema[i].INR_item *
-          presentationCalSchema[i].item
+            presentationCalSchema[i].INR_item *
+            presentationCalSchema[i].item
         );
       }
     }
@@ -465,7 +465,10 @@ export default function Customise() {
 
   function getTotalEstimateTable() {
     return (
-      <TableContainer component={Paper} sx={{ mb: {xs: 1, md:2}, borderRadius: "1em" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ mb: { xs: 1, md: 2 }, borderRadius: "1em" }}
+      >
         <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#ffbf00" }}>
             <TableRow>
@@ -514,6 +517,14 @@ export default function Customise() {
     width: "20%",
   };
 
+  const inputStyle = {
+    borderRadius: "1em",
+    flex: "1",
+    display: "flex",
+    padding: "1em",
+    // justifyContent: "space-between",
+  };
+
   return (
     <div className="customise-container">
       <h1 className="customise-header">Please input your requirements:</h1>
@@ -529,7 +540,7 @@ export default function Customise() {
         <div className="customise-wrapper">
           <div className="customise-panel-container">
             <div className="customise-input-container">
-              <Label style={{ borderRadius: "1em", flex: "1" }}>
+              <Label style={inputStyle}>
                 <p className="customise-input-label">Content Hours:</p>
                 <input
                   className="customise-header-input"
@@ -539,7 +550,7 @@ export default function Customise() {
                   onChange={(v) => handleContentHours(v)}
                 />
               </Label>
-              <Label style={{ borderRadius: "1em", flex: "1" }}>
+              <Label style={inputStyle}>
                 <p className="customise-input-label">Translations: </p>
                 <input
                   className="customise-header-input"
@@ -552,7 +563,11 @@ export default function Customise() {
             </div>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -592,7 +607,11 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -634,7 +653,7 @@ export default function Customise() {
               <TableContainer
                 component={Paper}
                 sx={{
-                  mb: {xs: 1, md:2},
+                  mb: { xs: 1, md: 2 },
                   borderRadius: "1em",
                   border: "2px solid #45454599",
                 }}
@@ -679,7 +698,11 @@ export default function Customise() {
             </div>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -714,9 +737,9 @@ export default function Customise() {
                               },
                             },
                             "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                            {
-                              backgroundColor: "#ffbf00",
-                            },
+                              {
+                                backgroundColor: "#ffbf00",
+                              },
                           }}
                         />
                       </TableCell>
@@ -727,7 +750,11 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -764,7 +791,11 @@ export default function Customise() {
             </TableContainer>
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
@@ -797,9 +828,9 @@ export default function Customise() {
                               },
                             },
                             "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                            {
-                              backgroundColor: "#ffbf00",
-                            },
+                              {
+                                backgroundColor: "#ffbf00",
+                              },
                           }}
                         />
                       </TableCell>
@@ -813,7 +844,11 @@ export default function Customise() {
             <ContactForm openModal={open} onClose={(state) => setOpen(state)} />
             <TableContainer
               component={Paper}
-              sx={{ mb: {xs: 1, md:2}, borderRadius: "1em", border: "2px solid #45454599" }}
+              sx={{
+                mb: { xs: 1, md: 2 },
+                borderRadius: "1em",
+                border: "2px solid #45454599",
+              }}
             >
               <Table aria-label="simple table">
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
