@@ -205,6 +205,7 @@ export default function QuestionSlider(props) {
     const StyledButton = styled(Button)`
     background-color:transparent;
     border: 1px solid #fff;
+    color: #fff;
     font-family:oswald;
     font-weight:500;
     &:hover {
@@ -215,9 +216,6 @@ export default function QuestionSlider(props) {
     &:focus {
         background-color: #ffbf00;
         color:#000;
-    }
-    &.MuiButton-root{
-        color: #fff;
     }
     &.MuiButton-root.Mui-disabled{
         color: #fff;
@@ -261,7 +259,7 @@ export default function QuestionSlider(props) {
                                         <div>
                                             <Input
                                                 fluid
-                                                placeholder='choose number'
+                                                placeholder='Put down the number'
                                                 type="number"
                                                 min={1}
                                                 onKeyPress={preventMinusValue}
@@ -274,7 +272,7 @@ export default function QuestionSlider(props) {
                                                 </center>
                                             }</div> :
                                         <Dropdown
-                                            placeholder='Select options'
+                                            placeholder='Select an option'
                                             fluid
                                             selection
                                             options={slide.options}

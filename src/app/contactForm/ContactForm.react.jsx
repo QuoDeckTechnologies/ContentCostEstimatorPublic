@@ -3,7 +3,6 @@ import {
     Button,
     Form,
     TextArea,
-    Header,
     Icon,
     Modal
 } from 'semantic-ui-react'
@@ -13,7 +12,7 @@ import axios from 'axios';
 import Logo from "../../assets/logo.png";
 import 'semantic-ui-css/semantic.min.css';
 
-function ContactForm({openModal,onClose}) {
+export default function ContactForm({ openModal, onClose }) {
     const [name, setName] = useState('');
     const [organization, setOrganization] = useState('');
     const [email, setEmail] = useState('');
@@ -21,7 +20,7 @@ function ContactForm({openModal,onClose}) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [open, setOpen] = useState(openModal)
     const [secondOpen, setSecondOpen] = useState(false)
-    const [userData, setUserData] = useState({})
+    // const [userData, setUserData] = useState({})
 
     let navigate = useNavigate();
 
@@ -97,7 +96,7 @@ function ContactForm({openModal,onClose}) {
         doc.save("Details.pdf")
     };
 
-    useEffect(()=>{setOpen(openModal)},[openModal])
+    useEffect(() => { setOpen(openModal) }, [openModal])
 
     return (
         <Modal
@@ -108,12 +107,12 @@ function ContactForm({openModal,onClose}) {
             }}
             onOpen={() => setOpen(true)}
             open={open}
+            style={{background:"red"}}
         >
             <Modal.Header>
                 Download Quote
             </Modal.Header>
             <Modal.Content >
-                <p>We'll Get Back To You Soon</p>
                 <Modal.Description>
                     <Form onSubmit={onSubmit}>
                         <Form.Group widths='equal'>
@@ -181,5 +180,3 @@ function ContactForm({openModal,onClose}) {
         </Modal>
     )
 }
-
-export default ContactForm

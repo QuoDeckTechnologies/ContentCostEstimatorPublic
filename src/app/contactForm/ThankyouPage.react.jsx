@@ -54,8 +54,9 @@ export default function ThankyouPage() {
     const StyledButton = styled(Button)`
     background-color:transparent;
     border: 1px solid #fff;
+    color: #fff;
     font-family:'Roboto', 'sans-serif';
-    font-weight:500;
+    font-weight:bold;
     &:hover {
         background-color: #ffbf00;
         border: 1px solid #fff;
@@ -64,12 +65,6 @@ export default function ThankyouPage() {
     &:focus {
         background-color: #ffbf00;
         color:#000;
-    }
-    &.MuiButton-root{
-        color: #fff;
-    }
-    &.MuiButton-root.Mui-disabled{
-        color: #fff;
     }`;
 
     let navigate = useNavigate();
@@ -89,7 +84,7 @@ export default function ThankyouPage() {
                 </div> */}
                 <br />
                 <div style={textStyle}>
-                    Thank you for requesting the Quote download.
+                    Thank you for contacting us.
                 </div>
 
                 <div
