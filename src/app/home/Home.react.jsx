@@ -217,45 +217,47 @@ export default function Home() {
           <Image src="assets/home-img-3.png" alt="" width="auto" />
         </Grid>
 
-        <Grid item xs={12} md={6} className="center-align">
-          <Typography
-            sx={{
-              padding: "0 0 15px 0",
-              color: "#454545",
-              fontSize: "3em",
-              letterSpacing: 1,
-              lineHeight: 4,
-              fontWeight: 700,
-            }}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          className="center-align"
+          sx={{
+            flexDirection: { md: "column" },
+            display: { md: "flex", xs: "block" },
+            justifyContent: { md: "center" },
+            alignItems: { md: "center" },
+          }}
+        >
+          <h1
+            style={{ marginBottom: "0.8em", fontSize: "3em", color: "#454545" }}
           >
             <p>TEAM OF PROFESSIONAL CONTENT CREATORS</p>
-          </Typography>
-          <Typography
-            sx={{
+          </h1>
+          <p
+            style={{
               fontSize: "18px",
-              lineHeight: 2,
               color: "#454545",
-              letterSpacing: "0.5px",
-              fontWeight: 300,
             }}
           >
-            <p>
-              We are a team of professional content creators with over 6+ years
-              of combined experience in the industry.<br></br> We believe in
-              providing great customer experience through excellent content
-              writing services keeping your business goals and target audience
-              in mind.
-            </p>
-
-            <p>
-              Our goal is to ensure that the customers get what they need –
-              expert quality content written to your specifications using a
-              variety of techniques and resources.
-            </p>
-          </Typography>
+            We are a team of professional content creators with over 6+ years of
+            combined experience in the industry.We believe in providing great
+            customer experience through excellent content writing services
+            keeping your business goals and target audience in mind.
+          </p>
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#454545",
+            }}
+          >
+            Our goal is to ensure that the customers get what they need – expert
+            quality content written to your specifications using a variety of
+            techniques and resources.
+          </p>
         </Grid>
       </Grid>
-      <Grid item container sx={{ px: { md: 5, xs: 2 }, py: { md: 10, xs: 5 } }}>
+      <Grid item container sx={{ px: { md: 5, xs: 2 }, py: { md: 5, xs: 5 } }}>
         <Grid item textAlign="center" xs={12}>
           <h1
             style={{
@@ -652,49 +654,60 @@ export default function Home() {
             href="https://quodeckspeak.com/2022/10/06/game-based-learning-market-worth-29-7-billion-by-2026-report-by-marketsandmarkets/"
           >
             <div className="flex">
-              <Image
-                src="assets/article1.png"
-                style={{
-                  height: "100px",
-                  width: "250px",
-                  padding: " 0.5em",
-                }}
-              />
-              <span>
-                Article
-                <h3
+              <Grid item xs={4}>
+                <Image
+                  src="assets/article1.png"
                   style={{
-                    marginTop: "0.5em",
+                    // minHeight: "100px",
+                    // minWidth: "200px",
+                    padding: " 0.5em",
                   }}
-                >
-                  GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 –
-                  REPORT BY MARKETS AND MARKETS
-                </h3>
-              </span>
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <span>
+                  Article
+                  <h3
+                    style={{
+                      marginTop: "0.5em",
+                    }}
+                  >
+                    GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 –
+                    REPORT BY MARKETS AND MARKETS
+                  </h3>
+                </span>
+              </Grid>
             </div>
           </a>
         </Grid>
         <Grid item sx={{ py: 3 }}>
-          <a href=" https://quodeckspeak.com/2019/07/15/reasons-to-use-videos-for-employee-training/">
+          <a
+            target="_blank"
+            href="https://quodeckspeak.com/2019/07/15/reasons-to-use-videos-for-employee-training/"
+          >
             <div className="flex">
-              <Image
-                src="assets/article2.png"
-                style={{
-                  height: "100px",
-                  width: "250px",
-                  padding: " 0.5em",
-                }}
-              />
-              <span>
-                Article
-                <h3
+              <Grid item xs={4}>
+                <Image
+                  src="assets/article2.png"
                   style={{
-                    marginTop: "0.5em",
+                    // minHeight: "100px",
+                    // minWidth: "200px",
+                    padding: " 0.5em",
                   }}
-                >
-                  REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
-                </h3>
-              </span>
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <span>
+                  Article
+                  <h3
+                    style={{
+                      marginTop: "0.5em",
+                    }}
+                  >
+                    REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
+                  </h3>
+                </span>
+              </Grid>
             </div>
           </a>
         </Grid>
@@ -704,24 +717,28 @@ export default function Home() {
             href="https://quodeckspeak.com/2021/01/14/4-micro-learning-strategies-for-employee-engagement/"
           >
             <div className="flex">
-              <Image
-                src="assets/article3.png"
-                style={{
-                  height: "100px",
-                  width: "250px",
-                  padding: " 0.5em",
-                }}
-              />
-              <span>
-                Article
-                <h3
+              <Grid item xs={4}>
+                <Image
+                  src="assets/article3.png"
                   style={{
-                    marginTop: "0.5em",
+                    // minHeight: "100px",
+                    // minWidth: "200px",
+                    padding: " 0.5em",
                   }}
-                >
-                  MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
-                </h3>
-              </span>
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <span>
+                  Article
+                  <h3
+                    style={{
+                      marginTop: "0.5em",
+                    }}
+                  >
+                    MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
+                  </h3>
+                </span>
+              </Grid>
             </div>
           </a>
         </Grid>
