@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Paper,
-  styled,
   Table,
   TableBody,
   TableCell,
-  Grid,
   TableContainer,
   TableHead,
   TableRow,
@@ -42,12 +40,6 @@ function ViewDetails() {
   const dataDetails = useSelector((state) => state.root.recommendedLevel.list);
   const [level, setLevel] = useState();
   const [hrs, setHrs] = useState();
-  const [translation, setTranslation] = useState("N");
-  const [languages, setLanguages] = useState(0);
-  const [screenDimensions, setScreenDimensions] = useState({
-    width: window.screen.width,
-    height: window.screen.height,
-  });
   let dispatch = useDispatch();
   const numberFormat = (value) =>
     new Intl.NumberFormat("en-IN", {
@@ -357,7 +349,7 @@ function ViewDetails() {
     oneScreenPerMinute *
     dddAnimationStoryCost;
   let gamifiedStoryTotalCost =
-    gamifiedStory === "Y" ? gamifiedStoryCost * languages : 0;
+    gamifiedStory === "Y" ? gamifiedStoryCost * 0 : 0;
 
   let authoringTotalCost =
     textualContentSlideTotalCost +
@@ -385,13 +377,13 @@ function ViewDetails() {
     machineVoiceoversPrice * (1 + pricingModalMargin / 100);
   let totalMachineVoiceOverPrice =
     machineVoiceOver === "Y"
-      ? calulatedMachineVoiceoverPrice * (parseInt(languages) + 1)
+      ? calulatedMachineVoiceoverPrice * (parseInt(0) + 1)
       : 0;
   let humanVoiceoverPrice = 18000;
   let calculatedHumanVoiceoversPrice = humanVoiceoverPrice * (1 + 55 / 100);
   let totalHumanVoiceoverPrice =
     humanVoiceOver === "Y"
-      ? calculatedHumanVoiceoversPrice * (parseInt(languages) + 1)
+      ? calculatedHumanVoiceoversPrice * (parseInt(0) + 1)
       : 0;
   let voiceOverPrice =
     (totalMachineVoiceOverPrice + totalHumanVoiceoverPrice) * (1 + 0);
@@ -402,8 +394,8 @@ function ViewDetails() {
     (OSTTranslation + reauthoring + VoTranslation + OSTReview + VoReview) *
     (1 + pricingModalMargin / 100);
   let calculatedTranslationCost = initialTranslationCost * (1 + 0);
-  let totalTranslationCost = calculatedTranslationCost * languages;
-  let finalTranslationCost = calculatedTranslationCost * hrs * languages;
+  let totalTranslationCost = calculatedTranslationCost * 0;
+  let finalTranslationCost = calculatedTranslationCost * hrs * 0;
   // total cost
   let totalEstimatedCost =
     finalAuthoringCost +
@@ -458,13 +450,6 @@ function ViewDetails() {
     return { name, estimatePrice };
   };
 
-  let totalCost = () => {
-    return (
-      <Paper elevation={3} align="center" sx={{ width: "7em", p: 1 }}>
-        <b>Total Cost</b>
-      </Paper>
-    );
-  };
   const contentSlidesData = [
     csDetailsData(
       "textual-content-slide",
@@ -626,12 +611,12 @@ function ViewDetails() {
     translationAddons(
       "translate-voiceover-scripts",
       "Translate Voiceover Scripts",
-      translation
+      "N"
     ),
     translationAddons(
       "external-translation-review",
       "External Translation Review",
-      translation
+      "N"
     ),
   ];
 
@@ -641,7 +626,6 @@ function ViewDetails() {
     priceEstimatorData("Authoring", numberFormat(finalAuthoringCost)),
     priceEstimatorData("Voiceovers", numberFormat(finalVoiceOverCost)),
     priceEstimatorData("Translations", numberFormat(finalTranslationCost)),
-    // priceEstimatorData(totalCost(), numberFormat(totalEstimatedCost)),
   ];
 
   function getTotalEstimateCost() {
@@ -670,25 +654,10 @@ function ViewDetails() {
       setHrs(dataDetails.data.hrs);
     }
   };
-  let handleInput = (e) => {
-    setLanguages(e.target.value);
-    if (e.target.value >= 1) {
-      setTranslation("Y");
-    } else {
-      setTranslation("N");
-    }
-  };
-  const getScreenDimensions = (e) => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    setScreenDimensions({ width, height });
-  };
   let translationEstimate = {
     total: totalTranslationCost,
   };
   useEffect(() => {
-    window.addEventListener("resize", getScreenDimensions);
     details();
     dispatch(
       setDetailsData(
@@ -703,23 +672,7 @@ function ViewDetails() {
       )
     );
     dispatch(setPdf("viewDetails"))
-    return () => {
-      window.removeEventListener("resize", getScreenDimensions);
-    };
   });
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    height:
-      screenDimensions.width <= 400
-        ? "300px"
-        : screenDimensions <= 600
-          ? "400px"
-          : screenDimensions <= 900
-            ? "auto"
-            : "auto",
-  }));
   return (
     <div className="customise-container">
       <h1 className="customise-header">We recommend you:</h1>
@@ -747,13 +700,6 @@ function ViewDetails() {
                   Content Hours:
                   {<div className="view-detials-input-wrapper">{hrs}</div>}
                 </div>
-                {/* <input
-                  className="customise-header-input"
-                  type="number"
-                  min={0}
-                  value={contentHours}
-                  onChange={(v) => handleContentHours(v)}
-                /> */}
               </Label>
               <Label style={{ borderRadius: "1em", flex: "1" }}>
                 <div
@@ -771,29 +717,8 @@ function ViewDetails() {
                     </div>
                   }
                 </div>
-                {/* <input
-                  className="customise-header-input"
-                  type="number"
-                  min={0}
-                  value={translations.value}
-                  onChange={(v) => handleTranslations(v)}
-                /> */}
               </Label>
-              {/* <div> Hrs : {hrs}</div>
-              <div> &nbsp;&nbsp;&nbsp; Level : {level}</div> */}
-              {/* <TextField
-            id="standard-basic"
-            label="Add Translation"
-            variant="standard"
-            onChange={(e) => handleInput(e)}
-            sx={{ m: 2 }}
-          /> */}
             </div>
-            {/* <Stack direction="row">
-                <TextField id="standard-basic" label="Add Hrs" variant="standard" className='one' onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
-                <TextField id="standard-basic" label="Add Level" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
-                <TextField id="standard-basic" label="Add Translation" variant="standard" onChange={(e) => handleInput(e)} sx={{ m: 2 }} />
-            </Stack> */}
             <TableContainer
               component={Paper}
               sx={{
@@ -956,7 +881,7 @@ function ViewDetails() {
                 <TableHead sx={{ backgroundColor: "#45454533" }}>
                   <TableRow>
                     <TableCell sx={headerStyle}>
-                      <b>Presentaion AddOns</b>
+                      <b>Presentation AddOns</b>
                     </TableCell>
                     <TableCell sx={headerStyle} align="center">
                       <b>Count</b>

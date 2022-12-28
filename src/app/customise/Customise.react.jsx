@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import ContactForm from "../contactForm/ContactForm.react";

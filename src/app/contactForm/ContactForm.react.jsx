@@ -34,57 +34,62 @@ export default function ContactForm({ openModal, onClose }) {
     }
     let navigate = useNavigate();
     let ccVDdata = useSelector((state) => state.root.dataProportions.dataProp.contentSlideData)
-    let ccCdata = useSelector((state) => state.root.customData.custom.schema);
-
     let vcsVDdata = useSelector((state) => state.root.dataProportions.dataProp.videosTableData);
-    let vcsCdata = useSelector((state) => state.root.customData.custom.videos);
-
     let accessVDdata = useSelector((state) => state.root.dataProportions.dataProp.accessibilityAddonsData);
-    let accessCdata = useSelector((state) => state.root.customData.custom.accessibility);
-
     let presentationVDdata = useSelector((state) => state.root.dataProportions.dataProp.presentationAddonsData);
-    let presentationCdata = useSelector((state) => state.root.customData.custom.presentation);
-
     let translationVDdata = useSelector((state) => state.root.dataProportions.dataProp.translationAddonsData);
-    let translationCdata = useSelector((state) => state.root.customData.custom.translation);
-
     let estimateVDdata = useSelector((state) => state.root.dataProportions.dataProp.allEstimatedCost);
-    let estimateCdata = useSelector((state) => state.root.customData.custom.estimate);
+    let customiseCompData = useSelector((state) => state.root.customData.custom);
 
+    let ccCdata = []
+    let vcsCdata = []
+    let accessCdata = []
+    let estimateCdata = []
+    let translationCdata = []
+    let translations = []
+    let totalCustomCost = []
+    let totalBaseContentPer = []
+    let presentationCdata = []
+
+    if (Object.keys(customiseCompData).length >= 1) {
+        ccCdata = customiseCompData.schema
+        vcsCdata = customiseCompData.videos
+        accessCdata = customiseCompData.accessibility
+        presentationCdata = customiseCompData.presentation
+        translationCdata = customiseCompData.translation
+        estimateCdata = customiseCompData.estimate
+        translations = customiseCompData.translations.value
+        totalCustomCost = customiseCompData.totalCost
+        totalBaseContentPer = customiseCompData.baseContentPer
+    }
     let pdfRender = useSelector((state) => state.root.pdf.pdfData.data);
-    let translations = useSelector((state) => state.root.customData.custom.translations.value);
     let ccData = pdfRender === "viewDetails" ? ccVDdata : ccCdata;
     let vcsData = pdfRender === "viewDetails" ? vcsVDdata : vcsCdata;
     let accessData = pdfRender === "viewDetails" ? accessVDdata : accessCdata;
     let presentationData = pdfRender === "viewDetails" ? presentationVDdata : presentationCdata;
     let translationAddonsData = pdfRender === "viewDetails" ? translationVDdata : translationCdata;
     let estimateCosts = pdfRender === "viewDetails" ? estimateVDdata : estimateCdata;
-    let totalCustomCost = useSelector((state) => state.root.customData.custom.totalCost);
-    let totalBaseContentPer = useSelector((state) => state.root.customData.custom.baseContentPer);
 
     let estimateTotal = 0;
-    estimateCosts.forEach(element => {
-        estimateTotal += element.total
-    });
-
+    if (Object.keys(estimateCosts).length >= 1) {
+        estimateCosts.forEach(element => {
+            estimateTotal += element.total
+        });
+    }
     function formatNum(x) {
         return x.toString().split('.')[0].length > 3 ? x.toString().substring(0, x.toString().split('.')[0].length - 3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length - 3) : x.toString();
     }
 
     function generatePdf() {
-
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
         const orientation = "portrait"; // portrait or landscape
-
         const doc = new JsPDF(orientation, unit, size);
-
         doc.setFontSize(15);
-
         doc.addImage(Logo, 'PNG', 40, 20, 120, 30);
         const title = "Content Cost Estimator";
         const recommendC = "Content hours: " + hrs
-        const recommendLevel = "Module Complexity: " + "Level " + level
+        const recommendLevel = `Module Complexity: Level ${level}`
         const translation = "Translations: " + translations
         const recommendHead = "Recommendation: You Should go for " + hrs + " hours of Level " + level + " modules"
         const costCustom = "Cost (INR) " + totalCustomCost;
@@ -183,33 +188,21 @@ export default function ContactForm({ openModal, onClose }) {
         };
 
         doc.setFontSize(20).setFont(undefined, "bold").setTextColor(81, 84, 82).text(title, 330, 40);
-        {
-            pdfRender === "viewDetails" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendHead, 40, 80);
-        }
-        {
-            pdfRender === "customise" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendLevel, 40, 75);
-        }
-        {
-            pdfRender === "customise" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendC, 40, 90);
-        }
-        {
-            pdfRender === "customise" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(translation, 40, 105);
-        }
-        {
-            pdfRender === "customise" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(formatNum(costCustom), 40, 120);
-        }
+        pdfRender === "viewDetails" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendHead, 40, 80);
+        pdfRender === "customise" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendLevel, 40, 75);
+        pdfRender === "customise" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendC, 40, 90);
+        pdfRender === "customise" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(translation, 40, 105);
+        pdfRender === "customise" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(formatNum(costCustom), 40, 120);
         doc.autoTable(recommendHeadTable)
         doc.autoTable(ccContent);
         doc.autoTable(vcsContent);
-        {
-            pdfRender === "customise" &&
-                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(baseContent, 40, 500);
-        }
+        pdfRender === "customise" &&
+            doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(baseContent, 40, 500);
         doc.autoTable(accessContent);
         doc.autoTable(presentContent);
         doc.autoTable(translationContent);
@@ -220,7 +213,6 @@ export default function ContactForm({ openModal, onClose }) {
     const onSubmit = (event) => {
         event.preventDefault();
         const { target } = event;
-        console.log('FormData', Object.fromEntries(new FormData(target)));
         navigate("/thank-you");
         generatePdf();
 
