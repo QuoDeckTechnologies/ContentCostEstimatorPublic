@@ -244,13 +244,8 @@ export default function Home() {
             combined experience in the industry.We believe in providing great
             customer experience through excellent content writing services
             keeping your business goals and target audience in mind.
-          </p>
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#454545",
-            }}
-          >
+            <br></br>
+            <br></br>
             Our goal is to ensure that the customers get what they need – expert
             quality content written to your specifications using a variety of
             techniques and resources.
@@ -654,7 +649,7 @@ export default function Home() {
             href="https://quodeckspeak.com/2022/10/06/game-based-learning-market-worth-29-7-billion-by-2026-report-by-marketsandmarkets/"
           >
             <div className="flex">
-              <Grid item xs={4}>
+              <div style={{ maxWidth: "50%" }}>
                 <Image
                   src="assets/article1.png"
                   style={{
@@ -663,20 +658,18 @@ export default function Home() {
                     padding: " 0.5em",
                   }}
                 />
-              </Grid>
-              <Grid item xs={8}>
-                <span>
-                  Article
-                  <h3
-                    style={{
-                      marginTop: "0.5em",
-                    }}
-                  >
-                    GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 –
-                    REPORT BY MARKETS AND MARKETS
-                  </h3>
-                </span>
-              </Grid>
+              </div>
+              <div style={{ maxWidth: "50%" }}>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  GAME-BASED LEARNING MARKET WORTH $29.7 BILLION BY 2026 –
+                  REPORT BY MARKETS AND MARKETS
+                </h3>
+              </div>
             </div>
           </a>
         </Grid>
@@ -686,7 +679,7 @@ export default function Home() {
             href="https://quodeckspeak.com/2019/07/15/reasons-to-use-videos-for-employee-training/"
           >
             <div className="flex">
-              <Grid item xs={4}>
+              <div style={{ maxWidth: "50%" }}>
                 <Image
                   src="assets/article2.png"
                   style={{
@@ -695,19 +688,17 @@ export default function Home() {
                     padding: " 0.5em",
                   }}
                 />
-              </Grid>
-              <Grid item xs={8}>
-                <span>
-                  Article
-                  <h3
-                    style={{
-                      marginTop: "0.5em",
-                    }}
-                  >
-                    REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
-                  </h3>
-                </span>
-              </Grid>
+              </div>
+              <div style={{ maxWidth: "50%" }}>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  REASONS TO USE VIDEOS FOR EMPLOYEE TRAINING
+                </h3>
+              </div>
             </div>
           </a>
         </Grid>
@@ -717,7 +708,7 @@ export default function Home() {
             href="https://quodeckspeak.com/2021/01/14/4-micro-learning-strategies-for-employee-engagement/"
           >
             <div className="flex">
-              <Grid item xs={4}>
+              <div style={{ maxWidth: "50%" }}>
                 <Image
                   src="assets/article3.png"
                   style={{
@@ -726,19 +717,17 @@ export default function Home() {
                     padding: " 0.5em",
                   }}
                 />
-              </Grid>
-              <Grid item xs={8}>
-                <span>
-                  Article
-                  <h3
-                    style={{
-                      marginTop: "0.5em",
-                    }}
-                  >
-                    MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
-                  </h3>
-                </span>
-              </Grid>
+              </div>
+              <div style={{ maxWidth: "50%" }}>
+                Article
+                <h3
+                  style={{
+                    marginTop: "0.5em",
+                  }}
+                >
+                  MICRO-LEARNING STRATEGIES FOR EMPLOYEE- ENGAGEMENT
+                </h3>
+              </div>
             </div>
           </a>
         </Grid>
