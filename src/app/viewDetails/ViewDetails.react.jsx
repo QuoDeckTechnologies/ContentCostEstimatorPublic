@@ -14,7 +14,7 @@ import {
   Button,
 } from "@mui/material";
 import { Label } from "semantic-ui-react";
-import { setDetailsData } from "../../actions/index";
+import { setDetailsData, setPdf } from "../../actions/index";
 import recommendedLevel from "../../reducers/dataReducer";
 import ContactForm from "../contactForm/ContactForm.react";
 
@@ -107,7 +107,7 @@ function ViewDetails() {
   let ivcsOSTwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsOSTwords =
     textualQuestionSlideProportion > 0
@@ -132,7 +132,7 @@ function ViewDetails() {
   let iivOSTwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 30)
+      (oneScreenPerMinute * 60 * 30)
       : 0;
   let ddasOSTwords =
     ddAnimatedStoryProportion > 0
@@ -163,7 +163,7 @@ function ViewDetails() {
   let ivcsVOwords =
     interactiveVisualcontentSlideProportion > 0
       ? (interactiveVisualcontentSlideProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let tqsVOwords =
     textualQuestionSlideProportion > 0
@@ -188,7 +188,7 @@ function ViewDetails() {
   let iivVOwords =
     iconicInfographicVideoProportion > 0
       ? (iconicInfographicVideoProportion / 100) *
-        (oneScreenPerMinute * 60 * 100)
+      (oneScreenPerMinute * 60 * 100)
       : 0;
   let ddasVOwords =
     ddAnimatedStoryProportion > 0
@@ -412,15 +412,15 @@ function ViewDetails() {
     finalTranslationCost +
     finalVoiceOverCost;
 
-  let allEstimatedCost = (text, total) => {
-    return { text, total };
+  let allEstimatedCost = (text, initial, total) => {
+    return { text, initial, total };
   };
   let allEstimatedCosts = [
-    allEstimatedCost("Storyboarding", finalStoryBoardingCost),
-    allEstimatedCost("Asset Creation", finalStockCharacterCost),
-    allEstimatedCost("Authoring", finalAuthoringCost),
-    allEstimatedCost("Voiceovers", finalVoiceOverCost),
-    allEstimatedCost("Translations", finalTranslationCost),
+    allEstimatedCost("Storyboarding", totalStoryBoardingCost, finalStoryBoardingCost),
+    allEstimatedCost("Asset Creation", finalStockCharacterCost, finalStockCharacterCost),
+    allEstimatedCost("Authoring", totalAuthoringCost, finalAuthoringCost),
+    allEstimatedCost("Voiceovers", voiceOverPrice, finalVoiceOverCost),
+    allEstimatedCost("Translations", totalTranslationCost, finalTranslationCost),
   ];
 
   let csDetailsData = (
@@ -702,6 +702,7 @@ function ViewDetails() {
         recommendedLevel
       )
     );
+    dispatch(setPdf("viewDetails"))
     return () => {
       window.removeEventListener("resize", getScreenDimensions);
     };
@@ -714,10 +715,10 @@ function ViewDetails() {
       screenDimensions.width <= 400
         ? "300px"
         : screenDimensions <= 600
-        ? "400px"
-        : screenDimensions <= 900
-        ? "auto"
-        : "auto",
+          ? "400px"
+          : screenDimensions <= 900
+            ? "auto"
+            : "auto",
   }));
   return (
     <div className="customise-container">

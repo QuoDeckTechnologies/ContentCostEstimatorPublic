@@ -6,26 +6,218 @@ import {
     Icon,
     Modal
 } from 'semantic-ui-react'
-import { jsPDF } from "jspdf";
+import JsPDF from "jspdf";
+import "jspdf-autotable";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Logo from "../../assets/logo.png";
 import 'semantic-ui-css/semantic.min.css';
 
 export default function ContactForm({ openModal, onClose }) {
+    const dataDetails = useSelector((state) => state.root.recommendedLevel.list);
     const [name, setName] = useState('');
     const [organization, setOrganization] = useState('');
     const [email, setEmail] = useState('');
     const [designation, setDesignation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [open, setOpen] = useState(openModal)
-    const [secondOpen, setSecondOpen] = useState(false)
-    // const [userData, setUserData] = useState({})
+    const [level, setLevel] = useState();
+    const [hrs, setHrs] = useState();
 
+    let handleChange = (e) => {
+        if (e.target.name === "name") { setName(e.target.value) }
+        if (e.target.name === "organization") { setOrganization(e.target.value) }
+        if (e.target.name === "email") { setEmail(e.target.value) }
+        if (e.target.name === "designation") { setDesignation(e.target.value) }
+        if (e.target.name === "phoneNumber") { setPhoneNumber(e.target.value) }
+    }
     let navigate = useNavigate();
+    let ccVDdata = useSelector((state) => state.root.dataProportions.dataProp.contentSlideData)
+    let ccCdata = useSelector((state) => state.root.customData.custom.schema);
+
+    let vcsVDdata = useSelector((state) => state.root.dataProportions.dataProp.videosTableData);
+    let vcsCdata = useSelector((state) => state.root.customData.custom.videos);
+
+    let accessVDdata = useSelector((state) => state.root.dataProportions.dataProp.accessibilityAddonsData);
+    let accessCdata = useSelector((state) => state.root.customData.custom.accessibility);
+
+    let presentationVDdata = useSelector((state) => state.root.dataProportions.dataProp.presentationAddonsData);
+    let presentationCdata = useSelector((state) => state.root.customData.custom.presentation);
+
+    let translationVDdata = useSelector((state) => state.root.dataProportions.dataProp.translationAddonsData);
+    let translationCdata = useSelector((state) => state.root.customData.custom.translation);
+
+    let estimateVDdata = useSelector((state) => state.root.dataProportions.dataProp.allEstimatedCost);
+    let estimateCdata = useSelector((state) => state.root.customData.custom.estimate);
+
+    let pdfRender = useSelector((state) => state.root.pdf.pdfData.data);
+    let translations = useSelector((state) => state.root.customData.custom.translations.value);
+    let ccData = pdfRender === "viewDetails" ? ccVDdata : ccCdata;
+    let vcsData = pdfRender === "viewDetails" ? vcsVDdata : vcsCdata;
+    let accessData = pdfRender === "viewDetails" ? accessVDdata : accessCdata;
+    let presentationData = pdfRender === "viewDetails" ? presentationVDdata : presentationCdata;
+    let translationAddonsData = pdfRender === "viewDetails" ? translationVDdata : translationCdata;
+    let estimateCosts = pdfRender === "viewDetails" ? estimateVDdata : estimateCdata;
+    let totalCustomCost = useSelector((state) => state.root.customData.custom.totalCost);
+    let totalBaseContentPer = useSelector((state) => state.root.customData.custom.baseContentPer);
+
+    let estimateTotal = 0;
+    estimateCosts.forEach(element => {
+        estimateTotal += element.total
+    });
+
+    function formatNum(x) {
+        return x.toString().split('.')[0].length > 3 ? x.toString().substring(0, x.toString().split('.')[0].length - 3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length - 3) : x.toString();
+    }
+
+    function generatePdf() {
+
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+
+        const doc = new JsPDF(orientation, unit, size);
+
+        doc.setFontSize(15);
+
+        doc.addImage(Logo, 'PNG', 40, 20, 120, 30);
+        const title = "Content Cost Estimator";
+        const recommendC = "Content hours: " + hrs
+        const recommendLevel = "Module Complexity: " + "Level " + level
+        const translation = "Translations: " + translations
+        const recommendHead = "Recommendation: You Should go for " + hrs + " hours of Level " + level + " modules"
+        const costCustom = "Cost (INR) " + totalCustomCost;
+        const baseContent = "Total Base Content " + totalBaseContentPer + " %"
+
+        const ccheaders = [["Content Slides", "Proportions", "Screens"]];
+        const ccdata = ccData.map(elt => [elt.text, elt.proportion + " %", elt.screens]);
+
+        const vcsheaders = [["Videos", "Proportions", "Minutes"]];
+        const vcsdata = vcsData.map(elt => [elt.text, elt.proportion + " %", elt.minutes]);
+
+        const accessheaders = [["Accessibility AddOns in 1 languages", "Available"]];
+        const accessdata = accessData.map(elt => [elt.text, elt.checked]);
+
+        const presentHeader = [["Presentation AddOns", "Count"]];
+        const presentData = presentationData.map(elt => [elt.text, elt.value]);
+
+        const translationHeader = [["Translation AddOns", "Available"]];
+        const translationData = translationAddonsData.map(elt => [elt.text, elt.checked]);
+
+        let langG = translation > 1 ? " languages" : " language"
+        const estimateCostHeader = [["Price Estimator", "INR for " + hrs + " hours in " + translations + langG]];
+        const estimateCostData = estimateCosts.map(elt => [elt.text, (formatNum((elt.total).toFixed(2)))
+        ]);
+
+        let ht = "Total Cost"
+        const rhtd = [["What you will get per hour of content:", "Recommended"]];
+        const estimateTotalTable = [[ht, formatNum(estimateTotal)]];
+        const est = estimateCostData.concat(estimateTotalTable)
+
+        let ccContent = {
+            startY: pdfRender === "customise" ? 150 : 110,
+            head: ccheaders,
+            body: ccdata,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+        };
+        let vcsContent = {
+            startY: pdfRender === "customise" ? 290 : 250,
+            head: vcsheaders,
+            body: vcsdata,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+        };
+        let accessContent = {
+            startY: pdfRender === "customise" ? 510 : 470,
+            head: accessheaders,
+            body: accessdata,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+        };
+        let presentContent = {
+            startY: pdfRender === "customise" ? 610 : 570,
+            head: presentHeader,
+            body: presentData,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+        };
+        let translationContent = {
+            startY: pdfRender === "customise" ? 690 : 650,
+            head: translationHeader,
+            body: translationData,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+        };
+        let estimateContent = {
+            startY: pdfRender === "customise" ? 910 : 870,
+            head: estimateCostHeader,
+            body: est,
+            styles: { halign: 'center' },
+            headStyles: { fillColor: [81, 84, 82] }, alternateRowStyles: { fillColor: [231, 215, 252] }, tableLineColor: [69, 69, 69], tableLineWidth: 0.1,
+            willDrawCell: function (data) {
+                var rows = data.table.body;
+                if (data.row.index === rows.length - 1) {
+                    doc.setFillColor(81, 84, 82).setFont(undefined, "bold").setTextColor(255, 255, 255);
+                }
+            },
+        };
+        let recommendHeadTable = {
+            startY: pdfRender === "customise" ? 130 : 90,
+            head: rhtd,
+            headStyles: {
+                fillColor: [81, 84, 82]
+            },
+            alternateRowStyles: { fillColor: [231, 215, 252] },
+            tableLineColor: [69, 69, 69],
+            tableLineWidth: 0.1,
+            columnStyles: {
+                0: {
+                    halign: 'left',
+                },
+                1: {
+                    halign: 'center'
+                },
+            },
+        };
+
+        doc.setFontSize(20).setFont(undefined, "bold").setTextColor(81, 84, 82).text(title, 330, 40);
+        {
+            pdfRender === "viewDetails" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendHead, 40, 80);
+        }
+        {
+            pdfRender === "customise" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendLevel, 40, 75);
+        }
+        {
+            pdfRender === "customise" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(recommendC, 40, 90);
+        }
+        {
+            pdfRender === "customise" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(translation, 40, 105);
+        }
+        {
+            pdfRender === "customise" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(formatNum(costCustom), 40, 120);
+        }
+        doc.autoTable(recommendHeadTable)
+        doc.autoTable(ccContent);
+        doc.autoTable(vcsContent);
+        {
+            pdfRender === "customise" &&
+                doc.setFontSize(10).setFont(undefined, "bold").setTextColor(81, 84, 82).text(baseContent, 40, 500);
+        }
+        doc.autoTable(accessContent);
+        doc.autoTable(presentContent);
+        doc.autoTable(translationContent);
+        doc.autoTable(estimateContent);
+        doc.save(pdfRender === "viewDetails" ? "Recommended_Data.pdf" : "Customised_Data.pdf")
+    };
 
     const onSubmit = (event) => {
-        setSecondOpen(true)
         event.preventDefault();
         const { target } = event;
         console.log('FormData', Object.fromEntries(new FormData(target)));
@@ -44,59 +236,13 @@ export default function ContactForm({ openModal, onClose }) {
             console.log("err", err)
         }
     }
-
-    let handleChange = (e) => {
-        if (e.target.name === "name") { setName(e.target.value) }
-        if (e.target.name === "organization") { setOrganization(e.target.value) }
-        if (e.target.name === "email") { setEmail(e.target.value) }
-        if (e.target.name === "designation") { setDesignation(e.target.value) }
-        if (e.target.name === "phoneNumber") { setPhoneNumber(e.target.value) }
-    }
-
-    var generateData = function (amount) {
-        var result = [];
-        var data =
-        {
-            coin: "100",
-            game_group: "GameGroup",
-            game_name: "XPTO2",
-            game_version: "25",
-            machine: "20485861",
-            vlt: "0"
-        };
-        for (var i = 0; i < amount; i += 1) {
-            data.id = (i + 1).toString();
-            result.push(Object.assign({}, data));
+    useEffect(() => {
+        setOpen(openModal)
+        if (Object.keys(dataDetails).length >= 1) {
+            setLevel(dataDetails.data.level);
+            setHrs(dataDetails.data.hrs);
         }
-        return result;
-    };
-
-    function createHeaders(keys) {
-        var result = [];
-        for (var i = 0; i < keys.length; i += 1) {
-            result.push({
-                'id': keys[i],
-                'name': keys[i],
-                'prompt': keys[i],
-                'width': 65,
-                'align': 'center',
-                'padding': 0
-            });
-        }
-        return result;
-    }
-
-    var headers = createHeaders(["id", "coin", "game_group", "game_name", "game_version", "machine", "vlt"]);
-
-    let generatePdf = () => {
-        setSecondOpen(false)
-        var doc = new jsPDF('p', 'px', 'a4', 'false');
-        doc.addImage(Logo, 'PNG', 140, 20, 160, 40);
-        doc.table(75, 80, generateData(20), headers, { autoSize: true });
-        doc.save("Details.pdf")
-    };
-
-    useEffect(() => { setOpen(openModal) }, [openModal])
+    }, [openModal, dataDetails])
 
     return (
         <Modal
@@ -107,7 +253,7 @@ export default function ContactForm({ openModal, onClose }) {
             }}
             onOpen={() => setOpen(true)}
             open={open}
-            style={{background:"red"}}
+            style={{ background: "red" }}
         >
             <Modal.Header>
                 Download Quote

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Label } from "semantic-ui-react";
 import CustomizedSlider from "./component/Slider.react";
 import ContactForm from "../contactForm/ContactForm.react";
@@ -23,7 +23,8 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import "./Customise.css";
 import { Box } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCustomData, setPdf } from "../../actions";
 
 export default function Customise() {
   const [open, setOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function Customise() {
     total: 0,
     value: 1,
   });
-
+  let dispatch = useDispatch();
   const [schema, setSchema] = useState(
     useSelector((state) => {
       let data = [...state.root.dataProportions.dataProp.contentSlideData];
@@ -239,40 +240,40 @@ export default function Customise() {
         );
         contentSlides[i].total = Math.round(
           (e.target.value / 100) *
-            60 *
-            contentSlidesCalSchema[i].INR_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].INR_screen *
+          contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].OSTwords = Math.round(
           (e.target.value / 100) *
-            60 *
-            contentSlidesCalSchema[i].OST_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].OST_screen *
+          contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].VOwords = Math.round(
           (e.target.value / 100) *
-            60 *
-            contentSlidesCalSchema[i].VO_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].VO_screen *
+          contentSlidesCalSchema[i].screen_min
         );
       } else {
         contentSlides[i].total = Math.round(
           (contentSlides[i].proportion / 100) *
-            60 *
-            contentSlidesCalSchema[i].INR_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].INR_screen *
+          contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].OSTwords = Math.round(
           (contentSlides[i].proportion / 100) *
-            60 *
-            contentSlidesCalSchema[i].OST_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].OST_screen *
+          contentSlidesCalSchema[i].screen_min
         );
         contentSlides[i].VOwords = Math.round(
           (contentSlides[i].proportion / 100) *
-            60 *
-            contentSlidesCalSchema[i].VO_screen *
-            contentSlidesCalSchema[i].screen_min
+          60 *
+          contentSlidesCalSchema[i].VO_screen *
+          contentSlidesCalSchema[i].screen_min
         );
       }
     }
@@ -296,40 +297,40 @@ export default function Customise() {
         video_tmp[i].minutes = Math.round((e.target.value / 100) * 60);
         video_tmp[i].total = Math.round(
           (e.target.value / 100) *
-            60 *
-            videoCalSchema[i].INR_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].INR_screen *
+          videoCalSchema[i].minutes
         );
         video_tmp[i].OSTwords = Math.round(
           (e.target.value / 100) *
-            60 *
-            videoCalSchema[i].OST_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].OST_screen *
+          videoCalSchema[i].minutes
         );
         video_tmp[i].VOwords = Math.round(
           (e.target.value / 100) *
-            60 *
-            videoCalSchema[i].VO_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].VO_screen *
+          videoCalSchema[i].minutes
         );
       } else {
         video_tmp[i].total = Math.round(
           (video_tmp[i].proportion / 100) *
-            60 *
-            videoCalSchema[i].INR_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].INR_screen *
+          videoCalSchema[i].minutes
         );
         video_tmp[i].OSTwords = Math.round(
           (video_tmp[i].proportion / 100) *
-            60 *
-            videoCalSchema[i].OST_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].OST_screen *
+          videoCalSchema[i].minutes
         );
         video_tmp[i].VOwords = Math.round(
           (video_tmp[i].proportion / 100) *
-            60 *
-            videoCalSchema[i].VO_screen *
-            videoCalSchema[i].minutes
+          60 *
+          videoCalSchema[i].VO_screen *
+          videoCalSchema[i].minutes
         );
       }
     }
@@ -379,14 +380,14 @@ export default function Customise() {
         present_tmp[i].value = parseInt(e.target.value);
         present_tmp[i].total = Math.round(
           e.target.value *
-            presentationCalSchema[i].INR_item *
-            presentationCalSchema[i].item
+          presentationCalSchema[i].INR_item *
+          presentationCalSchema[i].item
         );
       } else {
         present_tmp[i].total = Math.round(
           present_tmp[i].value *
-            presentationCalSchema[i].INR_item *
-            presentationCalSchema[i].item
+          presentationCalSchema[i].INR_item *
+          presentationCalSchema[i].item
         );
       }
     }
@@ -524,7 +525,22 @@ export default function Customise() {
     padding: "1em",
     // justifyContent: "space-between",
   };
-
+  let handleCustomData = () => {
+    dispatch(setCustomData(schema,
+      videos,
+      accessibility,
+      presentation,
+      translation,
+      estimate,
+      contentHours,
+      translations,
+      getTotalCost(),
+      calBaseContent(),
+      calOverAllPercentage(),
+    ))
+    setOpen(true)
+    dispatch(setPdf("customise"))
+  }
   return (
     <div className="customise-container">
       <h1 className="customise-header">Please input your requirements:</h1>
@@ -737,9 +753,9 @@ export default function Customise() {
                               },
                             },
                             "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                              {
-                                backgroundColor: "#ffbf00",
-                              },
+                            {
+                              backgroundColor: "#ffbf00",
+                            },
                           }}
                         />
                       </TableCell>
@@ -828,9 +844,9 @@ export default function Customise() {
                               },
                             },
                             "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                              {
-                                backgroundColor: "#ffbf00",
-                              },
+                            {
+                              backgroundColor: "#ffbf00",
+                            },
                           }}
                         />
                       </TableCell>
@@ -897,7 +913,7 @@ export default function Customise() {
                     },
                     fontWeight: "700",
                   }}
-                  onClick={() => setOpen(true)}
+                  onClick={() => handleCustomData()}
                 >
                   proceed to get the PDF
                 </Button>
